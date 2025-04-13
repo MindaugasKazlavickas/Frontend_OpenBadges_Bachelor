@@ -1,0 +1,156 @@
+.badge-merge-container {
+    padding: 2rem 1rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.task-prompt {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+.read-more-btn {
+    margin-top: 0.5rem;
+    background-color: var(--secondary-color);
+    color: black;
+    border: 1px solid var(--primary-color);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.read-more-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Layout for small draggable badges */
+.badge-layout {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.draggable-badge {
+    width: 60px;
+    cursor: grab;
+    user-select: none;
+}
+
+/* Centered drop zone */
+.drop-zone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+/* Scaled meta badge with masking */
+.meta-badge-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    max-width: 35vw;
+    max-height: 35vw;
+    margin: 0 auto;
+}
+
+.meta-badge {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 50%;
+}
+
+/* The mask now covers the badge by default and reveals it */
+.meta-badge-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 2;
+    opacity: 0.2;
+    pointer-events: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); /* full block */
+    transition: clip-path 0.6s ease-in-out;
+}
+
+.meta-badge-wrapper.reveal-1 .meta-badge-mask {
+    clip-path: polygon(0 0, 0% 0, 100% 100%, 0% 100%);
+}
+.meta-badge-wrapper.reveal-2 .meta-badge-mask {
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+.meta-badge-wrapper.reveal-3 .meta-badge-mask {
+    clip-path: polygon(0 0, 0 0, 0 0, 0 0); /* fully revealed */
+}
+
+.meta-badge-wrapper.complete .meta-badge {
+    animation: pulseGlow 0.4s ease-out;
+}
+
+@keyframes pulseGlow {
+    0%   { transform: scale(1); opacity: 0.8; }
+    50%  { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.unlock-prompt {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: green;
+    font-weight: 600;
+}
+
+.scroll-btn {
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.scroll-btn:hover {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.overlay-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .meta-badge-wrapper {
+        width: 90px;
+        height: 90px;
+    }
+
+    .draggable-badge {
+        width: 48px;
+    }
+}

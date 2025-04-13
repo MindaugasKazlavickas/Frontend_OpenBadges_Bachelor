@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "tagline": "What are Open Badges?",
+    "headline1": "Recognize Effort. Reward Progress.",
+    "headline2": "Prove What You Know. Be Recognized.",
+    "subtitle1": "Don’t let your learning go unnoticed. Discover how Open Badges make your skills visible.",
+    "keywords": ["Skills", "Metadata", "Proof", "Value"]
+  },
+  "button": {
+    "start": "Start Learning",
+    "switchLang": "Lietuviškai"
+  },
+  "section": {
+    "heading1": "What Are Digital Badges?",
+    "heading2": "Understanding Metadata",
+    "heading3": "Badge Examples & Use Cases",
+    "heading4": "How Open Badges Work",
+    "heading5": "Why Recognition Matters",
+    "part": "Part",
+    "end": "The End",
+    "unlock": "Unlock Next Section"
+  },
+  "task": {
+    "metadata": {
+      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable."
+    },
+    "genericMistake": "This field is not required in every open badge.",
+    "option1": "Badge Recipient Name",
+    "option1.explanation": "The recipient name may be anonymized and isn't required by the badge format.",
+    "option2": "Badge Earning Criteria",
+    "option3": "Issue Date",
+    "option4": "Badge Type",
+    "option5": "Achievement Description",
+    "option6": "Encrypted Recipient Email",
+    "option6.explanation": "Encryption is optional and not a required badge metadata field.",
+    "option7": "Issuer's Social Media",
+    "option7.explanation": "Social media links are optional and not part of required metadata.",
+    "option8": "Badge Icon Animation",
+    "option8.explanation": "Animations are cosmetic and not necessary metadata.",
+    "option9": "Issuer",
+    "option10": "Badge Background Color",
+    "option10.explanation": "Visual styles like colors are not required badge data."
+  },
+  "overlay-button": {
+    "close": "Close"
+  },
+  "end": {
+    "congrats": "Congratulations!",
+    "earned": "You've earned your badge!"
+  }
+}

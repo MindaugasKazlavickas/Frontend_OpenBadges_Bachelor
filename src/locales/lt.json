@@ -1,0 +1,45 @@
+{
+  "hero": {
+    "tagline": "What are Open Badges?",
+    "headline1": "Recognize Effort. Reward Progress.",
+    "headline2": "Prove What You Know. Be Recognized.",
+    "subtitle1": "With digital badges, every skill you master becomes part of your professional story.",
+    "keywords": ["Įgūdžiai", "Metaduomenys", "Įrodymai", "Vertė"]
+  },
+  "button": {
+    "start": "Pradėti mokymąsi",
+    "switchLang": "English"
+  },
+  "section": {
+    "heading1": "What Are Digital Badges?",
+    "heading2": "Understanding Metadata",
+    "heading3": "Badge Examples & Use Cases",
+    "heading4": "How Open Badges Work",
+    "heading5": "Why Recognition Matters",
+    "part": "Part",
+    "end": "The End",
+    "unlock": "Unlock Next Section"
+  },
+  "task": {
+    "metadata": {
+      "description": "Mark the information required in every open badge.",
+      "longHelp": "Open badges must include key metadata fields such as the badge type, issue date, criteria, and achievement description. These ensure the badge is verifiable and understandable to recipients and reviewers."
+    },
+    "genericMistake": "This information is not required in every badge.",
+    "option1": "Badge Recipient Name",
+    "option1.explanation": "The badge recipient name is often private or anonymized; it's not required in every badge.",
+    "option2": "Badge Earning Criteria",
+    "option3": "Issue Date",
+    "option4": "Badge Type",
+    "option5": "Achievement Description",
+    "option6": "Encrypted Recipient Email",
+    "option6.explanation": "Email encryption is optional depending on the system. It’s not mandatory metadata."
+  },
+  "overlay-button": {
+    "close": "Close"
+  },
+  "end": {
+    "congrats": "Sveikiname!",
+    "earned": "Jūs gavote savo ženkliuką!"
+  }
+}

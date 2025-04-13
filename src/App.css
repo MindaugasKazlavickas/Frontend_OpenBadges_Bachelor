@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+html, body {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#app-wrapper {
+  font-family: sans-serif;
+}
+
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 80vh;
+}
+.task-section {
+  scroll-snap-align: start;
+}

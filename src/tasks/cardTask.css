@@ -1,0 +1,139 @@
+/* cardSortTask.css */
+.card-sort-task-container {
+    padding: 2rem 1rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.task-prompt {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+.read-more-btn {
+    margin-top: 0.5rem;
+    background-color: var(--secondary-color);
+    color: black;
+    border: 1px solid var(--primary-color);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.read-more-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.card-columns {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.card-column {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    min-width: 160px;
+    min-height: 240px;
+    background-color: #f9f9f9;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin: 0.5rem 0;
+    cursor: grab;
+    transition: transform 0.2s;
+    user-select: none;
+    font-weight: bold;
+}
+
+.card-pending {
+    background-color: #ececff;
+    border: 2px solid var(--primary-color);
+}
+
+.card-correct {
+    border: 2px solid green;
+    background-color: #e0ffe0;
+    cursor: default;
+}
+
+.card-incorrect {
+    border: 2px solid red;
+    background-color: #ffe0e0;
+}
+
+.card-bank {
+    margin-top: 2rem;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    background-color: #f0f0f0;
+}
+
+.unlock-prompt {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: green;
+    font-weight: 600;
+}
+
+.scroll-btn {
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.scroll-btn:hover {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.overlay-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .card-columns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-column {
+        min-width: 80%;
+    }
+
+    .card-bank {
+        flex-direction: column;
+    }
+}

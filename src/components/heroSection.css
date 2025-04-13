@@ -1,0 +1,115 @@
+.hero-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 1rem;
+}
+
+.hero-tagline {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.hero-headline {
+    font-size: 2.2rem;
+    font-weight: bold;
+    min-height: 3rem;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.hero-subtitle {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    min-height: 3rem;
+    line-height: 1.5;
+}
+
+.hero-keyword-stack {
+    position: relative;
+    height: 8rem;
+    width: 12rem; /* or something wider than expected stack */
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+}
+
+.keyword-word {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
+}
+
+.keyword-word.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-cta {
+    margin-top: 2.5rem;
+    background-color: var(--theme-secondary, #facc15);
+    color: black;
+    padding: 0.6rem 1.4rem;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-cta.cta-animate {
+    animation: ctaPulse 0.8s ease-out;
+}
+
+@keyframes ctaPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.keyword-word:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.keyword-word:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.keyword-word:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.keyword-word:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

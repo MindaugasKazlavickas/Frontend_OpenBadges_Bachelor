@@ -1,0 +1,206 @@
+.metadata-task-container {
+    position: relative;
+    padding: 2rem 1rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.background-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+    max-width: 800px;
+    z-index: 0;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.background-image-wrapper {
+    position: relative;
+    width: 80%;
+    height: auto;
+    overflow: hidden;
+}
+
+.background-image-wrapper img {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.background-gradient {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 70%;
+    background: linear-gradient(to right, transparent, white);
+    z-index: 1;
+}
+
+.staircase-wrapper,
+.task-prompt,
+.feedback-text,
+.overlay-btn {
+    position: relative;
+    z-index: 2;
+}
+
+.task-prompt {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+.read-more-btn {
+    margin-top: 0.5rem;
+    background-color: var(--secondary-color);
+    color: black;
+    border: 1px solid var(--primary-color);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+.staircase-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+    max-width: 100%;
+}
+
+.option-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    border: 2px solid var(--primary-color);
+    background-color: var(--background-color);
+    color: black;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    height: 36px;
+    min-width: 180px;
+    max-width: 220px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.option-btn.correct {
+    background-color: #d6f5d6;
+    border: 2px solid green;
+}
+
+.option-btn.incorrect {
+    background-color: #f8cccc;
+    border: 2px solid red;
+}
+
+.option-btn:hover {
+    border-color: var(--secondary-color);
+}
+
+/* Midpoint Icon Style */
+.staircase-icon {
+    margin: 1rem 0;
+}
+
+.staircase-icon img {
+    width: 120px;
+    opacity: 0.1;
+}
+
+/* Staggered Shifts */
+.shift-right-0 { margin-left: 0rem; }
+.shift-right-1 { margin-left: 1rem; }
+.shift-right-2 { margin-left: 2rem; }
+.shift-right-3 { margin-left: 3rem; }
+.shift-right-4 { margin-left: 4rem; }
+
+.shift-left-0 { margin-left: 4rem; }
+.shift-left-1 { margin-left: 3rem; }
+.shift-left-2 { margin-left: 2rem; }
+.shift-left-3 { margin-left: 1rem; }
+.shift-left-4 { margin-left: 0rem; }
+
+.feedback-text {
+    margin-top: 1rem;
+    background: #fff4d6;
+    padding: 1rem;
+    border-radius: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.overlay-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .shift-right-0,
+    .shift-right-1,
+    .shift-right-2,
+    .shift-right-3,
+    .shift-right-4,
+    .shift-left-0,
+    .shift-left-1,
+    .shift-left-2,
+    .shift-left-3,
+    .shift-left-4 {
+        margin-left: 0 !important;
+    }
+}
+.unlock-prompt {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: green;
+    font-weight: 600;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.scroll-btn {
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 3;
+}
+
+.scroll-btn:hover {
+    background-color: var(--secondary-color);
+    color: black;
+}
