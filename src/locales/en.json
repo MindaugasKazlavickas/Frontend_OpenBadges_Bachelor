@@ -22,7 +22,19 @@
   },
   "task": {
     "metadata": {
-      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable."
+      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
+      "description":"Identify the meta information that is crucial for a viable open badge.",
+      "continueButton": "Continue"
+    },
+    "merge": {
+      "description": "As you collect various badges that prove different competences, combining them leads to major Meta badges.",
+      "longHelp": "Tekstas tekstas tekstas",
+      "continueButton": "Continue"
+    },
+    "card": {
+      "description": "Through different forms of learning you improve in different sets of skills. Some of them are hard skills - like calculus, and some of them are soft skills like communication. Assign the cards as you best see fit.",
+      "longHelp": "Tekstas tekstas tekstas",
+      "continueButton": "Continue"
     },
     "genericMistake": "This field is not required in every open badge.",
     "option1": "Badge Recipient Name",
