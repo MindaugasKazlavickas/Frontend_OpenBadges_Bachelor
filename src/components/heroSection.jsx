@@ -6,28 +6,39 @@ import './heroSection.css';
 const HeroSection = () => {
     const { t, toggleLanguage } = useLanguage();
 
-    const headlines = [
-        t('hero.headline1'),
-        t('hero.headline2'),
-    ];
-
+    const [headlines, setHeadlines] = useState([]);
     const [headlineIndex, setHeadlineIndex] = useState(0);
     const [fade, setFade] = useState(true);
 
     useEffect(() => {
+        setHeadlines([
+            t('hero.headline1'),
+            t('hero.headline2'),
+        ]);
+    }, [t]);
+
+    useEffect(() => {
+        if (headlines.length === 0) return;
+
         const interval = setInterval(() => {
             setFade(false);
             setTimeout(() => {
                 setHeadlineIndex((prev) => (prev + 1) % headlines.length);
                 setFade(true);
-            }, 500); // match fade duration in CSS
+            }, 500);
         }, 5000);
-        return () => clearInterval(interval);
-    }, []);
 
-    const keywords = t('hero.keywords');
+        return () => clearInterval(interval);
+    }, [headlines]);
+
+    const [keywords, setKeywords] = useState([]);
     const [revealedCount, setRevealedCount] = useState(0);
     const [animateCTA, setAnimateCTA] = useState(false);
+
+    useEffect(() => {
+        setKeywords(t('hero.keywords'));
+        setRevealedCount(0);
+    }, [t]);
 
     useEffect(() => {
         if (revealedCount < keywords.length) {
@@ -36,10 +47,11 @@ const HeroSection = () => {
             }, 700);
             return () => clearTimeout(timer);
         } else {
-            // Trigger CTA animation once final word is shown
-            setTimeout(() => setAnimateCTA(true), 500);
+            const ctaTimer = setTimeout(() => setAnimateCTA(true), 500);
+            return () => clearTimeout(ctaTimer);
         }
-    }, [revealedCount]);
+    }, [revealedCount, keywords.length]);
+
     return (
         <section
             id="hero"
