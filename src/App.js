@@ -8,6 +8,7 @@ import theme from './themes/theme';
 import MetadataTask from "./tasks/metadataTask";
 import BadgeMergeTask from "./tasks/mergeTask";
 import CardSortTask from "./tasks/cardTask";
+import ScenarioTask from "./tasks/scenarioTask";
 
 const sectionData = [
     { id: 'section1', headerKey: 'section.heading1' },
@@ -44,23 +45,26 @@ const App = () => {
             {sectionData.map((section, i) => (
                 <TaskSection
                     key={section.id}
-                    headerKey={section.headerKey}
+                    headerKey="task.metadata"
                     sectionIndex={i}
                     totalSections={sectionData.length}
                     isLocked={!unlockedSections.includes(i)}
                     onUnlock={() => unlockSection(i)}
+                    promptKey={`task.section${i + 1}.description`}
+                    longHelpKey={`task.section${i + 1}.longHelp`}
                 >
                     {i === 0 ? (
-                        <MetadataTask
-                            onScoreUpdate={(score) => console.log('Score updated:', score)}
-                            onUnlock={() => unlockSection(i)}
-                        />
+                    <MetadataTask
+                        onScoreUpdate={(score) => console.log('Score updated:', score)}
+                        onUnlock={() => unlockSection(i)}
+                        sectionIndex={i}
+                    />
                     ) : i === 1 ? (
-                        <BadgeMergeTask
-                            onUnlock={() => unlockSection(i)}
-                        />
+                        <BadgeMergeTask onUnlock={() => unlockSection(i)} />
                     ) : i === 2 ? (
                         <CardSortTask onUnlock={() => unlockSection(i)} />
+                    ) : i === 3 ? (
+                        <ScenarioTask onUnlock={() => unlockSection(i)} />
                     ) : (
                         <p>This is content for {section.headerKey}</p>
                     )}

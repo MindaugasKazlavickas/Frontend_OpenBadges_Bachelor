@@ -4,11 +4,14 @@
     "headline1": "Recognize Effort. Reward Progress.",
     "headline2": "Prove What You Know. Be Recognized.",
     "subtitle1": "Don’t let your learning go unnoticed. Discover how Open Badges make your skills visible.",
-    "keywords": ["Skills", "Metadata", "Proof", "Value"]
+    "keywords": ["Metadata", "Skills", "Proof", "Value"]
   },
   "button": {
     "start": "Start Learning",
-    "switchLang": "Lietuviškai"
+    "switchLang": "Lietuviškai",
+    "readMore": "Read More",
+    "close": "Got it!",
+    "continue": "Continue"
   },
   "section": {
     "heading1": "What Are Digital Badges?",
@@ -21,19 +24,35 @@
     "unlock": "Unlock Next Section"
   },
   "task": {
-    "metadata": {
+    "section1": {
       "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
-      "description":"Identify the meta information that is crucial for a viable open badge.",
+      "description":"Identify the meta information that is crucial for a viable open badge."
+    },
+    "section2": {
+      "description": "As you collect various badges that prove different competences, combining them leads to major Meta badges.",
+      "longHelp": "Tekstas tekstas tekstas"
+    },
+    "section3": {
+      "description": "Through different forms of learning you improve in different sets of skills. Some of them are hard skills - like calculus, and some of them are soft skills like communication. Assign the cards as you best see fit.",
+      "longHelp": "Tekstas tekstas tekstas"
+    },
+    "section4": {
+      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
+      "description":"Identify the meta information that is crucial for a viable open badge."
+    },
+    "section5": {
+      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
+      "description":"Identify the meta information that is crucial for a viable open badge."
+    },
+    "metadata": {
       "continueButton": "Continue"
     },
     "merge": {
-      "description": "As you collect various badges that prove different competences, combining them leads to major Meta badges.",
-      "longHelp": "Tekstas tekstas tekstas",
+
       "continueButton": "Continue"
     },
     "card": {
-      "description": "Through different forms of learning you improve in different sets of skills. Some of them are hard skills - like calculus, and some of them are soft skills like communication. Assign the cards as you best see fit.",
-      "longHelp": "Tekstas tekstas tekstas",
+
       "continueButton": "Continue"
     },
     "genericMistake": "This field is not required in every open badge.",

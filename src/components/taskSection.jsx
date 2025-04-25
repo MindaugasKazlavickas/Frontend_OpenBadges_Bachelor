@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import theme from '../themes/theme';
 import { useLanguage } from '../context/languageContext';
+import './taskSection.css';
 
 const TaskSection = ({
                          headerKey,
@@ -8,28 +9,36 @@ const TaskSection = ({
                          totalSections,
                          isLocked,
                          onUnlock,
+                         promptKey,
+                         longHelpKey,
                          children,
                      }) => {
     const ref = useRef(null);
-
     const { t } = useLanguage();
+    const [overlayOpen, setOverlayOpen] = useState(false);
+    const [showContinue, setShowContinue] = useState(false);
 
     useEffect(() => {
         if (sectionIndex > 0 && isLocked) {
             const onScroll = () => {
                 const sectionTop = ref.current?.getBoundingClientRect().top;
-
                 if (sectionTop < window.innerHeight * 0.25) {
                     document.getElementById(`section-${sectionIndex - 1}`)?.scrollIntoView({
                         behavior: 'smooth',
                     });
                 }
             };
-
             window.addEventListener('scroll', onScroll);
             return () => window.removeEventListener('scroll', onScroll);
         }
     }, [isLocked, sectionIndex]);
+
+    const handleRevealContinue = () => setShowContinue(true);
+
+    const handleContinue = () => {
+        const next = document.getElementById(`section-${sectionIndex + 1}`);
+        if (next) next.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <section
@@ -57,12 +66,39 @@ const TaskSection = ({
                     }}
                 />
             )}
-            {sectionIndex === 0 && (
-                <div id="task-header-anchor" style={{ height: '1px' }}></div>
-            )}
+
+            {sectionIndex === 0 && <div id="task-header-anchor" style={{ height: '1px' }}></div>}
 
             <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                {children}
+                {/* Task Prompt */}
+                {promptKey && (
+                    <div className="task-prompt">
+                        <p>{t(promptKey)}</p>
+                        <button className="read-more-btn" onClick={() => setOverlayOpen(true)}>
+                            {t('button.readMore') || 'Read More ?'}
+                        </button>
+                    </div>
+                )}
+
+                {/* Children content + callback injector */}
+                {React.cloneElement(children, { revealContinue: handleRevealContinue })}
+
+                {/* Continue button */}
+                {showContinue && (
+                    <button className="scroll-btn hero-cta cta-animate" onClick={handleContinue}>
+                        {t('button.continue') || 'Continue to next section'}
+                    </button>
+                )}
+
+                {/* Read More Overlay */}
+                {overlayOpen && (
+                    <div className="overlay">
+                        <div className="overlay-content">
+                            <p>{t(longHelpKey)}</p>
+                            <button onClick={() => setOverlayOpen(false)}>{t('button.close') || 'Close'}</button>
+                        </div>
+                    </div>
+                )}
 
                 {isLocked && (
                     <button
@@ -85,11 +121,10 @@ const TaskSection = ({
                         Unlock This Section
                     </button>
                 )}
-
-
             </div>
         </section>
     );
 };
+
 
 export default TaskSection;

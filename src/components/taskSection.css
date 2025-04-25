@@ -1,0 +1,118 @@
+.task-section-container {
+    padding: 2rem 1rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.task-prompt {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+
+.read-more-btn {
+    display: block;
+    margin: 1.5rem auto 0 auto;
+    background-color: var(--secondary-color);
+    color: black;
+    border: 1px solid var(--primary-color);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.read-more-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.scroll-btn {
+    display: block;
+    margin: 1.5rem auto 0 auto;
+    background-color: var(--theme-secondary, #facc15);
+    color: black;
+    padding: 0.6rem 1.4rem;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.scroll-btn.cta-animate {
+    animation: ctaPulse 0.8s ease-out;
+}
+
+@keyframes ctaPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.overlay-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.overlay-content button {
+    display: block;
+    margin: 1.5rem auto 0 auto;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.overlay-content button:hover {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+@media (max-width: 600px) {
+    .scenario-box,
+    .scenario-options,
+    .feedback-text {
+        max-width: 90%;
+    }
+
+    .read-more-btn {
+        width: 100%;
+    }
+}
