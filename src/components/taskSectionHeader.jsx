@@ -6,7 +6,7 @@ const TaskSectionHeader = ({ activeIndex, totalSections }) => {
     const { t } = useLanguage();
     const [visible, setVisible] = useState(false);
 
-    const percentage = Math.floor(((activeIndex + 1) / totalSections) * 100);
+    const percentage = Math.floor(((activeIndex) / totalSections) * 100);
 
     useEffect(() => {
         const onScroll = () => {
@@ -57,7 +57,7 @@ const TaskSectionHeader = ({ activeIndex, totalSections }) => {
                     fontWeight: 'bold',
                     fontSize: '0.9rem',
                 }}
-            >
+            >{percentage}%
             </div>
         </div>
     );

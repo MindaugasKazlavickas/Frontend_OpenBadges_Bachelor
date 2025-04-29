@@ -14,20 +14,20 @@ const EndSection = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch('/api/issueBadge', {
+            const response = await fetch('https://your-render-backend-url.onrender.com/api/issueBadge', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email }),
             });
 
             if (response.ok) {
-                setSuccessMessage('Badge sent successfully! Check your email 📩');
+                setSuccessMessage('🎉 Badge sent! Check your email!');
             } else {
-                setSuccessMessage('There was an error issuing the badge.');
+                setSuccessMessage('❗ Something went wrong. Try again.');
             }
         } catch (error) {
             console.error(error);
-            setSuccessMessage('Server error. Please try again later.');
+            setSuccessMessage('⚠️ Server error. Please try later.');
         } finally {
             setIsSubmitting(false);
         }
@@ -39,28 +39,24 @@ const EndSection = () => {
             <p>{t('end.earned')}</p>
 
             <form onSubmit={handleSubmit} style={{ marginTop: '2rem' }}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
-                    />
-                </div>
-                <div>
-                    <input
-                        type="email"
-                        placeholder="Your Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
-                    />
-                </div>
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
+                />
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
+                />
                 <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem 1.5rem' }}>
-                    {isSubmitting ? 'Issuing...' : 'Claim Your Badge'}
+                    {isSubmitting ? 'Issuing badge...' : 'Claim Badge'}
                 </button>
             </form>
 

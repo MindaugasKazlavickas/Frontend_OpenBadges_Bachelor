@@ -2,82 +2,114 @@ import React, { useState } from 'react';
 import './scenarioTask.css';
 import { useLanguage } from '../context/languageContext';
 
+const scenarios = [
+    {
+        id: 1,
+        text: 'Ana organizavo kassavaitinius stalo žaidimų vakarus, skirtus visiems studentams – taip pat ir tarptautiniams bei mainų programų dalyviams. Ši iniciatyva padėjo skatinti bendrystę, mažinti socialinę atskirtį ir aktyviai įtraukti mažiau atstovaujamas studentų grupes.',
+        options: [
+            { id: 1, text: 'Option 1 (correct)', badge: '/badges/badge1.png', correct: true },
+            { id: 2, text: 'Option 2 (wrong)', badge: '/badges/badge2.png', correct: false },
+            { id: 3, text: 'Option 3 (wrong)', badge: '/badges/badge3.png', correct: false },
+        ]
+    },
+    {
+        id: 2,
+        text: 'Scenario 2 text goes here.',
+        options: [
+            { id: 1, text: 'Option A (correct)', badge: '/badges/badge4.png', correct: true },
+            { id: 2, text: 'Option B (wrong)', badge: '/badges/badge5.png', correct: false },
+            { id: 3, text: 'Option C (wrong)', badge: '/badges/badge6.png', correct: false },
+        ]
+    },
+    {
+        id: 3,
+        text: 'Scenario 3 text goes here.',
+        options: [
+            { id: 1, text: 'Option X (wrong)', badge: '/badges/badge7.png', correct: false },
+            { id: 2, text: 'Option Y (wrong)', badge: '/badges/badge8.png', correct: false },
+            { id: 3, text: 'Option Z (correct)', badge: '/badges/badge9.png', correct: true },
+        ]
+    },
+];
+
 const ScenarioTask = ({ onUnlock }) => {
     const { t } = useLanguage();
 
-    const [selectedId, setSelectedId] = useState(null);
-    const [feedbackShown, setFeedbackShown] = useState(false);
-    const [isCorrect, setIsCorrect] = useState(false);
-    const [overlayOpen, setOverlayOpen] = useState(false);
+    const [currentScenario, setCurrentScenario] = useState(1);
+    const [selectedAnswers, setSelectedAnswers] = useState({}); // { 1: 'correct' | 'incorrect' | undefined }
+    const [completed, setCompleted] = useState(false);
 
-    const options = [
-        { id: 1, text: 'Option 1 (correct)', correct: true },
-        { id: 2, text: 'Option 2 (wrong)', correct: false },
-        { id: 3, text: 'Option 3 (wrong)', correct: false },
-    ];
+    const handleSelect = (scenarioId, optionId) => {
+        const scenario = scenarios.find(s => s.id === scenarioId);
+        const selectedOption = scenario.options.find(opt => opt.id === optionId);
 
-    const handleSelect = (id) => {
-        if (selectedId !== null) return; // prevent reselection
+        if (selectedAnswers[scenarioId] === 'correct') return; // already answered correctly, no changes
 
-        const selectedOption = options.find(opt => opt.id === id);
-        setSelectedId(id);
-        setFeedbackShown(true);
+        const newAnswers = {
+            ...selectedAnswers,
+            [scenarioId]: selectedOption.correct ? 'correct' : 'incorrect'
+        };
+
+        setSelectedAnswers(newAnswers);
 
         if (selectedOption.correct) {
-            setIsCorrect(true);
-            if (typeof onUnlock === 'function') onUnlock();
+            const allCorrect = scenarios.every(s => newAnswers[s.id] === 'correct');
+            if (allCorrect && typeof onUnlock === 'function') {
+                setCompleted(true);
+                onUnlock();
+            }
         }
     };
 
-    return (
-        <div className="scenario-task-container">
-            <div className="task-prompt">
-                <p>{t('task.scenario.description') || 'Select the badge that best fits the described scenario.'}</p>
-                <button className="read-more-btn" onClick={() => setOverlayOpen(true)}>Read More ?</button>
-            </div>
-
-            <div className="scenario-box">
-                <strong>1/3</strong>
-                <p>
-                    Ana organizavo kassavaitinius stalo žaidimų vakarus, skirtus visiems studentams – taip pat ir tarptautiniams bei mainų programų dalyviams. Ši iniciatyva padėjo skatinti bendrystę, mažinti socialinę atskirtį ir aktyviai įtraukti mažiau atstovaujamas studentų grupes.
-                </p>
-            </div>
-
+    const renderScenario = (scenario) => (
+        <div key={scenario.id} className="scenario-box">
+            <p>{scenario.text}</p>
             <div className="scenario-options">
-                {options.map(opt => (
+                {scenario.options.map(opt => (
                     <button
                         key={opt.id}
-                        className={`scenario-option ${selectedId === opt.id ? (opt.correct ? 'correct' : 'incorrect') : ''}`}
-                        onClick={() => handleSelect(opt.id)}
+                        className={`scenario-option ${selectedAnswers[scenario.id] && opt.correct && selectedAnswers[scenario.id] === 'correct' ? 'correct' : ''}
+                            ${selectedAnswers[scenario.id] && !opt.correct && selectedAnswers[scenario.id] === 'incorrect' ? 'incorrect' : ''}`}
+                        onClick={() => handleSelect(scenario.id, opt.id)}
+                        disabled={selectedAnswers[scenario.id] === 'correct'}
                     >
+                        <img src={opt.badge} alt="Badge" className="badge-icon" />
                         {opt.text}
                     </button>
                 ))}
             </div>
-
-            {feedbackShown && !isCorrect && (
+            {selectedAnswers[scenario.id] === 'incorrect' && (
                 <div className="feedback-text">
                     {t('task.scenario.incorrectFeedback') || 'Not quite right – try reviewing the scenario and reasoning again.'}
                 </div>
             )}
+        </div>
+    );
 
-            {isCorrect && (
-                <>
-                    <div className="unlock-prompt">✅ {t('task.scenario.unlockedMessage') || 'Correct badge selected!'}</div>
-                    <button className="scroll-btn" onClick={() => {
-                        const next = document.getElementById('section-4');
-                        if (next) next.scrollIntoView({ behavior: 'smooth' });
-                    }}>{t('task.scenario.continueButton') || 'Continue to next section'}</button>
-                </>
-            )}
+    return (
+        <div className="scenario-task-container">
+            <div className="scenario-progress">
+                {scenarios.map((s) => (
+                    <button
+                        key={s.id}
+                        className={`progress-square 
+                            ${selectedAnswers[s.id] === 'correct' ? 'green' : ''}
+                            ${selectedAnswers[s.id] === 'incorrect' ? 'red' : ''}`}
+                        onClick={() => setCurrentScenario(s.id)}
+                    >
+                        {s.id}
+                    </button>
+                ))}
+            </div>
 
-            {overlayOpen && (
-                <div className="overlay">
-                    <div className="overlay-content">
-                        <p>{t('task.scenario.longHelp') || 'Read the scenario carefully and pick the badge that best represents the actions or outcome.'}</p>
-                        <button onClick={() => setOverlayOpen(false)}>{t('button.close')}</button>
-                    </div>
-                </div>
+            {renderScenario(scenarios.find(s => s.id === currentScenario))}
+            {completed && (
+                <button className="scroll-btn" onClick={() => {
+                    const next = document.getElementById('section-4');
+                    if (next) next.scrollIntoView({ behavior: 'smooth' });
+                }}>
+                    {t('task.card.continueButton') || 'Continue to next section'}
+                </button>
             )}
         </div>
     );

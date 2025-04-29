@@ -52,7 +52,9 @@
       "continueButton": "Continue"
     },
     "card": {
-
+      "continueButton": "Continue"
+    },
+    "scenario": {
       "continueButton": "Continue"
     },
     "genericMistake": "This field is not required in every open badge.",

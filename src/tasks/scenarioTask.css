@@ -131,3 +131,44 @@
         max-width: 90%;
     }
 }
+
+.scenario-progress {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.progress-square {
+    width: 30px;
+    height: 30px;
+    border: 2px solid black;
+    background-color: white;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.progress-square.green {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.progress-square.red {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.scenario-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.badge-icon {
+    width: 30px;
+    height: 30px;
+}

@@ -70,7 +70,6 @@ const CardSortTask = ({ onUnlock }) => {
 
     const handleDragEnd = (event) => {
         const { active, over } = event;
-
         if (!over || !active) return;
 
         const droppedColumn = over.id;
@@ -79,19 +78,23 @@ const CardSortTask = ({ onUnlock }) => {
         const isCorrect = card.correctColumn === droppedColumn;
 
         if (card.status === 'incorrect') {
-            // Dragging red card to new place
             if (isCorrect) {
                 setColumns(prev => {
                     const newFrom = prev[from].filter(c => c.id !== card.id);
                     const newTo = [...prev[droppedColumn], { ...card, status: 'correct' }];
-                    return { ...prev, [from]: newFrom, [droppedColumn]: newTo };
+                    const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
+
+                    checkCompletion(updated);
+                    return updated;
                 });
             } else if (from !== droppedColumn) {
-                // Swap red card
                 setColumns(prev => {
                     const newFrom = prev[from].filter(c => c.id !== card.id);
                     const newTo = [...prev[droppedColumn], card];
-                    return { ...prev, [from]: newFrom, [droppedColumn]: newTo };
+                    const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
+
+                    // no need to checkCompletion() here, only after correcting
+                    return updated;
                 });
             }
             return;
@@ -102,39 +105,36 @@ const CardSortTask = ({ onUnlock }) => {
             const topCard = cardStack[0];
             const isTopCorrect = topCard.correctColumn === droppedColumn;
 
-            if (isTopCorrect) {
-                setColumns(prev => ({
+            setColumns(prev => {
+                const updated = {
                     ...prev,
-                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: 'correct' }],
-                }));
-                setCardStack(prev => prev.slice(1));
-            } else {
-                setFeedbackCard(topCard);
-                setColumns(prev => ({
-                    ...prev,
-                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: 'incorrect' }],
-                }));
-                setCardStack(prev => prev.slice(1));
-            }
-
-            // Check completion after a short delay
-            setTimeout(() => {
-                const allCorrect = [...columns.A, ...columns.B].filter(c => c.status === 'correct').length +
-                    (isTopCorrect ? 1 : 0);
-                if (allCorrect === initialCards.length) {
-                    setCompleted(true);
-                    if (typeof onUnlock === 'function') onUnlock();
+                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isTopCorrect ? 'correct' : 'incorrect' }]
+                };
+                if (isTopCorrect) {
+                    checkCompletion(updated);
                 }
-            }, 200);
+                return updated;
+            });
+            setCardStack(prev => prev.slice(1));
+
+            if (!isTopCorrect) {
+                setFeedbackCard(topCard);
+            }
+        }
+    };
+
+    const checkCompletion = (updatedColumns) => {
+        const allCards = [...updatedColumns.A, ...updatedColumns.B];
+        const correctCards = allCards.filter(c => c.status === 'correct').length;
+
+        if (correctCards === initialCards.length) {
+            setCompleted(true);
+            if (typeof onUnlock === 'function') onUnlock();
         }
     };
 
     return (
         <div className="card-sort-task-container">
-            <div className="task-prompt">
-                <p>{t('task.card.description') || 'Perskaityk korteles ir pabandyk priskirti jas prie kietųjų arba minkštųjų kompetencijų.'}</p>
-                <button className="read-more-btn" onClick={() => setOverlayOpen(true)}>Read More ?</button>
-            </div>
 
             <DndContext onDragEnd={handleDragEnd}>
                 <div className="card-columns">

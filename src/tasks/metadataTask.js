@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './metadataTask.css';
 import metadataIcon from './metadata.png';
 import { useLanguage } from '../context/languageContext';
+import ProgressRing from './progressRing';
 
 const optionsData = [
     { id: 1, textKey: 'task.option1', isCorrect: false, explanationKey: 'task.option1.explanation' },
@@ -58,6 +59,8 @@ const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue })
 
 
     const midpoint = Math.floor(optionsData.length / 2);
+    const correctIds = optionsData.filter(opt => opt.isCorrect).map(opt => opt.id);
+    const numCorrectSelected = correctIds.filter((id) => selected[id] === 'correct').length;
 
     return (
             <div className="metadata-task-container">
@@ -68,19 +71,23 @@ const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue })
                     </div>
                 </div>
 
-                <div className="staircase-wrapper">
-                    {optionsData.map(({id, textKey, isCorrect, explanationKey}, index) => (
-                        <button
-                            key={id}
-                            className={`option-btn ${selected[id]} ${index < midpoint ? `shift-right-${index}` : `shift-left-${index - midpoint}`}`}
-                            onClick={() => handleOptionClick(id, isCorrect, explanationKey)}
-                        >
-                            {t(textKey)}
-                        </button>
-                    ))}
-                </div>
+                <div className="task-content-row">
+                    <div className="progress-ring-wrapper">
 
-                {feedbackText && <div className="feedback-text">{feedbackText}</div>}
+                    </div>
+
+                    <div className="staircase-wrapper">
+                        {optionsData.map(({ id, textKey, isCorrect, explanationKey }, index) => (
+                            <button
+                                key={id}
+                                className={`option-btn ${selected[id]} ${index < midpoint ? `shift-right-${index}` : `shift-left-${index - midpoint}`}`}
+                                onClick={() => handleOptionClick(id, isCorrect, explanationKey)}
+                            >
+                                {t(textKey)}
+                            </button>
+                        ))}<ProgressRing current={numCorrectSelected} total={correctIds.length} />
+                    </div>
+                </div>
             </div>
 
     );

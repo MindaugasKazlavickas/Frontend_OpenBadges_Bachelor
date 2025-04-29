@@ -84,11 +84,6 @@ const BadgeMergeTask = ({ onUnlock }) => {
 
     return (
         <div className="badge-merge-container">
-            {/* Prompt */}
-            <div className="task-prompt">
-                <p>{t('task.merge.description') || 'Drag the competence badges to the center to create a Meta badge!'}</p>
-                <button className="read-more-btn" onClick={() => setOverlayOpen(true)}>Read More ?</button>
-            </div>
 
             <DndContext onDragEnd={handleDragEnd}>
                 <div className="badge-layout">
