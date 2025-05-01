@@ -14,7 +14,7 @@ const {
 } = process.env;
 
 const TOKEN_URL = "https://openbadgefactory.com/v2/client/oauth2/token";
-const ISSUE_URL = "https://openbadgefactory.com/v2/client/badge/assertion/add";
+const ISSUE_URL = `https://openbadgefactory.com/v2/event/${CLIENT_ID}/${BADGE_ID}/issue`;
 
 // Request access token using client credentials
 async function getAccessToken() {
@@ -30,7 +30,6 @@ async function getAccessToken() {
         });
 
         const text = await response.text();
-        console.log("Access token response:", text);
 
         if (!response.ok) throw new Error(`Failed to get access token (${response.status})`);
 
@@ -56,17 +55,19 @@ app.post("/issue-obf-badge", async (req, res) => {
         console.log("Access token received:", accessToken.slice(0, 20) + "...");
 
         const badgePayload = {
-            badge_id: BADGE_ID,
-            email,
-            first_name: firstName,
-            last_name: lastName,
-            language: "en",
+            event_name: "completed-course",
+            recipient: [
+                {
+                    email,
+                    name: `${firstName} ${lastName}`
+                }
+            ],
             send_email: true
         };
 
         console.log("Badge issue payload:", badgePayload);
 
-        const badgeResponse = await fetch(ISSUE_URL, {
+        const badgeResponse = await fetch(`https://openbadgefactory.com/v2/event/${CLIENT_ID}/${BADGE_ID}/issue`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
