@@ -8,9 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 const {
-    OBF_CLIENT_ID,
-    OBF_CLIENT_SECRET,
-    OBF_BADGE_ID
+    CLIENT_ID,
+    CLIENT_SECRET,
+    BADGE_ID
 } = process.env;
 
 const TOKEN_URL = "https://openbadgefactory.com/v2/client/oauth2/token";
@@ -23,8 +23,8 @@ async function getAccessToken() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
             grant_type: "client_credentials",
-            client_id: OBF_CLIENT_ID,
-            client_secret: OBF_CLIENT_SECRET
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET
         })
     });
 
@@ -49,7 +49,7 @@ app.post("/issue-obf-badge", async (req, res) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                badge_id: OBF_BADGE_ID,
+                badge_id: BADGE_ID,
                 email,
                 first_name: firstName,
                 last_name: lastName,
