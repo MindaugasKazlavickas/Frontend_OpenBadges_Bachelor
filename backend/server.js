@@ -18,24 +18,35 @@ const ISSUE_URL = "https://openbadgefactory.com/v2/client/badge/assertion/add";
 
 // Request access token using client credentials
 async function getAccessToken() {
-    const response = await fetch(TOKEN_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-            grant_type: "client_credentials",
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET
-        })
-    });
+    try {
+        const response = await fetch(TOKEN_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+                grant_type: "client_credentials",
+                client_id: CLIENT_ID,
+                client_secret: CLIENT_SECRET
+            })
+        });
 
-    if (!response.ok) throw new Error("Failed to get access token");
-    const data = await response.json();
-    return data.access_token;
+        const text = await response.text();
+        console.log("Access token response:", text);
+
+        if (!response.ok) throw new Error(`Failed to get access token (${response.status})`);
+
+        const data = JSON.parse(text);
+        return data.access_token;
+    } catch (err) {
+        console.error("Access token error:", err.message);
+        throw err;
+    }
 }
+
 
 // Route to issue badge
 app.post("/issue-obf-badge", async (req, res) => {
     const { email, firstName = "", lastName = "" } = req.body;
+    console.log("Issuing badge for:", { email, firstName, lastName });
 
     if (!email) return res.status(400).json({ error: "Email is required." });
 
