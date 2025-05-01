@@ -46,12 +46,25 @@ async function getAccessToken() {
 // Route to issue badge
 app.post("/issue-obf-badge", async (req, res) => {
     const { email, firstName = "", lastName = "" } = req.body;
-    console.log("Issuing badge for:", { email, firstName, lastName });
+    console.log("=== Badge Issuing Request Received ===");
+    console.log("User details:", { email, firstName, lastName });
 
     if (!email) return res.status(400).json({ error: "Email is required." });
 
     try {
         const accessToken = await getAccessToken();
+        console.log("Access token received:", accessToken.slice(0, 20) + "...");
+
+        const badgePayload = {
+            badge_id: BADGE_ID,
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            language: "en",
+            send_email: true
+        };
+
+        console.log("Badge issue payload:", badgePayload);
 
         const badgeResponse = await fetch(ISSUE_URL, {
             method: "POST",
@@ -59,27 +72,33 @@ app.post("/issue-obf-badge", async (req, res) => {
                 Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                badge_id: BADGE_ID,
-                email,
-                first_name: firstName,
-                last_name: lastName,
-                language: "en",
-                send_email: true
-            })
+            body: JSON.stringify(badgePayload)
         });
 
-        const result = await badgeResponse.json();
+        const resultText = await badgeResponse.text();
+        console.log("Badge response (raw):", resultText);
+
+        let result;
+        try {
+            result = JSON.parse(resultText);
+        } catch (err) {
+            console.error("❌ Failed to parse badge issue response:", err.message);
+            return res.status(500).json({ error: "Invalid JSON from OBF", raw: resultText });
+        }
 
         if (!badgeResponse.ok) {
+            console.error("❌ Badge issue failed:", result);
             return res.status(badgeResponse.status).json({
                 error: result.message || "Badge issue failed",
                 details: result
             });
         }
 
+        console.log("✅ Badge issued successfully:", result);
         return res.status(200).json({ success: true, data: result });
+
     } catch (err) {
+        console.error("❌ Fatal error during badge issuing:", err.message);
         return res.status(500).json({ error: err.message });
     }
 });
