@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import './mergeTask.css';
 import { useLanguage } from '../context/languageContext';
-import badge1 from './metadata.png';
-import badge2 from './metadata.png';
-import badge3 from './metadata.png';
+import badge1 from '../components/metaBadge1.png';
+import badge2 from '../components/metaBadge2.png';
+import badge3 from '../components/metaBadge3.png';
 import metaBadge from './metadata.png';
 import {
     DndContext,
     useDraggable,
     useDroppable,
 } from '@dnd-kit/core';
+import MergeCenterDisplay from "./mergeCenterDisplay";
 
 const DraggableBadge = ({ id, src }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -33,20 +34,24 @@ const DraggableBadge = ({ id, src }) => {
     );
 };
 
-const DropZone = ({ onDropBadge, droppedItems, isComplete, dropProgress }) => {
-    const { setNodeRef, isOver } = useDroppable({ id: 'meta-zone' });
+const DropZone = ({ onDropBadge, droppedItems, isComplete, dropProgress, children }) => {
+    const { setNodeRef } = useDroppable({ id: 'meta-zone' });
 
     return (
         <div ref={setNodeRef} className="drop-zone">
-            <div className={`meta-badge-wrapper reveal-${droppedItems.length} ${isComplete ? 'complete' : ''}`}>
-                <img src={metaBadge} alt="Meta Badge" className="meta-badge" />
-                <div
-                    className="meta-badge-mask"
-                    style={{
-                        transform: `translate(-${(1 - dropProgress) * 100}%, -${(1 - dropProgress) * 100}%)`,
-                    }}
-                />
-            </div>
+            {children ? (
+                children
+            ) : (
+                <div className={`meta-badge-wrapper reveal-${droppedItems.length} ${isComplete ? 'complete' : ''}`}>
+                    <img src={metaBadge} alt="Meta Badge" className="meta-badge" />
+                    <div
+                        className="meta-badge-mask"
+                        style={{
+                            transform: `translate(-${(1 - dropProgress) * 100}%, -${(1 - dropProgress) * 100}%)`,
+                        }}
+                    />
+                </div>
+            )}
         </div>
     );
 };
@@ -87,9 +92,11 @@ const BadgeMergeTask = ({ onUnlock }) => {
 
             <DndContext onDragEnd={handleDragEnd}>
                 <div className="badge-layout">
-                    {badgeList.map(({ id, src }) => (
-                        <DraggableBadge key={id} id={id} src={src} />
-                    ))}
+                    {badgeList
+                        .filter(({ id }) => !droppedItems.includes(id)) // 👈 Skip dropped ones
+                        .map(({ id, src }) => (
+                            <DraggableBadge key={id} id={id} src={src} />
+                        ))}
                 </div>
 
                 <DropZone
@@ -97,7 +104,13 @@ const BadgeMergeTask = ({ onUnlock }) => {
                     droppedItems={droppedItems}
                     isComplete={isComplete}
                     dropProgress={dropProgress}
-                />
+                >
+                    <MergeCenterDisplay
+                        droppedCount={droppedItems.length}
+                        totalCount={badgeList.length}
+                        isComplete={isComplete}
+                    />
+                </DropZone>
             </DndContext>
 
             {isComplete && (

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/languageContext';
 import theme from '../themes/theme';
 import './heroSection.css';
-
+import ltFlag from '../assets/ltFlag.png';
+import enFlag from '../assets/enFlag.png';
 const HeroSection = () => {
-    const { t, toggleLanguage } = useLanguage();
+    const { t, toggleLanguage, language  } = useLanguage();
 
     const [headlines, setHeadlines] = useState([]);
     const [headlineIndex, setHeadlineIndex] = useState(0);
@@ -66,18 +67,21 @@ const HeroSection = () => {
         >
             {/* Language Toggle */}
             <div style={{ position: 'absolute', top: 20, right: 20 }}>
-                <button
-                    onClick={toggleLanguage}
-                    style={{
-                        backgroundColor: theme.colors.secondary,
-                        color: 'black',
-                        padding: '0.3rem 0.7rem',
-                        border: 'none',
-                        borderRadius: '4px',
-                    }}
-                >
-                    {t('button.switchLang')}
-                </button>
+                {language === 'lt' ? (
+                    <img
+                        src={enFlag}
+                        alt="Switch to English"
+                        className="flag-icon"
+                        onClick={() => toggleLanguage('en')}
+                    />
+                ) : (
+                    <img
+                        src={ltFlag}
+                        alt="Perjungti į Lietuvių"
+                        className="flag-icon"
+                        onClick={() => toggleLanguage('lt')}
+                    />
+                )}
             </div>
 
             <div className="hero-content">

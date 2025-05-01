@@ -13,7 +13,7 @@ const ProgressRing = ({ current, total }) => {
         <div className="progress-ring-container">
             <svg height={radius * 2} width={radius * 2}>
                 <circle
-                    stroke="#ddd"
+                    stroke="#facc15"
                     fill="transparent"
                     strokeWidth={stroke}
                     r={normalizedRadius}

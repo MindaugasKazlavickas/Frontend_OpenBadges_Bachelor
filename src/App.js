@@ -9,6 +9,7 @@ import MetadataTask from "./tasks/metadataTask";
 import BadgeMergeTask from "./tasks/mergeTask";
 import CardSortTask from "./tasks/cardTask";
 import ScenarioTask from "./tasks/scenarioTask";
+import SlidingTask from "./tasks/slidingTask";
 
 const sectionData = [
     { id: 'section1', headerKey: 'section.heading1' },
@@ -54,23 +55,23 @@ const App = () => {
                     longHelpKey={`task.section${i + 1}.longHelp`}
                 >
                     {i === 0 ? (
-                    <MetadataTask
+                        <CardSortTask
                         onScoreUpdate={(score) => console.log('Score updated:', score)}
                         onUnlock={() => unlockSection(i)}
                         sectionIndex={i}
                     />
                     ) : i === 1 ? (
-                        <BadgeMergeTask onUnlock={() => unlockSection(i)} />
+                        <MetadataTask onUnlock={() => unlockSection(i)} />
                     ) : i === 2 ? (
-                        <CardSortTask onUnlock={() => unlockSection(i)} />
-                    ) : i === 3 ? (
                         <ScenarioTask onUnlock={() => unlockSection(i)} />
+                    ) : i === 3 ? (
+                        <BadgeMergeTask onUnlock={() => unlockSection(i)} />
                     ) : (
-                        <p>This is content for {section.headerKey}</p>
+                        <SlidingTask onUnlock={() => unlockSection(i)} />
                     )}
                 </TaskSection>
             ))}
-            {unlockedSections.includes(sectionData.length - 1) && <EndSection />}
+            {unlockedSections.includes(sectionData.length) && <EndSection />}
         </LanguageProvider>
     );
 };

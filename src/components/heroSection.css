@@ -113,3 +113,27 @@
         transform: translateY(0);
     }
 }
+
+.lang-toggle {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.flag-icon {
+    width: 32px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.flag-icon:hover {
+    transform: scale(1.1);
+}
+
+.flag-icon.active {
+    border-color: white;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+}

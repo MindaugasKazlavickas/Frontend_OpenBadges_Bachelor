@@ -1,54 +1,83 @@
-const express = require('express');
-const cors = require('cors');
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const fetch = require("node-fetch");
+require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Backend is running 🚀');
-});
+const {
+    OBF_CLIENT_ID,
+    OBF_CLIENT_SECRET,
+    OBF_BADGE_ID
+} = process.env;
 
-app.post('/api/issueBadge', async (req, res) => {
-    const { name, email } = req.body;
+const TOKEN_URL = "https://openbadgefactory.com/v2/client/oauth2/token";
+const ISSUE_URL = "https://openbadgefactory.com/v2/client/badge/assertion/add";
 
-    if (!name || !email) {
-        return res.status(400).json({ error: 'Missing name or email' });
-    }
+// Request access token using client credentials
+async function getAccessToken() {
+    const response = await fetch(TOKEN_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+            grant_type: "client_credentials",
+            client_id: OBF_CLIENT_ID,
+            client_secret: OBF_CLIENT_SECRET
+        })
+    });
+
+    if (!response.ok) throw new Error("Failed to get access token");
+    const data = await response.json();
+    return data.access_token;
+}
+
+// Route to issue badge
+app.post("/issue-obf-badge", async (req, res) => {
+    const { email, firstName = "", lastName = "" } = req.body;
+
+    if (!email) return res.status(400).json({ error: "Email is required." });
 
     try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail', // or use another SMTP provider
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
+        const accessToken = await getAccessToken();
+
+        const badgeResponse = await fetch(ISSUE_URL, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
             },
+            body: JSON.stringify({
+                badge_id: OBF_BADGE_ID,
+                email,
+                first_name: firstName,
+                last_name: lastName,
+                language: "en",
+                send_email: true
+            })
         });
 
-        await transporter.sendMail({
-            from: `"Open Badge Issuer" <${process.env.EMAIL_USER}>`,
-            to: email,
-            subject: '🎖️ Your Open Badge is Here!',
-            text: `Hi ${name},\n\nCongratulations on earning your badge!\n\nAttached is your badge.`,
-            attachments: [
-                {
-                    filename: 'badge.png',
-                    path: './badges/sample-badge.png', // Make sure you have a badge file or link
-                },
-            ],
-        });
+        const result = await badgeResponse.json();
 
-        res.status(200).json({ success: true });
-    } catch (error) {
-        console.error('Email sending failed', error);
-        res.status(500).json({ error: 'Failed to send badge' });
+        if (!badgeResponse.ok) {
+            return res.status(badgeResponse.status).json({
+                error: result.message || "Badge issue failed",
+                details: result
+            });
+        }
+
+        return res.status(200).json({ success: true, data: result });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
     }
 });
 
+app.get("/", (req, res) => {
+    res.send("OBF Badge Issuer backend is running.");
+});
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log("Server listening on port " + PORT);
 });
