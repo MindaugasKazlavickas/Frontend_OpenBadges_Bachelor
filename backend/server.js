@@ -8,9 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 const {
-    CLIENT_ID,
-    CLIENT_SECRET,
-    BADGE_ID
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    badge_id: BADGE_ID
 } = process.env;
 
 const TOKEN_URL = "https://openbadgefactory.com/v2/client/oauth2/token";
