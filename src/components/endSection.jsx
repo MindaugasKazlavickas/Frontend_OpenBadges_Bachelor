@@ -17,7 +17,7 @@ const EndSection = () => {
         const lastName = rest.join(' ') || '–';
 
         try {
-            const response = await fetch('https://your-backend.onrender.com/issue-obf-badge', {
+            const response = await fetch('https://frontend-openbadges-bachelor.onrender.com/issue-obf-badge', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ firstName, lastName, email }),
