@@ -62,7 +62,10 @@ app.post("/issue-obf-badge", async (req, res) => {
                     name: `${firstName} ${lastName}`
                 }
             ],
-            send_email: true
+            issued_on: Math.floor(Date.now() / 1000),
+            api_consumer_id: "standalone",
+            send_email: true,
+            show_report: true
         };
 
         console.log("Badge issue payload:", badgePayload);
@@ -103,6 +106,7 @@ app.post("/issue-obf-badge", async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
+
 
 app.get("/", (req, res) => {
     res.send("OBF Badge Issuer backend is running.");
