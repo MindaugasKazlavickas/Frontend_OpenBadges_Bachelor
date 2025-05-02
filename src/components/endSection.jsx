@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useLanguage } from '../context/languageContext';
 import theme from '../themes/theme';
+
+const BADGE_CLAIM_KEY = 'userClaimedBadge';
 
 const EndSection = () => {
     const { t } = useLanguage();
@@ -8,6 +10,14 @@ const EndSection = () => {
     const [email, setEmail] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [badgeClaimed, setBadgeClaimed] = useState(false);
+
+    useEffect(() => {
+        const claimed = localStorage.getItem(BADGE_CLAIM_KEY);
+        if (claimed === 'true') {
+            setBadgeClaimed(true);
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,6 +34,7 @@ const EndSection = () => {
             });
 
             if (response.ok) {
+                setBadgeClaimed(true);
                 setSuccessMessage(t('end.success') || '🎉 Badge sent! Check your email!');
             } else {
                 setSuccessMessage(t('end.error') || '❗ Something went wrong. Try again.');
@@ -37,31 +48,35 @@ const EndSection = () => {
     };
 
     return (
-        <section style={{ padding: '4rem 2rem', backgroundColor: theme.colors.secondary, color: 'black' }}>
+        <section id="EndSection" style={{ padding: '4rem 2rem', backgroundColor: theme.colors.secondary, color: 'black' }}>
             <h2>{t('end.congrats')}</h2>
             <p>{t('end.earned')}</p>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: '2rem' }}>
-                <input
-                    type="text"
-                    placeholder={t('form.namePlaceholder') || 'Your Name'}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
-                />
-                <input
-                    type="email"
-                    placeholder={t('form.emailPlaceholder') || 'Your Email'}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
-                />
-                <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem 1.5rem' }}>
-                    {isSubmitting ? (t('form.sending') || 'Issuing badge...') : (t('form.submit') || 'Claim Badge')}
-                </button>
-            </form>
+            {badgeClaimed ? (
+                <p style={{ marginTop: '2rem', fontWeight: 'bold' }}>{t('end.claimed') || '✅ Badge claimed.'}</p>
+            ) : (
+                <form onSubmit={handleSubmit} style={{ marginTop: '2rem' }}>
+                    <input
+                        type="text"
+                        placeholder={t('form.namePlaceholder') || 'Your Name'}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
+                    />
+                    <input
+                        type="email"
+                        placeholder={t('form.emailPlaceholder') || 'Your Email'}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
+                    />
+                    <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem 1.5rem' }}>
+                        {isSubmitting ? (t('form.sending') || 'Issuing badge...') : (t('form.submit') || 'Claim Badge')}
+                    </button>
+                </form>
+            )}
 
             {successMessage && <p style={{ marginTop: '1rem' }}>{successMessage}</p>}
         </section>

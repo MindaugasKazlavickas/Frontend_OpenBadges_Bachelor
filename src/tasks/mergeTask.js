@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './mergeTask.css';
 import { useLanguage } from '../context/languageContext';
 import badge1 from '../components/metaBadge1.png';
@@ -11,6 +11,14 @@ import {
     useDroppable,
 } from '@dnd-kit/core';
 import MergeCenterDisplay from "./mergeCenterDisplay";
+import {
+    adjustScore,
+    saveConfirmedScore,
+    getLiveScore,
+    saveTaskCompletion,
+    isTaskCompleted,
+    useFloatingScore
+} from '../utils/scoreUtils';
 
 const DraggableBadge = ({ id, src }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -61,7 +69,8 @@ const BadgeMergeTask = ({ onUnlock }) => {
 
     const [overlayOpen, setOverlayOpen] = useState(false);
     const [droppedItems, setDroppedItems] = useState([]);
-    const [isComplete, setIsComplete] = useState(false);
+    const [completed, setCompleted] = useState(false);
+    const [showContinue, setShowContinue] = useState(false);
 
     const badgeList = [
         { id: 'badge1', src: badge1 },
@@ -76,16 +85,33 @@ const BadgeMergeTask = ({ onUnlock }) => {
             if (!droppedItems.includes(badgeId)) {
                 const updated = [...droppedItems, badgeId];
                 setDroppedItems(updated);
+                adjustScore(10);
+                triggerFloatingScore('+10');
 
-                if (updated.length === 3 && !isComplete) {
-                    setIsComplete(true);
+                if (updated.length === 3 && !completed) {
+                    setCompleted(true);
+                    saveConfirmedScore(getLiveScore());
+                    saveTaskCompletion('task.merging');
                     if (typeof onUnlock === 'function') onUnlock();
+
+                    setTimeout(() => setShowContinue(true), 7000);
                 }
             }
         }
     };
 
     const dropProgress = droppedItems.length / badgeList.length;
+
+    const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
+
+    useEffect(() => {
+        if (isTaskCompleted('task.merging')) {
+            setDroppedItems(['badge1', 'badge2', 'badge3']);
+            setCompleted(true);
+            if (typeof onUnlock === 'function') onUnlock();
+            setTimeout(() => setShowContinue(true), 7000);
+        }
+    }, []);
 
     return (
         <div className="badge-merge-container">
@@ -102,29 +128,24 @@ const BadgeMergeTask = ({ onUnlock }) => {
                 <DropZone
                     onDropBadge={handleDragEnd}
                     droppedItems={droppedItems}
-                    isComplete={isComplete}
+                    isComplete={completed}
                     dropProgress={dropProgress}
                 >
                     <MergeCenterDisplay
                         droppedCount={droppedItems.length}
                         totalCount={badgeList.length}
-                        isComplete={isComplete}
+                        isComplete={completed}
                     />
                 </DropZone>
             </DndContext>
 
-            {isComplete && (
-                <>
-                    <button
-                        className="scroll-btn"
-                        onClick={() => {
-                            const next = document.getElementById('section-4');
-                            if (next) next.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                    >
-                        {t('task.merge.continueButton') || 'Continue to next section'}
-                    </button>
-                </>
+            {showContinue && (
+                <button className="scroll-btn" onClick={() => {
+                    const next = document.getElementById('section-4');
+                    if (next) next.scrollIntoView({ behavior: 'smooth' });
+                }}>
+                    {t('task.card.continueButton') || 'Continue to next section'}
+                </button>
             )}
 
             {overlayOpen && (
@@ -135,6 +156,7 @@ const BadgeMergeTask = ({ onUnlock }) => {
                     </div>
                 </div>
             )}
+            <FloatingScoreBubble />
         </div>
     );
 };

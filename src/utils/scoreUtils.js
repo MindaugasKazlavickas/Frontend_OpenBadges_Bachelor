@@ -66,7 +66,7 @@ export const useLiveScore = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setScore(getLiveScore());
-        }, 500);
+        }, 100);
         return () => clearInterval(interval);
     }, []);
 

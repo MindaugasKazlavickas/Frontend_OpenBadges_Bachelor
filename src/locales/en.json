@@ -11,7 +11,8 @@
     "switchLang": "Lietuviškai",
     "readMore": "Show Context",
     "close": "Got it!",
-    "continue": "Continue"
+    "continue": "Continue",
+    "finish": "Get badge!"
   },
   "section": {
     "heading1": "What Are Digital Badges?",
@@ -25,30 +26,29 @@
   },
   "task": {
     "section1": {
+      "description": "Open badges are concerned with proving your soft skills, Assign the cards as you best see fit.",
+      "longHelp": "Tekstas tekstas tekstas"
+    },
+    "section2": {
       "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
       "description":"Identify the meta information that is crucial for a viable open badge."
     },
-    "section2": {
+    "section3": {
+      "longHelp": "tekstas ",
+      "description":"tekstas"
+    },
+    "section4": {
       "description": "As you collect various badges that prove different competences, combining them leads to major Meta badges.",
       "longHelp": "Tekstas tekstas tekstas"
     },
-    "section3": {
-      "description": "Through different forms of learning you improve in different sets of skills. Some of them are hard skills - like calculus, and some of them are soft skills like communication. Assign the cards as you best see fit.",
-      "longHelp": "Tekstas tekstas tekstas"
-    },
-    "section4": {
-      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
-      "description":"Identify the meta information that is crucial for a viable open badge."
-    },
     "section5": {
-      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
-      "description":"Identify the meta information that is crucial for a viable open badge."
+      "longHelp": "tekstas",
+      "description":"tekstas"
     },
     "metadata": {
       "continueButton": "Continue"
     },
     "merge": {
-
       "continueButton": "Continue"
     },
     "card": {

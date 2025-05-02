@@ -78,11 +78,7 @@ const App = () => {
                     longHelpKey={`task.section${i + 1}.longHelp`}
                 >
                     {i === 0 ? (
-                        <CardSortTask
-                        onScoreUpdate={(score) => console.log('Score updated:', score)}
-                        onUnlock={() => unlockSection(i)}
-                        sectionIndex={i}
-                    />
+                        <CardSortTask onUnlock={() => unlockSection(i)} sectionIndex={i} />
                     ) : i === 1 ? (
                         <MetadataTask onUnlock={() => unlockSection(i)} />
                     ) : i === 2 ? (

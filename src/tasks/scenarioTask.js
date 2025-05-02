@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './scenarioTask.css';
 import { useLanguage } from '../context/languageContext';
+import {
+    adjustScore,
+    saveConfirmedScore,
+    getLiveScore,
+    saveTaskCompletion,
+    isTaskCompleted,
+    useFloatingScore
+} from '../utils/scoreUtils';
 
 const scenarios = [
     {
@@ -53,12 +61,20 @@ const ScenarioTask = ({ onUnlock }) => {
         setSelectedAnswers(newAnswers);
 
         if (selectedOption.correct) {
+            adjustScore(10);
+            triggerFloatingScore('+10');
+
             const allCorrect = scenarios.every(s => newAnswers[s.id] === 'correct');
-            if (allCorrect && typeof onUnlock === 'function') {
+            if (allCorrect) {
+                saveConfirmedScore(getLiveScore());
+                saveTaskCompletion('task.scenario');
                 setCompleted(true);
-                onUnlock();
+                if (typeof onUnlock === 'function') onUnlock();
             }
-        }
+        } else {
+            adjustScore(-5);
+            triggerFloatingScore('-5');
+    }
     };
 
     const renderScenario = (scenario) => (
@@ -86,6 +102,20 @@ const ScenarioTask = ({ onUnlock }) => {
         </div>
     );
 
+    const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
+
+    useEffect(() => {
+        if (isTaskCompleted('task.scenario')) {
+            const preFilled = {};
+            scenarios.forEach(s => {
+                preFilled[s.id] = 'correct';
+            });
+            setSelectedAnswers(preFilled);
+            setCompleted(true);
+            if (typeof onUnlock === 'function') onUnlock();
+        }
+    }, []);
+
     return (
         <div className="scenario-task-container">
             <div className="scenario-progress">
@@ -101,11 +131,12 @@ const ScenarioTask = ({ onUnlock }) => {
                     </button>
                 ))}
             </div>
+            <FloatingScoreBubble />
 
             {renderScenario(scenarios.find(s => s.id === currentScenario))}
             {completed && (
                 <button className="scroll-btn" onClick={() => {
-                    const next = document.getElementById('section-4');
+                    const next = document.getElementById('section-3');
                     if (next) next.scrollIntoView({ behavior: 'smooth' });
                 }}>
                     {t('task.card.continueButton') || 'Continue to next section'}

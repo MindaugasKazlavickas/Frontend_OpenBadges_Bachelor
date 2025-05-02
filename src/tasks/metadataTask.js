@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './metadataTask.css';
 import metadataIcon from './metadata.png';
 import { useLanguage } from '../context/languageContext';
 import ProgressRing from './progressRing';
+import {
+    adjustScore,
+    saveConfirmedScore,
+    getLiveScore,
+    saveTaskCompletion,
+    isTaskCompleted,
+    useFloatingScore
+} from '../utils/scoreUtils';
 
 const optionsData = [
     { id: 1, textKey: 'task.option1', isCorrect: false, explanationKey: 'task.option1.explanation' },
@@ -17,12 +25,13 @@ const optionsData = [
     { id: 10, textKey: 'task.option10', isCorrect: false, explanationKey: 'task.option10.explanation' },
 ];
 
-const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue }) => {
+const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
     const {t} = useLanguage();
     const [selected, setSelected] = useState({});
     const [feedbackText, setFeedbackText] = useState('');
-    const [score, setScore] = useState(0);
+    const [completed, setCompleted] = useState(false);
     const [unlocked, setUnlocked] = useState(false);
+    const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
 
     const handleOptionClick = (id, isCorrect, explanationKey) => {
         if (selected[id]) return;
@@ -30,9 +39,9 @@ const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue })
         setSelected((prev) => ({...prev, [id]: isCorrect ? 'correct' : 'incorrect'}));
 
         if (isCorrect) {
-            const newScore = score + 5;
-            setScore(newScore);
-            if (onScoreUpdate) onScoreUpdate(newScore);
+            adjustScore(10);
+            triggerFloatingScore('+10');
+
 
             const newlySelected = {
                 ...selected,
@@ -47,12 +56,16 @@ const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue })
             }
 
             if (selectedCorrect && !unlocked) {
+                saveConfirmedScore(getLiveScore());
+                saveTaskCompletion('task.metadata');
                 setUnlocked(true);
                 if (typeof onUnlock === 'function') onUnlock();
             }
 
             setSelected(newlySelected);
         } else if (explanationKey) {
+            adjustScore(-5);
+            triggerFloatingScore('-5');
             setFeedbackText(t(explanationKey));
         }
     };
@@ -61,6 +74,19 @@ const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue })
     const midpoint = Math.floor(optionsData.length / 2);
     const correctIds = optionsData.filter(opt => opt.isCorrect).map(opt => opt.id);
     const numCorrectSelected = correctIds.filter((id) => selected[id] === 'correct').length;
+
+    useEffect(() => {
+        if (isTaskCompleted('task.metadata')) {
+            const completed = {};
+            optionsData.forEach(({ id, isCorrect }) => {
+                if (isCorrect) completed[id] = 'correct';
+            });
+            setSelected(completed);
+            setUnlocked(true);
+            setCompleted(true);
+            if (typeof onUnlock === 'function') onUnlock();
+        }
+    }, []);
 
     return (
             <div className="metadata-task-container">
@@ -87,7 +113,16 @@ const MetadataTask = ({ onScoreUpdate, onUnlock, sectionIndex, revealContinue })
                             </button>
                         ))}<ProgressRing current={numCorrectSelected} total={correctIds.length} />
                     </div>
+                    <FloatingScoreBubble />
                 </div>
+                {completed && (
+                    <button className="scroll-btn" onClick={() => {
+                        const next = document.getElementById('section-2');
+                        if (next) next.scrollIntoView({ behavior: 'smooth' });
+                    }}>
+                        {t('task.card.continueButton') || 'Continue to next section'}
+                    </button>
+                )}
             </div>
 
     );

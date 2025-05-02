@@ -2,6 +2,7 @@
     padding: 2rem 1rem;
     text-align: center;
     overflow: hidden;
+    position: relative;
 }
 
 /* Layout for small draggable badges */
