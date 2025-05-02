@@ -31,11 +31,11 @@
     },
     "section2": {
       "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
-      "description":"Identify the meta information that is crucial for a viable open badge."
+      "description": "Identify the meta information that is crucial for a viable open badge."
     },
     "section3": {
       "longHelp": "tekstas ",
-      "description":"tekstas"
+      "description": "tekstas"
     },
     "section4": {
       "description": "As you collect various badges that prove different competences, combining them leads to major Meta badges.",
@@ -43,7 +43,7 @@
     },
     "section5": {
       "longHelp": "tekstas",
-      "description":"tekstas"
+      "description": "tekstas"
     },
     "metadata": {
       "continueButton": "Continue",
@@ -53,12 +53,10 @@
       "badgeClass": "Badge class",
       "achievementDescription": "Achievement description",
       "issuer": "Issuer",
-
       "socialMediaLinks": "Issuer's social media links",
       "visualDesign": "Custom badge colors",
       "badgeAnimation": "Animated badge graphics",
       "unencryptedEmail": "Recipient's name",
-
       "mistake": {
         "socialMediaLinks": "Social media links are optional and not part of required Open Badge metadata.",
         "visualDesign": "Color themes and visual styling are optional and do not form part of the badge's official metadata.",
@@ -95,12 +93,17 @@
     "scenario": {
       "continueButton": "Continue"
     },
-  "overlay-button": {
-    "close": "Close"
+    "overlay-button": {
+      "close": "Close"
+    }
   },
   "end": {
     "congrats": "Congratulations!",
-    "earned": "You've earned your badge!"
-  }
+    "earned": "You've earned your badge!",
+    "success": "Badge successfully issued!"
+  },
+  "form": {
+    "namePlaceholder": "Your full name",
+    "emailPlaceholder": "Your email address"
   }
 }
