@@ -55,3 +55,18 @@ html, body {
 .task-section {
   scroll-snap-align: start;
 }
+
+@keyframes fadeScore {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

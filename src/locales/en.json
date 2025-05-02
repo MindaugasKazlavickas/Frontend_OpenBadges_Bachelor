@@ -9,7 +9,7 @@
   "button": {
     "start": "Start Learning",
     "switchLang": "Lietuviškai",
-    "readMore": "Read More",
+    "readMore": "Show Context",
     "close": "Got it!",
     "continue": "Continue"
   },
@@ -52,7 +52,27 @@
       "continueButton": "Continue"
     },
     "card": {
-      "continueButton": "Continue"
+      "columnA": "Hard Skills",
+      "columnB": "Soft Skills",
+      "continueButton": "Continue",
+      "excelAnalysis": "Data analysis using Excel",
+      "programmingBasics": "Programming basics",
+      "timeManagement": "Time management",
+      "readingBlueprints": "Reading construction blueprints",
+      "teamwork": "Teamwork",
+      "publicSpeaking": "Public speaking",
+      "labResearch": "Conducting lab research",
+      "conflictResolution": "Conflict resolution",
+      "mistake": {
+        "excelAnalysis": "Excel analysis is a technical skill usually learned in formal education.",
+        "programmingBasics": "Programming basics are considered hard skills gained through structured learning.",
+        "timeManagement": "Time management is a soft skill related to self-organization and personal habits.",
+        "readingBlueprints": "Blueprint reading is a technical hard skill used in construction and engineering.",
+        "teamwork": "Teamwork is a soft skill developed through collaboration and group experiences.",
+        "publicSpeaking": "Public speaking is a soft skill that helps with communication and confidence.",
+        "labResearch": "Conducting lab research is a technical hard skill often taught in scientific education.",
+        "conflictResolution": "Conflict resolution is a soft skill essential for navigating interpersonal challenges."
+      }
     },
     "scenario": {
       "continueButton": "Continue"

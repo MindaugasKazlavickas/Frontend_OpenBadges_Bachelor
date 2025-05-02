@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './cardTask.css';
 import { useLanguage } from '../context/languageContext';
 import {
@@ -6,19 +6,22 @@ import {
     useDraggable,
     useDroppable,
 } from '@dnd-kit/core';
+import {adjustScore, getLiveScore, saveConfirmedScore, useFloatingScore} from '../utils/scoreUtils';
+import { saveTaskCompletion, isTaskCompleted } from '../utils/scoreUtils';
 
 const initialCards = [
-    { id: 1, text: "Duomenų analizė naudojant „Excel“", correctColumn: "A" },
-    { id: 2, text: "Programavimo pagrindai", correctColumn: "A" },
-    { id: 3, text: "Laiko planavimas", correctColumn: "B" },
-    { id: 4, text: "Statybinių brėžinių skaitymas", correctColumn: "A" },
-    { id: 5, text: "Komandinis darbas", correctColumn: "B" },
-    { id: 6, text: "Viešasis kalbėjimas", correctColumn: "B" },
-    { id: 7, text: "Laboratorinių tyrimų atlikimas", correctColumn: "A" },
-    { id: 8, text: "Laiko planavimas", correctColumn: "B" },
+    { id: 1, text: "task.card.excelAnalysis", correctColumn: "A", mistakeKey: "task.card.mistake.excelAnalysis" },
+    { id: 2, text: "task.card.programmingBasics", correctColumn: "A", mistakeKey: "task.card.mistake.programmingBasics" },
+    { id: 3, text: "task.card.timeManagement", correctColumn: "B", mistakeKey: "task.card.mistake.timeManagement" },
+    { id: 4, text: "task.card.readingBlueprints", correctColumn: "A", mistakeKey: "task.card.mistake.readingBlueprints" },
+    { id: 5, text: "task.card.teamwork", correctColumn: "B", mistakeKey: "task.card.mistake.teamwork" },
+    { id: 6, text: "task.card.publicSpeaking", correctColumn: "B", mistakeKey: "task.card.mistake.publicSpeaking" },
+    { id: 7, text: "task.card.labResearch", correctColumn: "A", mistakeKey: "task.card.mistake.labResearch" },
+    { id: 8, text: "task.card.conflictResolution", correctColumn: "B", mistakeKey: "task.card.mistake.conflictResolution" },
 ];
 
 const DraggableCard = ({ card, from }) => {
+    const { t } = useLanguage();
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: card.id.toString(),
         data: { card, from },
@@ -31,17 +34,16 @@ const DraggableCard = ({ card, from }) => {
             {...listeners}
             className={`card card-${card.status || 'pending'}`}
             style={{
-                transform: transform
-                    ? `translate(${transform.x}px, ${transform.y}px)`
-                    : undefined,
+                transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
                 touchAction: 'none',
                 cursor: 'grab',
             }}
         >
-            {card.text}
+            {t(card.text)}
         </div>
     );
 };
+
 
 const DroppableColumn = ({ id, label, cards, onDrop }) => {
     const { setNodeRef, isOver } = useDroppable({ id });
@@ -49,7 +51,7 @@ const DroppableColumn = ({ id, label, cards, onDrop }) => {
     return (
         <div
             ref={setNodeRef}
-            className="card-column"
+            className={`card-column column-${id.toLowerCase()}`}
             style={{ backgroundColor: isOver ? '#eef6ff' : undefined }}
         >
             <h4>{label}</h4>
@@ -60,6 +62,7 @@ const DroppableColumn = ({ id, label, cards, onDrop }) => {
     );
 };
 
+
 const CardSortTask = ({ onUnlock }) => {
     const { t } = useLanguage();
     const [cardStack, setCardStack] = useState([...initialCards]);
@@ -67,6 +70,7 @@ const CardSortTask = ({ onUnlock }) => {
     const [feedbackCard, setFeedbackCard] = useState(null);
     const [overlayOpen, setOverlayOpen] = useState(false);
     const [completed, setCompleted] = useState(false);
+    const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
 
     const handleDragEnd = (event) => {
         const { active, over } = event;
@@ -74,16 +78,16 @@ const CardSortTask = ({ onUnlock }) => {
 
         const droppedColumn = over.id;
         const { card, from } = active.data.current;
-
         const isCorrect = card.correctColumn === droppedColumn;
 
         if (card.status === 'incorrect') {
             if (isCorrect) {
+                adjustScore(5);
+                triggerFloatingScore('+10');
                 setColumns(prev => {
                     const newFrom = prev[from].filter(c => c.id !== card.id);
                     const newTo = [...prev[droppedColumn], { ...card, status: 'correct' }];
                     const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
-
                     checkCompletion(updated);
                     return updated;
                 });
@@ -92,15 +96,12 @@ const CardSortTask = ({ onUnlock }) => {
                     const newFrom = prev[from].filter(c => c.id !== card.id);
                     const newTo = [...prev[droppedColumn], card];
                     const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
-
-                    // no need to checkCompletion() here, only after correcting
                     return updated;
                 });
             }
             return;
         }
 
-        // Normal top card from the stack
         if (cardStack.length > 0 && card.id === cardStack[0].id) {
             const topCard = cardStack[0];
             const isTopCorrect = topCard.correctColumn === droppedColumn;
@@ -111,15 +112,18 @@ const CardSortTask = ({ onUnlock }) => {
                     [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isTopCorrect ? 'correct' : 'incorrect' }]
                 };
                 if (isTopCorrect) {
+                    adjustScore(5);
+                    triggerFloatingScore('+10');
                     checkCompletion(updated);
+                } else {
+                    adjustScore(-2.5);
+                    triggerFloatingScore('-5');
                 }
                 return updated;
             });
             setCardStack(prev => prev.slice(1));
 
-            if (!isTopCorrect) {
-                setFeedbackCard(topCard);
-            }
+            if (!isTopCorrect) setFeedbackCard(topCard);
         }
     };
 
@@ -128,10 +132,28 @@ const CardSortTask = ({ onUnlock }) => {
         const correctCards = allCards.filter(c => c.status === 'correct').length;
 
         if (correctCards === initialCards.length) {
+            saveConfirmedScore(getLiveScore());
+            saveTaskCompletion('task.card-sort'); // ← add this
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
         }
     };
+
+    useEffect(() => {
+        if (isTaskCompleted('task.card-sort')) {
+            const completed = initialCards.reduce((acc, card) => {
+                acc[card.correctColumn].push({ ...card, status: 'correct' });
+                return acc;
+            }, { A: [], B: [] });
+
+            setColumns(completed);
+            setCardStack([]);
+            setCompleted(true);
+
+            // 🔓 Unlock the next section if needed
+            if (typeof onUnlock === 'function') onUnlock();
+        }
+    }, []);
 
     return (
         <div className="card-sort-task-container">
@@ -140,29 +162,32 @@ const CardSortTask = ({ onUnlock }) => {
                 <div className="card-columns">
                     <DroppableColumn
                         id="A"
-                        label="Kietosios kompetencijos"
+                        label={t('task.card.columnA')}
                         cards={columns.A}
                         onDrop={handleDragEnd}
+                        className="card-column column-a"
                     />
                     <DroppableColumn
                         id="B"
-                        label="Minkštosios kompetencijos"
+                        label={t('task.card.columnB')}
                         cards={columns.B}
                         onDrop={handleDragEnd}
+                        className="card-column column-b"
                     />
                 </div>
 
-                <div className="card-bank">
-                    {cardStack.length > 0 && (
+                {cardStack.length > 0 && (
+                    <div className="card-bank">
                         <DraggableCard card={cardStack[0]} from="stack" />
-                    )}
-                </div>
+                    </div>
+                )}
             </DndContext>
 
+            <FloatingScoreBubble />
             {feedbackCard && (
                 <div className="overlay">
                     <div className="overlay-content">
-                        <p>{t('task.card.mistakeExplanation') || `Incorrect placement of card: ${feedbackCard.text}`}</p>
+                        <p>{t(feedbackCard.mistakeKey)}</p>
                         <button onClick={() => setFeedbackCard(null)}>{t('button.close') || 'Close'}</button>
                     </div>
                 </div>
@@ -179,7 +204,7 @@ const CardSortTask = ({ onUnlock }) => {
 
             {completed && (
                 <button className="scroll-btn" onClick={() => {
-                    const next = document.getElementById('section-4');
+                    const next = document.getElementById('section-1');
                     if (next) next.scrollIntoView({ behavior: 'smooth' });
                 }}>
                     {t('task.card.continueButton') || 'Continue to next section'}

@@ -10,6 +10,7 @@ import BadgeMergeTask from "./tasks/mergeTask";
 import CardSortTask from "./tasks/cardTask";
 import ScenarioTask from "./tasks/scenarioTask";
 import SlidingTask from "./tasks/slidingTask";
+import { isTaskCompleted } from './utils/scoreUtils';
 
 const sectionData = [
     { id: 'section1', headerKey: 'section.heading1' },
@@ -29,6 +30,27 @@ const App = () => {
         root.style.setProperty('--background-color', theme.colors.background);
     }, []);
 
+    useEffect(() => {
+        const taskIdMap = [
+            'task.card-sort',
+            'task.metadata',
+            'task.scenario',
+            'task.merging',
+            'task.swipe'
+        ];
+
+        const firstIncompleteIndex = taskIdMap.findIndex((id) => !isTaskCompleted(id));
+
+        if (firstIncompleteIndex >= 0) {
+            const target = document.querySelector(`[data-task-id="${taskIdMap[firstIncompleteIndex]}"]`);
+            if (target) {
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300); // delay to allow DOM render
+            }
+        }
+    }, []);
+
     const unlockSection = (index) => {
         setUnlockedSections((prev) =>
             prev.includes(index + 1) ? prev : [...prev, index + 1]
@@ -46,6 +68,7 @@ const App = () => {
             {sectionData.map((section, i) => (
                 <TaskSection
                     key={section.id}
+                    data-task-id={`task.${['card-sort', 'metadata', 'scenario', 'merging', 'swipe'][i]}`}
                     headerKey="task.metadata"
                     sectionIndex={i}
                     totalSections={sectionData.length}

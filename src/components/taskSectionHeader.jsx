@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/languageContext';
 import theme from '../themes/theme';
+import {getStoredScore, useLiveScore} from '../utils/scoreUtils';
 
 const TaskSectionHeader = ({ activeIndex, totalSections }) => {
     const { t } = useLanguage();
@@ -19,6 +20,8 @@ const TaskSectionHeader = ({ activeIndex, totalSections }) => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
+
+    const score = useLiveScore();
 
     return (
         <div
@@ -44,6 +47,17 @@ const TaskSectionHeader = ({ activeIndex, totalSections }) => {
                 <div style={{ fontSize: '1rem', fontWeight: 600 }}>
                     {t('section.part')} {activeIndex + 1}
                 </div>
+            </div>
+            <div
+                style={{
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    padding: '0.3rem 0.6rem',
+                    border: `1px solid ${theme.colors.text}`,
+                    borderRadius: '0.5rem',
+                }}
+            >
+                {score} pts
             </div>
             <div
                 style={{
