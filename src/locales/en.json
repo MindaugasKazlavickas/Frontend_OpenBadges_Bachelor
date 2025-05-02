@@ -27,7 +27,7 @@
   "task": {
     "section1": {
       "description": "Open badges are concerned with proving your soft skills, Assign the cards as you best see fit.",
-      "longHelp": "Tekstas tekstas tekstas"
+      "longHelp": "In traditional education, hard skills like lab work, attending lectures or conferences, or hands-on activities are often assessed through grades and exams.\n\nBut soft skills—those interpersonal and self-management abilities that shape how we work with others and manage tasks—are just as important, yet rarely evaluated through formal grades.\n\nOpen Badges help recognize and validate these soft skills by providing evidence of real experiences, contributions, or behaviors. They give learners a way to prove strengths that aren’t always visible in transcripts, but are crucial in both studies and careers."
     },
     "section2": {
       "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
@@ -46,7 +46,25 @@
       "description":"tekstas"
     },
     "metadata": {
-      "continueButton": "Continue"
+      "continueButton": "Continue",
+      "recipientEmailEncrypted": "Encrypted recipient email",
+      "earningCriteria": "Earning criteria",
+      "issueDate": "Issue date",
+      "badgeClass": "Badge class",
+      "achievementDescription": "Achievement description",
+      "issuer": "Issuer",
+
+      "socialMediaLinks": "Issuer's social media links",
+      "visualDesign": "Custom badge colors",
+      "badgeAnimation": "Animated badge graphics",
+      "unencryptedEmail": "Recipient's name",
+
+      "mistake": {
+        "socialMediaLinks": "Social media links are optional and not part of required Open Badge metadata.",
+        "visualDesign": "Color themes and visual styling are optional and do not form part of the badge's official metadata.",
+        "badgeAnimation": "Animations are visual enhancements and are not valid metadata.",
+        "unencryptedEmail": "Your name is considered PII(Personally Identifiable Information) and therefore attaching unecessary PII as metadata is usually avoided."
+      }
     },
     "merge": {
       "continueButton": "Continue"
@@ -77,28 +95,12 @@
     "scenario": {
       "continueButton": "Continue"
     },
-    "genericMistake": "This field is not required in every open badge.",
-    "option1": "Badge Recipient Name",
-    "option1.explanation": "The recipient name may be anonymized and isn't required by the badge format.",
-    "option2": "Badge Earning Criteria",
-    "option3": "Issue Date",
-    "option4": "Badge Type",
-    "option5": "Achievement Description",
-    "option6": "Encrypted Recipient Email",
-    "option6.explanation": "Encryption is optional and not a required badge metadata field.",
-    "option7": "Issuer's Social Media",
-    "option7.explanation": "Social media links are optional and not part of required metadata.",
-    "option8": "Badge Icon Animation",
-    "option8.explanation": "Animations are cosmetic and not necessary metadata.",
-    "option9": "Issuer",
-    "option10": "Badge Background Color",
-    "option10.explanation": "Visual styles like colors are not required badge data."
-  },
   "overlay-button": {
     "close": "Close"
   },
   "end": {
     "congrats": "Congratulations!",
     "earned": "You've earned your badge!"
+  }
   }
 }

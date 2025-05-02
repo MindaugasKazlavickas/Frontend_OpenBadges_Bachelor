@@ -34,6 +34,7 @@ const EndSection = () => {
             });
 
             if (response.ok) {
+                localStorage.setItem(BADGE_CLAIM_KEY, 'true');
                 setBadgeClaimed(true);
                 setSuccessMessage(t('end.success') || '🎉 Badge sent! Check your email!');
             } else {

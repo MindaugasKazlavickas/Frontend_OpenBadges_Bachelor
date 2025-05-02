@@ -75,7 +75,7 @@ const TaskSection = ({
                     <div className="task-prompt">
                         <p>{t(promptKey)}</p>
                         <button className="read-more-btn" onClick={() => setOverlayOpen(true)}>
-                            {t('button.readMore') || 'Read More ?'}
+                            {t('button.readMore') || 'Show context'}
                         </button>
                     </div>
                 )}
@@ -94,7 +94,9 @@ const TaskSection = ({
                 {overlayOpen && (
                     <div className="overlay">
                         <div className="overlay-content">
-                            <p>{t(longHelpKey)}</p>
+                            {t(longHelpKey).split('\n').map((line, idx) => (
+                                <p key={idx}>{line}</p>
+                            ))}
                             <button onClick={() => setOverlayOpen(false)}>{t('button.close') || 'Close'}</button>
                         </div>
                     </div>
