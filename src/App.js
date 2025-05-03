@@ -11,6 +11,7 @@ import CardSortTask from "./tasks/cardTask";
 import ScenarioTask from "./tasks/scenarioTask";
 import SlidingTask from "./tasks/slidingTask";
 import { isTaskCompleted } from './utils/scoreUtils';
+import IntroSection from './components/introSection';
 
 const sectionData = [
     { id: 'section1', headerKey: 'section.heading1' },
@@ -60,6 +61,8 @@ const App = () => {
     return (
         <LanguageProvider>
             <HeroSection />
+            <div id="intro-start-anchor" style={{ height: '1px' }}></div>
+            <IntroSection />
             <div id="task-start-anchor" style={{ height: '1px' }}></div>
             <TaskSectionHeader
                 activeIndex={Math.max(...unlockedSections)}

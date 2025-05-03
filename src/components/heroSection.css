@@ -12,12 +12,12 @@
 }
 
 .hero-tagline {
-    font-size: 1.2rem;
+    font-size: 24px;
     margin-bottom: 1rem;
 }
 
 .hero-headline {
-    font-size: 2.2rem;
+    font-size: 32px;
     font-weight: bold;
     min-height: 3rem;
     transition: opacity 0.5s ease-in-out;
@@ -29,13 +29,6 @@
 
 .fade-out {
     opacity: 0;
-}
-
-.hero-subtitle {
-    margin-top: 1rem;
-    font-size: 1.1rem;
-    min-height: 3rem;
-    line-height: 1.5;
 }
 
 .hero-keyword-stack {
@@ -53,7 +46,7 @@
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.5s ease;
-    font-size: 1.3rem;
+    font-size: 24px;
     font-weight: 600;
     color: white;
 }
@@ -67,12 +60,14 @@
     margin-top: 2.5rem;
     background-color: var(--theme-secondary, #facc15);
     color: black;
-    padding: 0.6rem 1.4rem;
+    padding: 0.6rem 2rem;
     border: none;
     border-radius: 999px;
     font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 40px;
 }
 
 .hero-cta.cta-animate {

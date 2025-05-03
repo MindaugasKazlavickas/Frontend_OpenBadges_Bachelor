@@ -7,12 +7,35 @@
     "keywords": ["Metadata", "Skills", "Proof", "Value"]
   },
   "button": {
-    "start": "Start Learning",
+    "start": "Start",
     "switchLang": "Lietuviškai",
     "readMore": "Show Context",
     "close": "Got it!",
     "continue": "Continue",
     "finish": "Get badge!"
+  },
+  "intro": {
+    "heading": "Welcome",
+    "welcome": "We want to introduce you to Open Badges!",
+    "goal": "Our goal is to teach you what they are, how they work and why they're useful.",
+    "how": "How you suceed:",
+    "list1": {
+      "item1": "Read the provided material.",
+      "item2": "Complete the given task by selecting all of the correct answers.",
+      "item3": "Complete all tasks and fill out the form at the end to get your own Open Badge!"
+    },
+    "points": "There's points:",
+    "list2": {
+      "item1": "Correct answers will give you +10 points",
+      "item2": "Wrong answers will give you -5 points and explain the mistake.",
+      "item3": "Your score will be tracked at the top. We will also attach the final score to your badge to show how awesome you are!"
+    },
+    "cta": "Before you begin:",
+    "list3": {
+      "item1": "Your progress is saved after each fully completed task.",
+      "item2": "Tasks have to be completed in order.",
+      "item3": "When ready, click 'Continue' and good luck!"
+    }
   },
   "section": {
     "heading1": "What Are Digital Badges?",

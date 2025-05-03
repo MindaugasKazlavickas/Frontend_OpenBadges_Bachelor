@@ -89,14 +89,11 @@ const HeroSection = () => {
                 <h2 className="hero-tagline">{t('hero.tagline')}</h2>
 
                 {/* Headline with fade */}
-                <h1 className={`hero-headline ${fade ? 'fade-in' : 'fade-out'}`}>
-                    {headlines[headlineIndex]}
-                </h1>
-
-                {/* Static subtitle */}
-                <p className="hero-subtitle">
-                    {t('hero.subtitle1')}
-                </p>
+                <div style={{ minHeight: 180, alignContent: 'center' }}>
+                    <h1 className={`hero-headline ${fade ? 'fade-in' : 'fade-out'}`}>
+                        {headlines[headlineIndex]}
+                    </h1>
+                </div>
 
                 { /* keyword ticker */}
                 <div className="hero-keyword-stack">
@@ -118,7 +115,7 @@ const HeroSection = () => {
                 <button
                     className={`hero-cta ${animateCTA ? 'cta-animate' : ''}`}
                     onClick={() => {
-                        const anchor = document.getElementById('task-start-anchor');
+                        const anchor = document.getElementById('intro-start-anchor');
                         if (anchor) {
                             anchor.scrollIntoView({ behavior: 'smooth' });
                         }

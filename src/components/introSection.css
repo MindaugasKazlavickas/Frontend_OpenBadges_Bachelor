@@ -1,0 +1,99 @@
+.intro-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12rem;
+}
+
+.intro-section {
+    width: 100%;
+}
+
+.zigzag-line {
+    overflow: visible;
+    color: var(--primary-color);
+}
+
+.intro-paragraphs {
+    scroll-snap-type: y mandatory;
+    display: flex;
+    flex-direction: column;
+    margin: auto auto;
+    padding: 2rem 1rem;
+}
+
+.intro-block {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+p {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.intro-block ul {
+    list-style-position: inside;
+    list-style-type: disc;
+    padding-left: 2rem;
+    text-align: left;
+}
+
+.intro-block li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .intro-block {
+        font-size: 24px;
+        max-width: 80%;
+    }
+}
+
+.intro-content {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.intro-paragraph {
+    padding: 0.5rem 1rem;
+}
+
+.intro-list {
+    text-align: left;
+    list-style-position: inside;
+    padding-left: 1.5rem;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+.intro-list li {
+    margin-bottom: 0.5rem;
+}
+
+.hero-cta {
+    margin-top: 2.5rem;
+    background-color: var(--theme-secondary, #facc15);
+    color: black;
+    padding: 0.6rem 2rem;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 40px;
+}
