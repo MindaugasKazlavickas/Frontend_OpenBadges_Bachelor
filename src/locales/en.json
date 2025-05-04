@@ -170,7 +170,8 @@
     },
     "overlay-button": {
       "close": "Close"
-    }
+    },
+    "completemerge": "Task completed! The badges were combined into a Meta badge."
   },
   "pts": "pts",
   "end": {

@@ -27,6 +27,7 @@
 .merge-video {
     width: 100%;
     height: auto;
+    max-height: 400px;
     object-fit: contain;
     border-radius: 50%;
 }

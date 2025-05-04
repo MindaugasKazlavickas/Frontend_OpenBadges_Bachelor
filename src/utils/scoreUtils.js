@@ -37,7 +37,7 @@ export const isTaskCompleted = (taskId) => {
 };
 
 export const useFloatingScore = () => {
-    const [floatingScore, setFloatingScore] = useState(null);
+    const [floatingScore, setFloatingScore] = useState(null); // ← always visible for testing
 
     const triggerFloatingScore = (amount) => {
         setFloatingScore(amount);
@@ -47,8 +47,7 @@ export const useFloatingScore = () => {
     const FloatingScoreBubble = () => {
         if (!floatingScore) return null;
 
-        const container = ensureFloatingScoreContainer();
-        return createPortal(
+        return (
             <div
                 className="floating-score"
                 style={{
@@ -57,8 +56,7 @@ export const useFloatingScore = () => {
                 }}
             >
                 {floatingScore}
-            </div>,
-            container
+            </div>
         );
     };
 
@@ -79,30 +77,20 @@ export const useLiveScore = () => {
 };
 
 const floatingScoreStyle = {
-    position: 'absolute',
-    right: '100%',
-    marginRight: '0.5rem',
-    top: '50%',
-    transform: 'translateY(-50%)',
+    position: 'fixed',
+    top: '80px',
+    right: '24px', // adjust based on actual header layout
     backgroundColor: 'var(--primary-color)',
     color: 'white',
     padding: '0.3rem 0.6rem',
-    borderRadius: '999px',
-    fontWeight: 'bold',
-    fontSize: '0.9rem',
+    border: '1px solid var(--primary-color)',
+    borderRadius: '0.5rem',
+    fontWeight: '600',
+    fontSize: '16px',
+    minHeight: '20px',
+    minWidth: '32px',
     zIndex: 9999,
     pointerEvents: 'none',
-    animation: 'fadeScoreUp 1s ease-out forwards'
-};
-
-const FLOATING_SCORE_PORTAL_ID = 'floating-score-root';
-
-const ensureFloatingScoreContainer = () => {
-    let el = document.getElementById(FLOATING_SCORE_PORTAL_ID);
-    if (!el) {
-        el = document.createElement('div');
-        el.id = FLOATING_SCORE_PORTAL_ID;
-        document.body.appendChild(el);
-    }
-    return el;
+    fontFamily: 'monospace',
+    animation: 'fadeScoreUp 5s ease-out forwards'
 };

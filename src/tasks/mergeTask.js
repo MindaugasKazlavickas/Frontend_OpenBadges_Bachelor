@@ -117,7 +117,7 @@ const BadgeMergeTask = ({ onUnlock }) => {
             <div className="card-task-instructions">
                 <p>
                     {completed
-                        ? t('task.complete') || 'Task complete!'
+                        ? t('task.completemerge') || 'Task complete!'
                         : t('task.merge.instructions')}
                 </p>
             </div>

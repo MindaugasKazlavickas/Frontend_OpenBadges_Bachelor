@@ -107,7 +107,7 @@ const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
                         </div>
                     </div>
             )}
-
+            <FloatingScoreBubble />
             {completed && (
                     <button className="scroll-btn" onClick={() => {
                         const next = document.getElementById('section-2');

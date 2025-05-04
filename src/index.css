@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#floating-score-root {
+  position: fixed;
+  top: 1rem;
+  right: 3rem; /* Adjust this to match where your score counter sits */
+  z-index: 1200;
+}
+
+@keyframes fadeScoreUp {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
