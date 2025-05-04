@@ -197,7 +197,8 @@
   "end": {
     "congrats": "Sveikiname!",
     "earned": "Tu gavai savo ženkliuką!",
-    "success": "Ženkliukas sėkmingai išduotas!"
+    "success": "Ženkliukas sėkmingai išduotas!",
+    "claimed": "Jūsų ženklelis sėkmingai gautas ir netrukus pasieks jūsų el. pašto dėžutę!"
   },
   "form": {
     "namePlaceholder": "Tavo vardas ir pavardė",

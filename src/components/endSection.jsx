@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useLanguage } from '../context/languageContext';
 import theme from '../themes/theme';
-
+import './endSection.css';
 const BADGE_CLAIM_KEY = 'userClaimedBadge';
 
 const EndSection = () => {
@@ -49,7 +49,7 @@ const EndSection = () => {
     };
 
     return (
-        <section id="EndSection" style={{ padding: '4rem 2rem', backgroundColor: theme.colors.secondary, color: 'black' }}>
+        <section id="EndSection" style={{ padding: '4rem 2rem', backgroundColor: theme.colors.primary, color: 'black' }}>
             <h2>{t('end.congrats')}</h2>
             <p>{t('end.earned')}</p>
 
@@ -73,7 +73,8 @@ const EndSection = () => {
                         required
                         style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
                     />
-                    <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem 1.5rem' }}>
+                    <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem 1.5rem' }}
+                    className="submitter">
                         {isSubmitting ? (t('form.sending') || 'Issuing badge...') : (t('form.submit') || 'Claim Badge')}
                     </button>
                 </form>
