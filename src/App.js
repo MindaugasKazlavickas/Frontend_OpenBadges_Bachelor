@@ -37,8 +37,30 @@ const sectionData = [
             { type: 'paragraph', key: 'task.section2.metadataP4' },
         ]
     },
-    { id: 'section3', headerKey: 'section.heading3' },
-    { id: 'section4', headerKey: 'section.heading4' },
+    {
+        id: 'section3',
+        headerKey: 'section.heading3',
+        materials: [
+            { type: 'header', key: 'task.section3.badgeMeaningHeader' },
+            { type: 'paragraph', key: 'task.section3.badgeP1' },
+            { type: 'paragraph', key: 'task.section3.badgeP2' },
+            { type: 'paragraph', key: 'task.section3.badgeP3' },
+            { type: 'header', key: 'task.section3.badgeCredHeader' },
+            { type: 'paragraph', key: 'task.section3.badgeP4' }
+        ]
+    },
+    {
+        id: 'section4',
+        headerKey: 'section.heading4',
+        materials: [
+            { type: 'header', key: 'task.section4.mergeStructureHeader' },
+            { type: 'paragraph', key: 'task.section4.mergeP1' },
+            { type: 'paragraph', key: 'task.section4.mergeP2' },
+            { type: 'paragraph', key: 'task.section4.mergeP3' },
+            { type: 'header', key: 'task.section4.mergeDisplayHeader' },
+            { type: 'paragraph', key: 'task.section4.mergeP4' }
+        ]
+    },
     { id: 'section5', headerKey: 'section.heading5' },
 ];
 

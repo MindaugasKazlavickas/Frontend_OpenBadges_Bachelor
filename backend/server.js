@@ -14,7 +14,6 @@ const {
 } = process.env;
 
 const TOKEN_URL = "https://openbadgefactory.com/v2/client/oauth2/token";
-const ISSUE_URL = `https://openbadgefactory.com/v2/event/${CLIENT_ID}/${BADGE_ID}/issue`;
 
 // Request access token using client credentials
 async function getAccessToken() {
@@ -86,12 +85,12 @@ app.post("/issue-obf-badge", async (req, res) => {
         try {
             result = JSON.parse(resultText);
         } catch (err) {
-            console.error("❌ Failed to parse badge issue response:", err.message);
+            console.error("Failed to parse badge issue response:", err.message);
             return res.status(500).json({ error: "Invalid JSON from OBF", raw: resultText });
         }
 
         if (!badgeResponse.ok) {
-            console.error("❌ Badge issue failed:", result);
+            console.error("Badge issue failed:", result);
             return res.status(badgeResponse.status).json({
                 error: result.message || "Badge issue failed",
                 details: result
@@ -102,7 +101,7 @@ app.post("/issue-obf-badge", async (req, res) => {
         return res.status(200).json({ success: true, data: result });
 
     } catch (err) {
-        console.error("❌ Fatal error during badge issuing:", err.message);
+        console.error("Fatal error during badge issuing:", err.message);
         return res.status(500).json({ error: err.message });
     }
 });

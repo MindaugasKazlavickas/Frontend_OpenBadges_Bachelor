@@ -5,19 +5,26 @@
     position: relative;
 }
 
+.draggable-badge:active {
+    transform: scale(1.1);
+}
+
 /* Layout for small draggable badges */
 .badge-layout {
     display: flex;
     justify-content: center;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
 }
 
 .draggable-badge {
-    width: 60px;
-    cursor: grab;
-    user-select: none;
+    width: 128px;
+    height: 128px;
+    transition: transform 0.2s ease;
+    touch-action: none;
+    z-index: 1;
 }
 
 /* Centered drop zone */
@@ -41,33 +48,50 @@
     100% { transform: scale(1); opacity: 1; }
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.65);
+.badge-cluster {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* always 3 columns */
+    justify-items: center;
+    align-items: end; /* bottom align all */
+    gap: 1rem;
+    padding: 1rem 0;
+    min-height: 120px;
+}
+
+.badge-slot {
     display: flex;
     justify-content: center;
+    height: 100%;
+}
+
+.badge-slot.align-top {
+    align-items: start;
+}
+
+.badge-slot.align-bottom {
+    align-items: end;
+}
+
+.badge-merge-zone {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    z-index: 10;
+    gap: 3rem;
+    margin-top: 2rem;
 }
 
-.overlay-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    max-width: 90%;
-    max-height: 80%;
-    overflow-y: auto;
-}
-
-/* Mobile responsiveness */
 @media (max-width: 600px) {
-    .meta-badge-wrapper {
-        width: 90px;
-        height: 90px;
-    }
-
     .draggable-badge {
-        width: 48px;
+        width: 100px;
+        height: 100px;
     }
+}
+.center-zone-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
 }

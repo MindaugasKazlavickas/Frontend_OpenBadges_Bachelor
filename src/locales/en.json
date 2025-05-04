@@ -43,7 +43,7 @@
     "heading1": "What Are Open Badges?",
     "heading2": "Understanding Metadata",
     "heading3": "Badge Examples & Use Cases",
-    "heading4": "How Open Badges Work",
+    "heading4": "Combining Open Badges",
     "heading5": "Why Recognition Matters",
     "part": "Part",
     "end": "The End",
@@ -57,9 +57,9 @@
       "heading1": "Recognizing Soft Skills",
       "introTitle": "Why Soft Skills Matter",
       "introP1": "In traditional education, hard skills like lab work, calculus, or attending lectures are often graded. These are tangible, teachable abilities usually gained through formal training.",
-      "introP2": "But soft skills—like communication, time management, or teamwork—are equally important and often go unrecognized. They're vital in study environments, group projects, and future careers.",
+      "introP2": "But soft skills—like communication, time management, or teamwork are equally important and often go unrecognized. They're vital in study environments, group projects, and future careers.",
       "hardVsSoftHeader": "How Open Badges Bridge the Gap",
-      "hardSoftText": "Open Badges help validate soft skills by linking them to real experiences, behaviors, and contributions. This gives learners a way to showcase strengths that transcripts don't capture—but employers and educators highly value."
+      "hardSoftText": "Open Badges help validate soft skills by linking them to real experiences, behaviors, and contributions. This gives learners a way to showcase strengths that transcripts don't capture but employers and educators highly value."
     },
     "section2": {
       "metadataHeader": "Why Metadata Matters",
@@ -70,12 +70,21 @@
       "metadataP4": "Alignment and Evidence attachments are typically issued for the most highly-regarded badges, usually after peer-reviews by higher education institutions and are not necessary for all Open Badges. At the end of this journey your badge will take some time to deliver, as we'll have these attachments issued for you! Finally, optional fields like issuer contacts or visual flair are rarely attached to save data throughput."
     },
     "section3": {
-      "longHelp": "tekstas ",
-      "description": "tekstas"
+      "badgeMeaningHeader": "What Do These Badges Represent?",
+      "badgeP1": "Open Badges represent a modern way of recognizing a learner's full range of contributions. Rather than certifying a single task or activity, badges highlight meaningful experiences that reflect multiple soft skills and real-world engagement.",
+      "badgeP2": "At Vilnius Tech, badges are used to acknowledge areas like scientific research, international involvement, and student leadership among many others. These are earned through combinations of initiative, communication, collaboration, cultural awareness, and peer support.",
+      "badgeP3": "The following examples show how badges can reflect broader competencies, helping students tell a more complete story about their abilities and values.",
+
+      "badgeCredHeader": "Why Are They Trusted Microcredentials?",
+      "badgeP4": "Because badges are awarded based on demonstrated competencies and reviewed against academic standards, they carry meaningful weight. They show not just what a learner knows but how they apply those skills in real-world, team-based, and intercultural contexts. This makes them a reliable, portable form of recognition for both academic and professional environments."
     },
     "section4": {
-      "description": "As you collect various badges that prove different competences, combining them leads to major Meta badges.",
-      "longHelp": "Tekstas tekstas tekstas"
+      "mergeStructureHeader": "From Individual Badges to Meta and Uber Badges",
+      "mergeP1": "Each Open Badge already represents a combination of competencies, but as participants engage in a subject, they often earn many related badges. Over time, this can result in badge overload with dozens of recognitions that could be more meaningful if combined.",
+      "mergeP2": "To address this, badges can be merged into more advanced forms. When a learner collects at least three related Open Badges, they may be combined into a Meta Badge. A Meta Badge represents broader mastery in a specific field and belongs to a higher badge class than standard badges.",
+      "mergeP3": "Those who go even further by earning most or all Meta Badges in a domain may be awarded an Uber Badge, which is a combination of Meta badges. Uber Badges signify the highest level of recognition, combining multiple Meta Badges to reflect advanced, sustained excellence. One of many goals of the system is to be a solution for equating these higher class badges to scientific achievements but within the soft-skill spectrum.",
+      "mergeDisplayHeader": "Badge Wallets",
+      "mergeP4": "With many badges earned over time, effective display becomes important. Badge wallets allow users to curate their most important or impressive achievements into a clean, shareable format. These wallets can be used in CVs, applications, or professional platforms like LinkedIn to present skills clearly and strategically. Combined badges make the sharing process easier by decluttering and focusing your achievements, and it's automatic, too, as you're about to find out."
     },
     "section5": {
       "longHelp": "tekstas",
@@ -102,7 +111,7 @@
       }
     },
     "merge": {
-      "continueButton": "Continue"
+      "instructions": "Drag the three different badges into the center ring to combine them and create a Meta badge."
     },
     "card": {
       "instructions": "Drag cards from the Skills field to the correct columns. Correct your mistakes, if made.",
@@ -132,6 +141,7 @@
     },
     "scenario": {
       "continueButton": "Continue",
+      "instructions": "Read each scenario and select the answer that best represents the person’s accomplishments.",
       "science": "Science And Innovations",
       "international": "Internationality",
       "studentrep": "Student Representation",

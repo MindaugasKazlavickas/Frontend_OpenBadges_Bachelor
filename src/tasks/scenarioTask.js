@@ -105,10 +105,17 @@ const ScenarioTask = ({ onUnlock }) => {
     useEffect(() => {
         if (isTaskCompleted('task.scenario')) {
             const preFilled = {};
+            const locked = {};
             scenarios.forEach(s => {
-                preFilled[s.id] = 'correct';
+                // Assume the correct option is always the first one marked `correct: true`
+                const correctOption = s.options.find(opt => opt.correct);
+                if (correctOption) {
+                    preFilled[s.id] = new Set([correctOption.id]);
+                    locked[s.id] = true;
+                }
             });
             setSelectedAnswers(preFilled);
+            setLockedScenarios(locked);
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
         }
@@ -117,6 +124,13 @@ const ScenarioTask = ({ onUnlock }) => {
     return (
         <div className="scenario-task-container">
             <FloatingScoreBubble />
+            <div className="card-task-instructions">
+                <p>
+                    {completed
+                        ? t('task.complete') || 'Task complete!'
+                        : t('task.scenario.instructions')}
+                </p>
+            </div>
             <ScenarioSwiper
                 scenarios={scenarios}
                 current={currentScenario}

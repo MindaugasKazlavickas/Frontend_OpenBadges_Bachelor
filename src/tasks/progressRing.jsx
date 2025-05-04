@@ -2,8 +2,8 @@ import React from 'react';
 import './progressRing.css';
 
 const ProgressRing = ({ current, total }) => {
-    const radius = 40;
-    const stroke = 8;
+    const radius = 80;
+    const stroke = 12;
     const normalizedRadius = radius - stroke / 2;
     const circumference = normalizedRadius * 2 * Math.PI;
     const progress = current / total;
@@ -33,9 +33,6 @@ const ProgressRing = ({ current, total }) => {
                     className="progress-ring"
                 />
             </svg>
-            <div className="progress-ring-text">
-                {current}/{total}
-            </div>
         </div>
     );
 };

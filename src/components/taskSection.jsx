@@ -144,12 +144,12 @@ const TaskSection = ({
             </div>
 
             {showLockedOverlay && (
-                <div className="overlay" style={{ zIndex: 999, pointerEvents: 'auto', opacity: 1}}>
+                <div className="overlay" style={{ zIndex: 100, pointerEvents: 'auto', opacity: 1}}>
                     <div className="overlay-content feedback-overlay">
                         <h3>{t('task.lockedSectionTitle') || 'Section Locked'}</h3>
                         <p>{t('task.lockedSectionMessage') || 'You need to complete the previous section before continuing.'}</p>
                         <button
-                            className="scroll-btn"
+                            className="scroll-between"
                             onClick={() => setShowLockedOverlay(false)}
                         >
                             {t('button.close') || 'Got it'}

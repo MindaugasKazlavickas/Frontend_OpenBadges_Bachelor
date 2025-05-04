@@ -47,7 +47,7 @@ const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete }) => {
                     controls={false}
                     disablePictureInPicture
                     onContextMenu={(e) => e.preventDefault()}
-                    poster="/metadata.png" // optional
+                    poster="/src/assets/metadata.png" // optional
                 >
                     <source src="/mergeAnimation.mp4" type="video/mp4" />
 
