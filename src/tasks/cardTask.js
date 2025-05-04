@@ -83,7 +83,7 @@ const CardSortTask = ({ onUnlock }) => {
 
         if (card.status === 'incorrect') {
             if (isCorrect) {
-                adjustScore(5);
+                adjustScore(10);
                 triggerFloatingScore('+10');
                 setColumns(prev => {
                     const newFrom = prev[from].filter(c => c.id !== card.id);
@@ -113,11 +113,11 @@ const CardSortTask = ({ onUnlock }) => {
                     [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isTopCorrect ? 'correct' : 'incorrect' }]
                 };
                 if (isTopCorrect) {
-                    adjustScore(5);
+                    adjustScore(10);
                     triggerFloatingScore('+10');
                     checkCompletion(updated);
                 } else {
-                    adjustScore(-2.5);
+                    adjustScore(-5);
                     triggerFloatingScore('-5');
                 }
                 return updated;

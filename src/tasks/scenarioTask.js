@@ -9,23 +9,22 @@ import {
     isTaskCompleted,
     useFloatingScore
 } from '../utils/scoreUtils';
-
+import ScenarioSwiper from './scenarioSwiper';
 import s1b1 from '../assets/scenario1badge1.png';
 import s1b2 from '../assets/scenario1badge2.png';
 import s1b3 from '../assets/scenario1badge3.png';
-
 import s2b1 from '../assets/scenario2badge1.png';
 import s2b2 from '../assets/scenario2badge2.png';
 import s2b3 from '../assets/scenario2badge3.png';
-
 import s3b1 from '../assets/scenario3badge1.png';
 import s3b2 from '../assets/scenario3badge2.png';
 import s3b3 from '../assets/scenario3badge3.png';
 
 const ScenarioTask = ({ onUnlock }) => {
+
     const { t } = useLanguage();
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
-
+    const [lockedScenarios, setLockedScenarios] = useState({});
     const [currentScenario, setCurrentScenario] = useState(1);
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [completed, setCompleted] = useState(false);
@@ -33,7 +32,8 @@ const ScenarioTask = ({ onUnlock }) => {
     const scenarios = [
         {
             id: 1,
-            text: t('task.scenario.story1') || 'You presented research at an international scientific conference, actively participated in Vilnius Tech’s internal research events, and were often seen studying or helping others at the university library.',
+            headerKey: 'science',
+            text: t('task.scenario.story.story1'),
             options: [
                 { id: 1, badge: s1b1, textKey: 'task.scenario.scenarios.scenario1.0', correct: true },
                 { id: 2, badge: s1b2, textKey: 'task.scenario.scenarios.scenario1.1', correct: false },
@@ -42,16 +42,18 @@ const ScenarioTask = ({ onUnlock }) => {
         },
         {
             id: 2,
-            text: t('task.scenario.story2') || 'You joined the Erasmus+ program for a semester abroad, volunteered at events welcoming international students, and helped organize intercultural activities.',
+            headerKey: 'international',
+            text: t('task.scenario.story.story2'),
             options: [
-                { id: 1, badge: s2b1, textKey: 'task.scenario.scenarios.scenario2.0', correct: true },
+                { id: 1, badge: s2b1, textKey: 'task.scenario.scenarios.scenario2.0', correct: false },
                 { id: 2, badge: s2b2, textKey: 'task.scenario.scenarios.scenario2.1', correct: false },
-                { id: 3, badge: s2b3, textKey: 'task.scenario.scenarios.scenario2.2', correct: false }
+                { id: 3, badge: s2b3, textKey: 'task.scenario.scenarios.scenario2.2', correct: true }
             ]
         },
         {
             id: 3,
-            text: t('task.scenario.story3') || 'You led your student group, mentored first-years, and volunteered as student representative during several events in 2024.',
+            headerKey: 'studentrep',
+            text: t('task.scenario.story.story3'),
             options: [
                 { id: 1, badge: s3b1, textKey: 'task.scenario.scenarios.scenario3.0', correct: true },
                 { id: 2, badge: s3b2, textKey: 'task.scenario.scenarios.scenario3.1', correct: false },
@@ -60,24 +62,34 @@ const ScenarioTask = ({ onUnlock }) => {
         }
     ];
 
-    const handleSelect = (scenarioId, optionId) => {
-        const scenario = scenarios.find(s => s.id === scenarioId);
-        const selectedOption = scenario.options.find(opt => opt.id === optionId);
+    const handleSelect = (scenarioId, selectedOption) => {
+        if (lockedScenarios[scenarioId]) return;
 
-        if (selectedAnswers[scenarioId] === 'correct') return;
+        const prevSelections = selectedAnswers[scenarioId] || new Set();
 
-        const newAnswers = {
-            ...selectedAnswers,
-            [scenarioId]: selectedOption.correct ? 'correct' : 'incorrect'
-        };
+        // If this option was already selected, ignore it
+        if (prevSelections.has(selectedOption.id)) return;
 
-        setSelectedAnswers(newAnswers);
+        const isCorrect = selectedOption.correct;
+        const newSelections = new Set(prevSelections).add(selectedOption.id);
 
-        if (selectedOption.correct) {
+        setSelectedAnswers(prev => ({
+            ...prev,
+            [scenarioId]: newSelections
+        }));
+
+        if (isCorrect) {
             adjustScore(10);
             triggerFloatingScore('+10');
 
-            const allCorrect = scenarios.every(s => newAnswers[s.id] === 'correct');
+            setLockedScenarios(prev => ({ ...prev, [scenarioId]: true }));
+
+            const nextScenario = scenarioId + 1;
+            if (nextScenario <= scenarios.length) {
+                setTimeout(() => setCurrentScenario(nextScenario), 1000); // ⏱ increased delay
+            }
+
+            const allCorrect = scenarios.every(s => lockedScenarios[s.id] || s.id === scenarioId);
             if (allCorrect) {
                 saveConfirmedScore(getLiveScore());
                 saveTaskCompletion('task.scenario');
@@ -89,31 +101,6 @@ const ScenarioTask = ({ onUnlock }) => {
             triggerFloatingScore('-5');
         }
     };
-
-    const renderScenario = (scenario) => (
-        <div key={scenario.id} className="scenario-box">
-            <p>{scenario.text}</p>
-            <div className="scenario-options">
-                {scenario.options.map(opt => (
-                    <button
-                        key={opt.id}
-                        className={`scenario-option ${selectedAnswers[scenario.id] && opt.correct && selectedAnswers[scenario.id] === 'correct' ? 'correct' : ''}
-              ${selectedAnswers[scenario.id] && !opt.correct && selectedAnswers[scenario.id] === 'incorrect' ? 'incorrect' : ''}`}
-                        onClick={() => handleSelect(scenario.id, opt.id)}
-                        disabled={selectedAnswers[scenario.id] === 'correct'}
-                    >
-                        <img src={opt.badge} alt="Badge" className="badge-icon" />
-                        {t(opt.textKey)}
-                    </button>
-                ))}
-            </div>
-            {selectedAnswers[scenario.id] === 'incorrect' && (
-                <div className="feedback-text">
-                    {t('task.scenario.incorrectFeedback') || 'Not quite right – try reviewing the scenario and reasoning again.'}
-                </div>
-            )}
-        </div>
-    );
 
     useEffect(() => {
         if (isTaskCompleted('task.scenario')) {
@@ -129,22 +116,14 @@ const ScenarioTask = ({ onUnlock }) => {
 
     return (
         <div className="scenario-task-container">
-            <div className="scenario-progress">
-                {scenarios.map((s) => (
-                    <button
-                        key={s.id}
-                        className={`progress-square 
-              ${selectedAnswers[s.id] === 'correct' ? 'green' : ''}
-              ${selectedAnswers[s.id] === 'incorrect' ? 'red' : ''}`}
-                        onClick={() => setCurrentScenario(s.id)}
-                    >
-                        {s.id}
-                    </button>
-                ))}
-            </div>
             <FloatingScoreBubble />
-
-            {renderScenario(scenarios.find(s => s.id === currentScenario))}
+            <ScenarioSwiper
+                scenarios={scenarios}
+                current={currentScenario}
+                answers={selectedAnswers}
+                locked={lockedScenarios}
+                onSelect={handleSelect}
+            />
             {completed && (
                 <button className="scroll-btn" onClick={() => {
                     const next = document.getElementById('section-3');

@@ -134,7 +134,12 @@
       "continueButton": "Continue",
       "science": "Science And Innovations",
       "international": "Internationality",
-
+      "studentrep": "Student Representation",
+      "story": {
+        "story1": "Lukas presented his research at an international scientific conference, contributed actively to Vilnius Tech’s internal research events, and regularly supported peers at the university library. His communication, scientific literacy, and knowledge-sharing efforts earned recognition in the field of innovation.",
+        "story2": "Ana organized weekly board game nights open to all students, including exchange and international participants. Her initiative fostered inclusion, strengthened intercultural understanding, and helped engage underrepresented groups — showcasing leadership, empathy, and organizational skills.",
+        "story3": "Jonas mentored first-year students, led his academic group, and volunteered as a student representative at major university events. Through guidance, advocacy, and teamwork, he demonstrated strong peer support, responsibility, and commitment to the academic community."
+      },
       "scenarios": {
         "scenario1": [
           "International scientific conference presenter 2024",
