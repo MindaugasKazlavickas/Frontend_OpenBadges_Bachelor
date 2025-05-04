@@ -1,7 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProgressRing from './progressRing';
 import "./mergeCenterDisplay.css";
-const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete }) => {
+import badge1 from '../assets/metaBadge1.png';
+import badge2 from '../assets/metaBadge2.png';
+import badge3 from '../assets/metaBadge3.png';
+
+const badgeMap = {
+    badge1,
+    badge2,
+    badge3,
+};
+
+const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete, droppedItems }) => {
     const videoRef = useRef(null);
     const [videoPlayed, setVideoPlayed] = useState(false);
     const [fadingOut, setFadingOut] = useState(false);
@@ -22,6 +32,9 @@ const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete }) => {
 
     return (
         <div className="center-display-container">
+            <video preload="auto" style={{ display: 'none' }}>
+                <source src="/mergeAnimation.mp4" type="video/mp4" />
+            </video>
             {!showVideo  ? (
                 <div
                     className={`progress-ring-wrapper ${fadingOut ? 'fade-out' : ''}`}
@@ -35,6 +48,11 @@ const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete }) => {
                         circleColor="#e0e0e0"
                         progressColor="#4caf50"
                     />
+                    {droppedItems.map((badgeId, index) => (
+                        <div key={badgeId} className={`orbit-container orbit-${index}`}>
+                            <img src={badgeMap[badgeId]} alt={`Orbiting ${badgeId}`} className="orbiting-badge" />
+                        </div>
+                    ))}
                 </div>
             ) : (
                 <video

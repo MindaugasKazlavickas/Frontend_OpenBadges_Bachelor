@@ -172,6 +172,7 @@
       "close": "Close"
     }
   },
+  "pts": "pts",
   "end": {
     "congrats": "Congratulations!",
     "earned": "You've earned your badge!",

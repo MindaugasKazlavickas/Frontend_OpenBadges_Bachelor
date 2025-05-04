@@ -54,7 +54,7 @@ const TaskSection = ({
             if (!anchor) return;
 
             const rect = anchor.getBoundingClientRect();
-            const headerHeight = 126;
+            const headerHeight = 106;
             setIsTaskView(rect.top < headerHeight);
         };
 
@@ -68,7 +68,7 @@ const TaskSection = ({
         const target = isTaskView ? ref.current : taskRef.current;
         if (!target) return;
 
-        const headerOffset = 126;
+        const headerOffset = 106;
         const targetRect = target.getBoundingClientRect();
         const isScrollingDown = targetRect.top > 0;
 
@@ -84,7 +84,7 @@ const TaskSection = ({
         <section
             id={`section-${sectionIndex}`}
             ref={ref}
-            className="task-section-container"
+            className="task-section-container, task-section"
             style={{
                 backgroundColor: theme.colors.background,
                 color: theme.colors.text,

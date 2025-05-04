@@ -183,7 +183,7 @@ const CardSortTask = ({ onUnlock }) => {
                     <p>
                         {completed
                             ? t('task.complete') || 'Task complete!'
-                            : t('task.metadata.instructions')}
+                            : t('task.card.instructions')}
                     </p>
                 </div>
 

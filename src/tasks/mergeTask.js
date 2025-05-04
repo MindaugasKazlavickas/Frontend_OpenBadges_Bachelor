@@ -124,8 +124,8 @@ const BadgeMergeTask = ({ onUnlock }) => {
 
             <DndContext onDragEnd={handleDragEnd}>
                 <div className="badge-merge-zone">
-                    <div className="badge-cluster">
-                        <div className="badge-slot">
+                    <div className={`badge-cluster ${droppedItems.length === 3 ? 'collapsed' : ''}`}>
+                    <div className="badge-slot">
                             {!droppedItems.includes('badge1') && (
                                 <DraggableBadge id="badge1" src={badge1} />
                             )}
@@ -152,6 +152,7 @@ const BadgeMergeTask = ({ onUnlock }) => {
                             droppedCount={droppedItems.length}
                             totalCount={badgeList.length}
                             isComplete={completed}
+                            droppedItems={droppedItems}
                         />
                     </DropZone>
                 </div>

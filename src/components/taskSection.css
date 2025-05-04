@@ -173,3 +173,10 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+#floating-score-root {
+    position: fixed;
+    top: 1rem;
+    right: 5.5rem; /* Adjust this to match where your score counter sits */
+    z-index: 1200;
+}

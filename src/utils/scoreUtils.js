@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 export const getStoredScore = () => {
     const saved = localStorage.getItem('confirmedScore');
@@ -43,8 +44,11 @@ export const useFloatingScore = () => {
         setTimeout(() => setFloatingScore(null), 1000);
     };
 
-    const FloatingScoreBubble = () => (
-        floatingScore ? (
+    const FloatingScoreBubble = () => {
+        if (!floatingScore) return null;
+
+        const container = ensureFloatingScoreContainer();
+        return createPortal(
             <div
                 className="floating-score"
                 style={{
@@ -53,9 +57,10 @@ export const useFloatingScore = () => {
                 }}
             >
                 {floatingScore}
-            </div>
-        ) : null
-    );
+            </div>,
+            container
+        );
+    };
 
     return { floatingScore, triggerFloatingScore, FloatingScoreBubble };
 };
@@ -75,15 +80,29 @@ export const useLiveScore = () => {
 
 const floatingScoreStyle = {
     position: 'absolute',
-    top: '0.5rem',
-    right: '1rem',
-    transform: 'translateY(0)',
+    right: '100%',
+    marginRight: '0.5rem',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: 'var(--primary-color)',
     color: 'white',
-    padding: '0.4rem 0.8rem',
+    padding: '0.3rem 0.6rem',
     borderRadius: '999px',
     fontWeight: 'bold',
-    fontSize: '0.95rem',
-    zIndex: 1000,
+    fontSize: '0.9rem',
+    zIndex: 9999,
     pointerEvents: 'none',
     animation: 'fadeScoreUp 1s ease-out forwards'
+};
+
+const FLOATING_SCORE_PORTAL_ID = 'floating-score-root';
+
+const ensureFloatingScoreContainer = () => {
+    let el = document.getElementById(FLOATING_SCORE_PORTAL_ID);
+    if (!el) {
+        el = document.createElement('div');
+        el.id = FLOATING_SCORE_PORTAL_ID;
+        document.body.appendChild(el);
+    }
+    return el;
 };

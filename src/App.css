@@ -56,17 +56,30 @@ html, body {
   scroll-snap-align: start;
 }
 
-@keyframes fadeScore {
+@keyframes fadeScoreUp {
   0% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  20% {
     opacity: 1;
-    transform: translateY(-10px);
+    transform: translateY(0);
   }
   100% {
     opacity: 0;
     transform: translateY(-20px);
   }
+}
+
+#floating-score-root {
+  position: fixed;
+  top: 0.9rem;
+  right: 6.5rem; /* tweak based on your header layout */
+  z-index: 1200;
+}
+
+.floating-score {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: white;
+  animation: fadeScoreUp 1s ease-out forwards;
+  pointer-events: none;
 }
