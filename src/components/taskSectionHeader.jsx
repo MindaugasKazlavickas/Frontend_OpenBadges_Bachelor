@@ -33,7 +33,7 @@ const TaskSectionHeader = ({ activeIndex, totalSections }) => {
                 zIndex: 1000,
                 backgroundColor: theme.colors.background,
                 padding: '0.8rem 1rem',
-                borderBottom: `1px solid ${theme.colors.text}`,
+                borderBottom: `2px solid ${theme.colors.primary}`,
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',

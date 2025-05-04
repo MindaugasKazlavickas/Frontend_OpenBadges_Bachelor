@@ -12,7 +12,9 @@
     "readMore": "Show Context",
     "close": "Got it!",
     "continue": "Continue",
-    "finish": "Get badge!"
+    "finish": "Get badge!",
+    "goToTask": "Go To Task",
+    "backToMaterials": "Go To Material"
   },
   "intro": {
     "heading": "Welcome",
@@ -38,7 +40,7 @@
     }
   },
   "section": {
-    "heading1": "What Are Digital Badges?",
+    "heading1": "What Are Open Badges?",
     "heading2": "Understanding Metadata",
     "heading3": "Badge Examples & Use Cases",
     "heading4": "How Open Badges Work",
@@ -48,9 +50,14 @@
     "unlock": "Unlock Next Section"
   },
   "task": {
+    "complete": "Task completed!",
     "section1": {
-      "description": "Open badges are concerned with proving your soft skills, Assign the cards as you best see fit.",
-      "longHelp": "In traditional education, hard skills like lab work, attending lectures or conferences, or hands-on activities are often assessed through grades and exams.\n\nBut soft skills—those interpersonal and self-management abilities that shape how we work with others and manage tasks—are just as important, yet rarely evaluated through formal grades.\n\nOpen Badges help recognize and validate these soft skills by providing evidence of real experiences, contributions, or behaviors. They give learners a way to prove strengths that aren’t always visible in transcripts, but are crucial in both studies and careers."
+      "heading1": "Recognizing Soft Skills",
+      "introTitle": "Why Soft Skills Matter",
+      "introP1": "In traditional education, hard skills like lab work, calculus, or attending lectures are often graded. These are tangible, teachable abilities usually gained through formal training.",
+      "introP2": "But soft skills—like communication, time management, or teamwork—are equally important and often go unrecognized. They're vital in study environments, group projects, and future careers.",
+      "hardVsSoftHeader": "How Open Badges Bridge the Gap",
+      "hardSoftText": "Open Badges help validate soft skills by linking them to real experiences, behaviors, and contributions. This gives learners a way to showcase strengths that transcripts don't capture—but employers and educators highly value."
     },
     "section2": {
       "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
@@ -91,13 +98,15 @@
       "continueButton": "Continue"
     },
     "card": {
+      "instructions": "Drag the skills to the correct columns.",
+      "bank": "Skills",
       "columnA": "Hard Skills",
       "columnB": "Soft Skills",
       "continueButton": "Continue",
       "excelAnalysis": "Data analysis using Excel",
       "programmingBasics": "Programming basics",
       "timeManagement": "Time management",
-      "readingBlueprints": "Reading construction blueprints",
+      "readingBlueprints": "Reading blueprints",
       "teamwork": "Teamwork",
       "publicSpeaking": "Public speaking",
       "labResearch": "Conducting lab research",

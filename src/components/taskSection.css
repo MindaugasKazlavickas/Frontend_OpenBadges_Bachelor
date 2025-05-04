@@ -1,33 +1,8 @@
 .task-section-container {
-    padding: 2rem 1rem;
-    text-align: center;
     overflow: hidden;
-}
-
-.task-prompt {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.read-more-btn {
-    display: block;
-    margin: 1.5rem auto 0 auto;
-    background-color: var(--secondary-color);
-    color: black;
-    border: 1px solid var(--primary-color);
-    padding: 0.4rem 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    scroll-snap-align: start;
     text-align: center;
 }
-
-.read-more-btn:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
 .scroll-btn {
     display: block;
     margin: 1.5rem auto 0 auto;
@@ -36,7 +11,9 @@
     padding: 0.6rem 1.4rem;
     border: none;
     border-radius: 999px;
-    font-size: 1rem;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 40px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -85,19 +62,21 @@
     text-align: left;
 }
 
-.overlay-content button {
+.scroll-between {
     display: block;
-    margin: 1.5rem auto 0 auto;
     background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 0.4rem 1rem;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: bold;
+    font-size: 16px;
+    min-height: 40px;
     transition: all 0.2s ease-in-out;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 48px;
 }
 
 .overlay-content button:hover {
@@ -105,14 +84,56 @@
     color: black;
 }
 
-@media (max-width: 600px) {
-    .scenario-box,
-    .scenario-options,
-    .feedback-text {
-        max-width: 90%;
-    }
+.task-section-content {
+    max-width: 600px;
+    text-align: left;
+    padding-left: 32px;
+    padding-right: 32px;
+    margin: auto;
+}
 
-    .read-more-btn {
-        width: 100%;
-    }
+.task-section-header {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.task-section-subheader {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.task-section-subheader::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--primary-color, #0ea5e9);
+}
+
+.task-section-paragraph {
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 0;
+}
+
+.back-to-materials-btn {
+    position: sticky;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+    background-color: var(--theme-secondary, #facc15);
+    color: black;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
 }

@@ -14,11 +14,29 @@ import { isTaskCompleted } from './utils/scoreUtils';
 import IntroSection from './components/introSection';
 
 const sectionData = [
-    { id: 'section1', headerKey: 'section.heading1' },
+    {
+        id: 'section1',
+        headerKey: 'section.heading1',
+        materials: [
+            { type: 'header', key: 'task.section1.introTitle' },
+            { type: 'paragraph', key: 'task.section1.introP1' },
+            { type: 'paragraph', key: 'task.section1.introP2' },
+            { type: 'header', key: 'task.section1.hardVsSoftHeader' },
+            { type: 'paragraph', key: 'task.section1.hardSoftText' }
+        ]
+    },
     { id: 'section2', headerKey: 'section.heading2' },
     { id: 'section3', headerKey: 'section.heading3' },
     { id: 'section4', headerKey: 'section.heading4' },
     { id: 'section5', headerKey: 'section.heading5' },
+];
+
+const taskIdMap = [
+    'task.card-sort',
+    'task.metadata',
+    'task.scenario',
+    'task.merging',
+    'task.swipe'
 ];
 
 const App = () => {
@@ -32,22 +50,15 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        const taskIdMap = [
-            'task.card-sort',
-            'task.metadata',
-            'task.scenario',
-            'task.merging',
-            'task.swipe'
-        ];
-
         const firstIncompleteIndex = taskIdMap.findIndex((id) => !isTaskCompleted(id));
-
         if (firstIncompleteIndex >= 0) {
-            const target = document.querySelector(`[data-task-id="${taskIdMap[firstIncompleteIndex]}"]`);
+            const target = document.querySelector(
+                `[data-task-id="${taskIdMap[firstIncompleteIndex]}"]`
+            );
             if (target) {
                 setTimeout(() => {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 300); // delay to allow DOM render
+                }, 300);
             }
         }
     }, []);
@@ -71,14 +82,13 @@ const App = () => {
             {sectionData.map((section, i) => (
                 <TaskSection
                     key={section.id}
-                    data-task-id={`task.${['card-sort', 'metadata', 'scenario', 'merging', 'swipe'][i]}`}
-                    headerKey="task.metadata"
+                    data-task-id={taskIdMap[i]}
+                    headerKey={section.headerKey}
                     sectionIndex={i}
+                    materials={section.materials}
                     totalSections={sectionData.length}
                     isLocked={!unlockedSections.includes(i)}
                     onUnlock={() => unlockSection(i)}
-                    promptKey={`task.section${i + 1}.description`}
-                    longHelpKey={`task.section${i + 1}.longHelp`}
                 >
                     {i === 0 ? (
                         <CardSortTask onUnlock={() => unlockSection(i)} sectionIndex={i} />

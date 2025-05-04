@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     flex-wrap: wrap;
 }
 
@@ -25,10 +25,11 @@
 }
 
 .card-column h4 {
-    margin-bottom: 0.5rem;
-    color: #002147; /* dark navy text for title */
-    font-weight: 600;
-    font-size: 1rem;
+    margin-bottom: 16px;
+    margin-top: 0;
+    color: var(--primary-color); /* dark navy text for title */
+    font-weight: bold;
+    font-size: 24px;
 }
 
 .card {
@@ -40,8 +41,8 @@
     cursor: grab;
     transition: transform 0.2s, box-shadow 0.2s;
     user-select: none;
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 500;
+    font-size: 16px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
@@ -72,6 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
@@ -119,9 +121,30 @@
         grid-area: bank;
         min-height: 80px;
         padding: 0.3rem;
+        min-width: 95%;
     }
 
     .card-sort-task-container {
         padding: 1rem 0.5rem;
     }
+}
+
+.card-task-instructions {
+    max-width: 600px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #fef9c3; /* subtle yellow */
+    border-radius: 8px;
+    border: 1px solid #facc15;
+    color: #3b3b00;
+    margin: auto;
+}
+
+.card-bank h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
 }

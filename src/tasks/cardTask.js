@@ -20,23 +20,24 @@ const initialCards = [
     { id: 8, text: "task.card.conflictResolution", correctColumn: "B", mistakeKey: "task.card.mistake.conflictResolution" },
 ];
 
-const DraggableCard = ({ card, from }) => {
+const DraggableCard = ({ card, from, disabled = false  }) => {
     const { t } = useLanguage();
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: card.id.toString(),
         data: { card, from },
+        disabled,
     });
 
     return (
         <div
             ref={setNodeRef}
-            {...attributes}
-            {...listeners}
+            {...(!disabled ? attributes : {})}
+            {...(!disabled ? listeners : {})}
             className={`card card-${card.status || 'pending'}`}
             style={{
                 transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
-                touchAction: 'none',
-                cursor: 'grab',
+                touchAction: disabled ? 'auto' : 'none',
+                cursor: disabled ? 'default' : 'grab',
             }}
         >
             {t(card.text)}
@@ -45,7 +46,7 @@ const DraggableCard = ({ card, from }) => {
 };
 
 
-const DroppableColumn = ({ id, label, cards, onDrop }) => {
+const DroppableColumn = ({ id, label, cards, onDrop, disabled = false  }) => {
     const { setNodeRef, isOver } = useDroppable({ id });
 
     return (
@@ -56,7 +57,7 @@ const DroppableColumn = ({ id, label, cards, onDrop }) => {
         >
             <h4>{label}</h4>
             {cards.map((card) => (
-                <DraggableCard key={card.id} card={card} from={id} />
+                <DraggableCard key={card.id} card={card} from={id} disabled={disabled} />
             ))}
         </div>
     );
@@ -166,6 +167,7 @@ const CardSortTask = ({ onUnlock }) => {
                         cards={columns.A}
                         onDrop={handleDragEnd}
                         className="card-column column-a"
+                        disabled={completed}
                     />
                     <DroppableColumn
                         id="B"
@@ -173,12 +175,22 @@ const CardSortTask = ({ onUnlock }) => {
                         cards={columns.B}
                         onDrop={handleDragEnd}
                         className="card-column column-b"
+                        disabled={completed}
                     />
+                </div>
+
+                <div className="card-task-instructions">
+                    <p>
+                        {completed
+                            ? t('task.complete') || 'Task complete!'
+                            : t('task.card.instructions')}
+                    </p>
                 </div>
 
                 {cardStack.length > 0 && (
                     <div className="card-bank">
-                        <DraggableCard card={cardStack[0]} from="stack" />
+                        <h4>{t('task.card.bank') || 'Skills'}</h4>
+                        <DraggableCard card={cardStack[0]} from="stack" disabled={completed}/>
                     </div>
                 )}
             </DndContext>
@@ -189,15 +201,6 @@ const CardSortTask = ({ onUnlock }) => {
                     <div className="overlay-content">
                         <p>{t(feedbackCard.mistakeKey)}</p>
                         <button onClick={() => setFeedbackCard(null)}>{t('button.close') || 'Close'}</button>
-                    </div>
-                </div>
-            )}
-
-            {overlayOpen && (
-                <div className="overlay">
-                    <div className="overlay-content">
-                        <p>{t('task.card.longHelp') || 'Kietosios kompetencijos yra įgyjamos formalaus mokymo metu, o minkštosios - įgyjamos neformaliai – per popaskaitinę veiklą, savanorystę, komandinį darbą ir kt.'}</p>
-                        <button onClick={() => setOverlayOpen(false)}>{t('button.close')}</button>
                     </div>
                 </div>
             )}
