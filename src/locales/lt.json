@@ -1,45 +1,207 @@
 {
   "hero": {
-    "tagline": "What are Open Badges?",
-    "headline1": "Recognize Effort. Reward Progress.",
-    "headline2": "Prove What You Know. Be Recognized.",
-    "subtitle1": "With digital badges, every skill you master becomes part of your professional story.",
-    "keywords": ["Įgūdžiai", "Metaduomenys", "Įrodymai", "Vertė"]
+    "tagline": "Kas yra atvirieji ženkliukai?",
+    "headline1": "Pripažink pastangas. Apdovanok pažangą.",
+    "headline2": "Įrodyk, ką žinai. Būk įvertintas.",
+    "subtitle1": "Neleisk savo mokymuisi likti nepastebėtam. Sužinok, kaip atvirieji ženkliukai parodo tavo įgūdžius.",
+    "keywords": [
+      "Metaduomenys",
+      "Įgūdžiai",
+      "Įrodymas",
+      "Vertė"
+    ]
   },
   "button": {
-    "start": "Pradėti mokymąsi",
-    "switchLang": "English"
+    "start": "Pradėti",
+    "switchLang": "In English",
+    "readMore": "Rodyti kontekstą",
+    "close": "Supratau!",
+    "continue": "Tęsti",
+    "finish": "Gauti ženkliuką!",
+    "goToTask": "Eiti į užduotį",
+    "backToMaterials": "Grįžti į medžiagą"
+  },
+  "intro": {
+    "heading": "Sveiki atvykę",
+    "welcome": "Norime supažindinti jus su atviraisiais ženkliukais!",
+    "goal": "Mūsų tikslas – paaiškinti, kas tai yra, kaip jie veikia ir kuo jie naudingi.",
+    "how": "Kaip pasiekti sėkmę:",
+    "list1": {
+      "item1": "Perskaityk pateiktą medžiagą.",
+      "item2": "Atlik užduotį teisingai pažymėdamas visus atsakymus.",
+      "item3": "Užbaik visas užduotis ir užpildyk formą pabaigoje – gausi savo atvirąjį ženkliuką!"
+    },
+    "points": "Yra taškai:",
+    "list2": {
+      "item1": "Teisingi atsakymai suteikia +10 taškų",
+      "item2": "Klaidingi atsakymai atima 5 taškus ir parodo klaidos paaiškinimą.",
+      "item3": "Tavo taškai bus matomi viršuje. Galutinis rezultatas taip pat bus pridėtas prie tavo ženkliuko, kad parodytų, koks šaunus esi!"
+    },
+    "cta": "Prieš pradedant:",
+    "list3": {
+      "item1": "Tavo progresas išsaugomas po kiekvienos pilnai įvykdytos užduoties.",
+      "item2": "Užduotis reikia atlikti iš eilės.",
+      "item3": "Kai būsi pasiruošęs, spausk „Tęsti“ ir sėkmės!"
+    }
   },
   "section": {
-    "heading1": "What Are Digital Badges?",
-    "heading2": "Understanding Metadata",
-    "heading3": "Badge Examples & Use Cases",
-    "heading4": "How Open Badges Work",
-    "heading5": "Why Recognition Matters",
-    "part": "Part",
-    "end": "The End",
-    "unlock": "Unlock Next Section"
+    "heading1": "Kas yra atvirieji ženkliukai?",
+    "heading2": "Metaduomenų supratimas",
+    "heading3": "Ženkliukų pavyzdžiai ir panaudojimo atvejai",
+    "heading4": "Atvirųjų ženkliukų jungimas",
+    "heading5": "Kodėl pripažinimas svarbus",
+    "part": "Dalis",
+    "end": "Pabaiga",
+    "unlock": "Atrakinti kitą skyrių"
   },
   "task": {
-    "metadata": {
-      "description": "Mark the information required in every open badge.",
-      "longHelp": "Open badges must include key metadata fields such as the badge type, issue date, criteria, and achievement description. These ensure the badge is verifiable and understandable to recipients and reviewers."
+    "lockedSectionTitle": "Skyrius užrakintas",
+    "lockedSectionMessage": "Pirmiausia turi užbaigti ankstesnį skyrių, kad galėtum tęsti.",
+    "complete": "Užduotis įvykdyta!",
+    "section1": {
+      "heading1": "Minkštųjų įgūdžių atpažinimas",
+      "introTitle": "Kodėl svarbūs minkštieji įgūdžiai",
+      "introP1": "Tradiciniame ugdyme dažnai vertinami kietieji įgūdžiai, tokie kaip laboratoriniai darbai, skaičiavimai ar paskaitų lankymas. Tai apčiuopiami, išmokstami gebėjimai, įgyjami per formalų mokymąsi.",
+      "introP2": "Tačiau minkštieji įgūdžiai – tokie kaip bendravimas, laiko planavimas ar darbas komandoje – yra ne mažiau svarbūs, bet dažnai lieka nepastebėti. Jie būtini tiek studijų aplinkoje, tiek komandiniuose projektuose, tiek būsimoje karjeroje.",
+      "hardVsSoftHeader": "Kaip atvirieji ženkliukai užpildo spragą",
+      "hardSoftText": "Atvirieji ženkliukai padeda įvertinti minkštuosius įgūdžius, susiedami juos su tikromis patirtimis, elgesiu ir indėliu. Tai leidžia mokiniams parodyti stipriąsias puses, kurių pažymiai neatskleidžia, bet kurias vertina darbdaviai ir dėstytojai."
     },
-    "genericMistake": "This information is not required in every badge.",
-    "option1": "Badge Recipient Name",
-    "option1.explanation": "The badge recipient name is often private or anonymized; it's not required in every badge.",
-    "option2": "Badge Earning Criteria",
-    "option3": "Issue Date",
-    "option4": "Badge Type",
-    "option5": "Achievement Description",
-    "option6": "Encrypted Recipient Email",
-    "option6.explanation": "Email encryption is optional depending on the system. It’s not mandatory metadata."
+    "section2": {
+      "metadataHeader": "Kodėl svarbūs metaduomenys",
+      "metadataP1": "Metaduomenys atviruosiuose ženkliukuose reiškia įdėtą informaciją, apibrėžiančią ženkliuko paskirtį, leidėją ir pasiekimą, kurį jis atspindi. Tai yra foninė informacija, kuri paverčia ženkliuką ne tik grafinio simbolio, bet reikšmingu ir patikrinamu įrodymu.",
+      "metadataP2": "Ši kontekstinė informacija leidžia dėstytojams, darbdaviams ir bendraamžiams suprasti ne tik kaip ženkliukas atrodo, bet ir ką jis reiškia. Metaduomenys patvirtina ženkliuko patikimumą, užtikrindami, kad jis atspindi tikrą pasiekimą su aiškiais kriterijais.",
+      "metadataInclude": "Atvirųjų ženkliukų metaduomenys",
+      "metadataP3": "Tinkamai suformuotame atvirajame ženkliuke turi būti pagrindiniai metaduomenų laukai, tokie kaip ženkliuko pavadinimas, aprašymas ir paveikslėlis, kurie sudaro Ženkliuko klasę. Taip pat turi būti įtraukti išdavimo data, leidėją atstovaujanti organizacija, pasiekimo kriterijai ir pasiekimo aprašymas. Identifikavimui dažniausiai naudojamas užšifruotas gavėjo el. paštas, nes tai yra asmeninė informacija (PII), o PII pridėjimas prie viešai prieinamų elementų gali kelti saugumo riziką.",
+      "metadataP4": "Lygiavimas ir įrodymų priedai dažniausiai pridedami prie labiausiai vertinamų ženkliukų – paprastai po aukštojo mokslo institucijų peržiūros – tačiau jie nėra būtini visiems ženkliukams. Šios kelionės pabaigoje tavo ženkliukas gali būti išduotas šiek tiek vėliau, nes mes įtrauksime šiuos priedus už tave! Galiausiai, tokie neprivalomi laukai kaip leidėjo kontaktai ar dekoratyviniai elementai paprastai nepridedami siekiant taupyti duomenų srautą."
+    },
+    "section3": {
+      "badgeMeaningHeader": "Ką reiškia šie ženkliukai?",
+      "badgeP1": "Atvirieji ženkliukai – tai modernus būdas pripažinti visapusišką mokinio indėlį. Užuot sertifikavus tik vieną užduotį ar veiklą, ženkliukai išryškina prasmingas patirtis, kurios atspindi daugybę minkštųjų įgūdžių ir realų įsitraukimą.",
+      "badgeP2": "Vilniaus Tech ženkliukai naudojami mokslinių tyrimų, tarptautiškumo, studentų atstovavimo ir kitų sričių pripažinimui. Jie įgyjami per iniciatyvos, bendravimo, bendradarbiavimo, kultūrinio sąmoningumo ir bendraamžių palaikymo derinį.",
+      "badgeP3": "Toliau pateikti pavyzdžiai parodo, kaip ženkliukai gali atspindėti platesnes kompetencijas ir padėti studentams išreikšti išsamesnį savo gebėjimų ir vertybių vaizdą.",
+      "badgeCredHeader": "Kodėl tai patikimos mikrokompetencijos?",
+      "badgeP4": "Kadangi ženkliukai suteikiami remiantis įrodytais gebėjimais ir vertinami pagal akademinius standartus, jie turi realią vertę. Jie parodo ne tik ką mokinys žino, bet ir kaip šiuos įgūdžius taiko realiose, komandinėse bei tarpkultūrinėse situacijose. Tai daro juos patikimu ir perkeliamu pripažinimo formatu tiek akademinėje, tiek profesinėje aplinkoje."
+    },
+    "section4": {
+      "mergeStructureHeader": "Nuo pavienių ženkliukų iki Meta ir Uber ženkliukų",
+      "mergeP1": "Kiekvienas atvirasis ženkliukas jau apima kelias kompetencijas, tačiau besigilindami į tam tikrą temą dalyviai dažnai įgyja daug susijusių ženkliukų. Ilgainiui tai gali lemti perteklių – dešimtis ženkliukų, kuriuos būtų prasmingiau sujungti.",
+      "mergeP2": "Siekiant tai išspręsti, ženkliukai gali būti jungiami į aukštesnės klasės formas. Surinkus bent tris susijusius ženkliukus, jie gali būti sujungti į Meta ženkliuką. Meta ženkliukas reiškia platesnį meistriškumą konkrečioje srityje ir priklauso aukštesnei ženkliukų klasei nei įprasti ženkliukai.",
+      "mergeP3": "Tie, kurie eina dar toliau ir surenka daugumą arba visus Meta ženkliukus tam tikroje srityje, gali būti apdovanoti Uber ženkliuku. Uber ženkliukai – tai kelių Meta ženkliukų derinys, simbolizuojantis aukščiausio lygio pripažinimą ir ilgalaikį tobulėjimą. Vienas iš sistemos tikslų – šiuos aukštesnės klasės ženkliukus paversti prilygstančiais moksliniams pasiekimams minkštųjų įgūdžių srityje.",
+      "mergeDisplayHeader": "Ženkliukų piniginės",
+      "mergeP4": "Ilgainiui surinkus daug ženkliukų, svarbu juos efektyviai pateikti. Ženkliukų piniginės leidžia vartotojams atrinkti svarbiausius ar įspūdingiausius pasiekimus ir pateikti juos tvarkingu, lengvai dalijamu formatu. Šios piniginės gali būti naudojamos CV, paraiškose ar profesionaliuose tinkluose, tokiuose kaip LinkedIn, kad aiškiai ir strategiškai atskleistų įgūdžius. Sujungti ženkliukai palengvina pasidalinimą, sumažindami perteklinę informaciją ir automatiškai išryškindami svarbiausius pasiekimus – ką netrukus ir išbandysi."
+    },
+    "section5": {
+      "slidingHeader": "Ženkliukai skirtingoms auditorijoms",
+      "slidingP1": "Atvirieji ženkliukai turi reikšmingą vertę tiek asmenims, tiek organizacijoms. Jie nėra skirti tik studentų pasiekimams – ženkliukai padeda siekti platesnių pripažinimo tikslų įvairiuose sektoriuose.",
+      "slidingP2": "Studentams ženkliukai padeda atskleisti minkštuosius įgūdžius ir neformalų mokymąsi, lengvina dalyvavimą tarptautinėse programose ir padeda kurti asmeninio tobulėjimo bei gebėjimų istoriją.",
+      "slidingP3": "Darbdaviams ženkliukai suteikia aiškią, standartizuotą informaciją apie kandidato kompetencijas, padeda sekti vidinį tobulėjimą ir prisideda prie tikslingesnio bei sąžiningesnio įdarbinimo.",
+      "slidingHowHeader": "Bendroji vertė per pripažinimą",
+      "slidingP4": "Kai abi pusės supranta ir pasitiki ženkliuko prasme, sustiprinamas abipusis pripažinimas. Ženkliukai tampa bendra kalba, jungianti asmeninę pažangą su organizaciniais tikslais. Šio santykio gerinimas buvo pagrindinis šios svetainės kelionės tikslas ir džiaugiamės, kad esi beveik finišo tiesiojoje."
+    },
+    "metadata": {
+      "instructions": "Pasirink 6 būtinus metaduomenų elementus, kad Open Badge būtų pilnai suformuotas",
+      "continueButton": "Tęsti",
+      "recipientEmailEncrypted": "Šifruotas gavėjo el. paštas",
+      "earningCriteria": "Gavimo kriterijai",
+      "issueDate": "Išdavimo data",
+      "badgeClass": "Ženkliuko klasė",
+      "achievementDescription": "Pasiekimo aprašymas",
+      "issuer": "Leidėjas",
+      "socialMediaLinks": "Leidėjo socialinių tinklų nuorodos",
+      "visualDesign": "Individualūs ženkliuko spalvų nustatymai",
+      "badgeAnimation": "Animuoti ženkliuko elementai",
+      "unencryptedEmail": "Gavėjo vardas",
+      "mistake": {
+        "socialMediaLinks": "Socialinių tinklų nuorodos yra pasirenkamos ir nepriklauso prie privalomų Open Badge metaduomenų.",
+        "visualDesign": "Spalviniai motyvai ir vizualinis stilius yra pasirenkami ir nėra oficiali metaduomenų dalis.",
+        "badgeAnimation": "Animacijos yra vizualiniai pagerinimai ir nelaikomos tinkamais metaduomenimis.",
+        "unencryptedEmail": "Tavo vardas laikomas PII (asmenį identifikuojančia informacija), todėl siekiant saugumo, nereikalingos PII dažniausiai nėra įtraukiamos į metaduomenis."
+      }
+    },
+    "merge": {
+      "instructions": "Nutempk tris skirtingus ženkliukus į centrinį ratą, kad juos sujungtum ir sukurtum Meta ženkliuką."
+    },
+    "card": {
+      "instructions": "Nutempk korteles iš įgūdžių srities į teisingas skiltis. Ištaisyk klaidas, jei tokių padarysi.",
+      "bank": "Įgūdžiai",
+      "columnA": "Kietieji įgūdžiai",
+      "columnB": "Minkštieji įgūdžiai",
+      "continueButton": "Tęsti",
+      "excelAnalysis": "Duomenų analizė naudojant Excel",
+      "programmingBasics": "Programavimo pagrindai",
+      "timeManagement": "Laiko planavimas",
+      "readingBlueprints": "Brėžinių skaitymas",
+      "teamwork": "Komandinis darbas",
+      "publicSpeaking": "Viešasis kalbėjimas",
+      "labResearch": "Laboratoriniai tyrimai",
+      "conflictResolution": "Konfliktų sprendimas",
+      "feedbackTitle": "Kodėl tai neteisinga?",
+      "mistake": {
+        "excelAnalysis": "Darbas su Excel yra techninis įgūdis, dažniausiai įgyjamas formaliame ugdyme.",
+        "programmingBasics": "Programavimo pagrindai laikomi kietaisiais įgūdžiais, įgytais struktūrizuotai mokantis.",
+        "timeManagement": "Laiko planavimas yra minkštasis įgūdis, susijęs su savitvarka ir asmeniniais įpročiais.",
+        "readingBlueprints": "Brėžinių skaitymas yra techninis kietasis įgūdis, naudojamas statyboje ir inžinerijoje.",
+        "teamwork": "Komandinis darbas yra minkštasis įgūdis, ugdomas bendradarbiaujant ir dirbant grupėse.",
+        "publicSpeaking": "Viešasis kalbėjimas – tai minkštasis įgūdis, padedantis bendrauti ir įgyti pasitikėjimo.",
+        "labResearch": "Laboratoriniai tyrimai yra techninis kietasis įgūdis, dažnai mokomas moksliniame ugdyme.",
+        "conflictResolution": "Konfliktų sprendimas yra minkštasis įgūdis, būtinas tvarkant tarpasmeninius nesutarimus."
+      }
+    },
+    "scenario": {
+      "continueButton": "Tęsti",
+      "instructions": "Perskaityk kiekvieną situaciją ir pasirink atsakymą, kuris geriausiai atspindi asmens pasiekimus.",
+      "science": "Mokslas ir inovacijos",
+      "international": "Tarptautiškumas",
+      "studentrep": "Studentų atstovavimas",
+      "story": {
+        "story1": "Lukas pristatė savo tyrimą tarptautinėje mokslinėje konferencijoje, aktyviai dalyvavo Vilnius Tech vidiniuose mokslo renginiuose ir nuolat padėjo kolegoms universiteto bibliotekoje. Jo bendravimo įgūdžiai, mokslinis raštingumas ir žinių dalijimasis pelnė pripažinimą inovacijų srityje.",
+        "story2": "Ana organizavo savaitinius stalo žaidimų vakarus, atvirus visiems studentams, įskaitant mainų ir tarptautinius dalyvius. Jos iniciatyva skatino įtrauktį, stiprino tarpkultūrinį supratimą ir padėjo įtraukti mažiau atstovaujamas grupes – parodydama lyderystę, empatiją ir organizacinius gebėjimus.",
+        "story3": "Jonas mentoravo pirmakursius studentus, vadovavo savo akademinei grupei ir savanoriavo kaip studentų atstovas pagrindiniuose universiteto renginiuose. Per pagalbą, atstovavimą ir komandinius darbus jis pademonstravo stiprų bendruomeniškumą, atsakomybę ir įsipareigojimą akademinei bendruomenei."
+      },
+      "scenarios": {
+        "scenario1": [
+          "Tarptautinės mokslinės konferencijos pranešėjas 2024",
+          "VILNIUS TECH bibliotekos draugas",
+          "VILNIUS TECH mokslinės konferencijos dalyvis"
+        ],
+        "scenario2": [
+          "Savanoriavimas tarptautiškumo renginiuose",
+          "Praktika užsienyje",
+          "Erasmus+ ambasadorius"
+        ],
+        "scenario3": [
+          "Grupės seniūnas",
+          "Pirmakursių mentorius",
+          "SA savanoris renginiuose 2024"
+        ]
+      }
+    },
+    "slide": {
+      "1": "Atviri ženkliukai padeda parodyti savarankiškai įgytus įgūdžius ir neformalaus mokymosi patirtį, papildydami akademinius pasiekimus.",
+      "2": "Atviri ženkliukai supaprastina įdarbinimą aiškiai parodant kandidatus su aktualiais minkštaisiais įgūdžiais ir kompetencijomis.",
+      "3": "Ženkliukai suteikia skaidrų darbuotojų profesinio augimo, mokymų ir mokymosi kelio vaizdą.",
+      "4": "Jie didina galimybes dalyvauti tarptautinėse mainų programose, patvirtindami neformalias veiklas.",
+      "5": "Ženkliukai išryškina minkštuosius įgūdžius, suteikdami darbdaviams aiškesnį atrankos kelią.",
+      "6": "Naudotojai gali susikurti tarpdisciplininį ženkliukų portfelį, demonstruojantį įgūdžių įvairovę ir nuoseklų tobulėjimą.",
+      "student": "Studentas",
+      "employer": "Darbdavys",
+      "correct": "Teisingas atsakymas",
+      "instructions": "Perbrauk kiekvieną kortelę ir nuspręsk, kam ženkliukas yra naudingesnis: studentui ar darbdaviui."
+    },
+    "overlay-button": {
+      "close": "Uždaryti"
+    },
+    "completemerge": "Užduotis įvykdyta! Ženkliukai buvo sujungti į Meta ženkliuką."
   },
-  "overlay-button": {
-    "close": "Close"
-  },
+  "pts": "taškai",
   "end": {
     "congrats": "Sveikiname!",
-    "earned": "Jūs gavote savo ženkliuką!"
+    "earned": "Tu gavai savo ženkliuką!",
+    "success": "Ženkliukas sėkmingai išduotas!"
+  },
+  "form": {
+    "namePlaceholder": "Tavo vardas ir pavardė",
+    "emailPlaceholder": "Tavo el. pašto adresas",
+    "submit": "Pateikti"
   }
 }

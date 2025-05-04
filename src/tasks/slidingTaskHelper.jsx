@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/languageContext';
 
-export const CardSwiper = ({ cards, current, answers, onAnswer }) => {
+export const CardSwiper = ({ slides, current, answers, onAnswer, disabledButtons }) => {
+    const { t } = useLanguage();
     return (
         <div className="card-swiper">
             <AnimatePresence initial={false} mode="wait">
-                {cards.filter(c => c.id === current).map(card => (
+                {slides.filter(c => c.id === current).map(card => (
                     <motion.div
                         key={card.id}
                         className={`answer-card ${answers[card.id] ? 'locked' : ''}`}
@@ -14,37 +16,32 @@ export const CardSwiper = ({ cards, current, answers, onAnswer }) => {
                         exit={{ x: -100, opacity: 0 }}
                         transition={{ duration: 0.4 }}
                     >
-                        <p>{card.text}</p>
+                        <p>{t(card.textKey)}</p>
                         {!answers[card.id] ? (
                             <div className="answer-buttons">
-                                <button onClick={() => onAnswer(card.id, 'student')}>Student</button>
-                                <button onClick={() => onAnswer(card.id, 'employer')}>Employer</button>
+                                <button
+                                    onClick={() => onAnswer(card.id, 'student')}
+                                    disabled={(disabledButtons[card.id] || []).includes('student')}
+                                    className={(disabledButtons[card.id] || []).includes('student') ? 'wrong' : ''}
+                                >
+                                    {t('task.slide.student')}
+                                </button>
+                                <button
+                                    onClick={() => onAnswer(card.id, 'employer')}
+                                    disabled={(disabledButtons[card.id] || []).includes('employer')}
+                                    className={(disabledButtons[card.id] || []).includes('employer') ? 'wrong' : ''}
+                                >
+                                    {t('task.slide.employer')}
+                                </button>
                             </div>
                         ) : (
                             <div className="locked-answer">
-                                Correct: <strong>{card.correct === 'student' ? 'Student' : 'Employer'}</strong>
+                                {t('task.slide.correct')}: <strong>{t(card.correct)}</strong>
                             </div>
                         )}
                     </motion.div>
                 ))}
             </AnimatePresence>
-        </div>
-    );
-};
-
-export const ProgressDots = ({ cards, answers, current, onSelect }) => {
-    return (
-        <div className="progress-dots">
-            {cards.map(card => (
-                <button
-                    key={card.id}
-                    className={`dot ${answers[card.id] ? 'filled' : ''} ${card.id === current ? 'active' : ''}`}
-                    onClick={() => onSelect(card.id)}
-                    disabled={!answers[card.id] && card.id !== current}
-                >
-                    {card.id}
-                </button>
-            ))}
         </div>
     );
 };

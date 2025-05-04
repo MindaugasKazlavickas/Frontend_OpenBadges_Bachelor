@@ -87,8 +87,12 @@
       "mergeP4": "With many badges earned over time, effective display becomes important. Badge wallets allow users to curate their most important or impressive achievements into a clean, shareable format. These wallets can be used in CVs, applications, or professional platforms like LinkedIn to present skills clearly and strategically. Combined badges make the sharing process easier by decluttering and focusing your achievements, and it's automatic, too, as you're about to find out."
     },
     "section5": {
-      "longHelp": "tekstas",
-      "description": "tekstas"
+      "slidingHeader": "Badges for Different Audiences",
+      "slidingP1": "Open Badges carry meaningful value for both individuals and organizations. They are not limited to student achievement as they support broader recognition goals across sectors.",
+      "slidingP2": "For students, badges make soft skills and informal learning visible, enable easier access to international opportunities, and help build a narrative of growth and capability.",
+      "slidingP3": "For employers, badges offer clear, standardized insights into a candidate’s competencies, help track internal development, and contribute to more targeted and equitable hiring.",
+      "slidingHowHeader": "Shared Value Through Recognition",
+      "slidingP4": "When both sides understand and trust badge meaning, it strengthens mutual recognition. Badges become a common language linking personal progress with organizational priorities. Improving this relationship has been the goal of this site's journey and we're glad you're nearly at the finish line."
     },
     "metadata": {
       "instructions": "Select the 6 necessary metadata elements for a complete Open Badge",
@@ -168,6 +172,18 @@
         ]
       }
     },
+    "slide": {
+      "1": "Open Badges help showcase self-acquired skills and informal learning, adding depth to academic credentials.",
+      "2": "Open Badges streamline hiring by clearly revealing candidates with relevant soft skills and competencies.",
+      "3": "Badges offer transparent insight into employees’ professional growth, training, and learning journeys.",
+      "4": "They enhance eligibility for international exchange programs by validating extracurricular involvement.",
+      "5": "Badges make soft skills visible, offering employers a clearer route during hiring processes.",
+      "6": "Users can curate a cross-disciplinary badge portfolio to demonstrate skill breadth and sustained achievement.",
+      "student": "Student",
+      "employer": "Employer",
+      "correct": "Correct answer",
+      "instructions": "Swipe through each card and decide who benefits most from the badge: a student or an employer."
+    },
     "overlay-button": {
       "close": "Close"
     },
@@ -181,6 +197,7 @@
   },
   "form": {
     "namePlaceholder": "Your full name",
-    "emailPlaceholder": "Your email address"
+    "emailPlaceholder": "Your email address",
+    "submit": "Submit"
   }
 }

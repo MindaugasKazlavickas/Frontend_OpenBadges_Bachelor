@@ -28,7 +28,7 @@
     font-size: 16px;
     transition: all 0.3s ease;
     min-height: 40px;
-    min-width: 220px;
+    min-width: 240px;
     max-width: 80%;
     z-index: 2;
     cursor: pointer;
@@ -76,8 +76,6 @@
     .option-btn {
         text-align: center;
         justify-content: flex-start;
-        width: 60%;
-        max-width: none;
     }
 }
 @keyframes fadeIn {

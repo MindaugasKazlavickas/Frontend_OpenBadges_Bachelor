@@ -61,7 +61,18 @@ const sectionData = [
             { type: 'paragraph', key: 'task.section4.mergeP4' }
         ]
     },
-    { id: 'section5', headerKey: 'section.heading5' },
+    {
+        id: 'section5',
+        headerKey: 'section.heading5',
+        materials: [
+            { type: 'header', key: 'task.section5.slidingHeader' },
+            { type: 'paragraph', key: 'task.section5.slidingP1' },
+            { type: 'paragraph', key: 'task.section5.slidingP2' },
+            { type: 'paragraph', key: 'task.section5.slidingP3' },
+            { type: 'header', key: 'task.section5.slidingHowHeader' },
+            { type: 'paragraph', key: 'task.section5.slidingP4' }
+        ]
+    }
 ];
 
 const taskIdMap = [
@@ -74,6 +85,7 @@ const taskIdMap = [
 
 const App = () => {
     const [unlockedSections, setUnlockedSections] = useState([0]);
+    const [finalTaskDone, setFinalTaskDone] = useState(false);
 
     useEffect(() => {
         const root = document.documentElement;
@@ -133,11 +145,14 @@ const App = () => {
                     ) : i === 3 ? (
                         <BadgeMergeTask onUnlock={() => unlockSection(i)} />
                     ) : (
-                        <SlidingTask onUnlock={() => unlockSection(i)} />
+                        <SlidingTask  onUnlock={() => {
+                            unlockSection(i);
+                            setFinalTaskDone(true);
+                        }} />
                     )}
                 </TaskSection>
             ))}
-            {unlockedSections.includes(sectionData.length) && <EndSection />}
+            {finalTaskDone && <EndSection />}
         </LanguageProvider>
     );
 };
