@@ -198,9 +198,12 @@ const CardSortTask = ({ onUnlock }) => {
             <FloatingScoreBubble />
             {feedbackCard && (
                 <div className="overlay">
-                    <div className="overlay-content">
+                    <div className="overlay-content feedback-overlay">
+                        <h3>{t('task.card.feedbackTitle') || 'Why this wasn’t right'}</h3>
                         <p>{t(feedbackCard.mistakeKey)}</p>
-                        <button onClick={() => setFeedbackCard(null)}>{t('button.close') || 'Close'}</button>
+                        <button className="scroll-between" onClick={() => setFeedbackCard(null)}>
+                            {t('button.close') || 'Got it!'}
+                        </button>
                     </div>
                 </div>
             )}

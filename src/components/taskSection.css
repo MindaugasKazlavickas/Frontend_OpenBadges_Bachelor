@@ -79,6 +79,28 @@
     margin-top: 48px;
 }
 
+.feedback-overlay {
+    text-align: center;
+}
+
+.feedback-overlay h3 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--text-color, #111);
+    text-align: center;
+}
+
+.feedback-overlay p {
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.feedback-overlay .scroll-btn {
+    margin-top: 0;
+}
 .overlay-content button:hover {
     background-color: var(--secondary-color);
     color: black;

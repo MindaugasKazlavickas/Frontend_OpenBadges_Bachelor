@@ -87,7 +87,7 @@ const App = () => {
                     sectionIndex={i}
                     materials={section.materials}
                     totalSections={sectionData.length}
-                    isLocked={!unlockedSections.includes(i)}
+                    isLocked={i > 0 && !unlockedSections.includes(i)}
                     onUnlock={() => unlockSection(i)}
                 >
                     {i === 0 ? (

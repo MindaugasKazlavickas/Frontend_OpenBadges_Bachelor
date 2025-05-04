@@ -3,6 +3,8 @@ import theme from '../themes/theme';
 import { useLanguage } from '../context/languageContext';
 import './taskSection.css';
 
+
+
 const TaskSection = ({
                          headerKey,
                          sectionIndex,
@@ -87,14 +89,14 @@ const TaskSection = ({
             style={{
                 backgroundColor: theme.colors.background,
                 color: theme.colors.text,
-                opacity: isLocked ? 0.4 : 1,
-                pointerEvents: isLocked ? 'none' : 'auto',
+                opacity: sectionIndex > 0 && isLocked ? 0.4 : 1,
+                pointerEvents: sectionIndex > 0 && isLocked ? 'none' : 'auto',
             }}
         >
-            {isLocked && (
+            {sectionIndex > 0 && isLocked && (
                 <div
                     style={{
-                        position: 'absolute',
+                        position: 'relative',
                         inset: 0,
                         background: 'linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1))',
                         zIndex: 5,

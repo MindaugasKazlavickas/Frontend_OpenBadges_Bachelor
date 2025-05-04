@@ -98,7 +98,7 @@
       "continueButton": "Continue"
     },
     "card": {
-      "instructions": "Drag the skills to the correct columns.",
+      "instructions": "Drag cards from the Skills field to the correct columns. Correct your mistakes, if made.",
       "bank": "Skills",
       "columnA": "Hard Skills",
       "columnB": "Soft Skills",
@@ -111,6 +111,7 @@
       "publicSpeaking": "Public speaking",
       "labResearch": "Conducting lab research",
       "conflictResolution": "Conflict resolution",
+      "feedbackTitle": "Why is this not correct?",
       "mistake": {
         "excelAnalysis": "Excel analysis is a technical skill usually learned in formal education.",
         "programmingBasics": "Programming basics are considered hard skills gained through structured learning.",
