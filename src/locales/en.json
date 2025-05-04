@@ -50,6 +50,8 @@
     "unlock": "Unlock Next Section"
   },
   "task": {
+    "lockedSectionTitle": "Section Locked",
+    "lockedSectionMessage": "You need to complete the previous section before continuing.",
     "complete": "Task completed!",
     "section1": {
       "heading1": "Recognizing Soft Skills",
@@ -60,8 +62,12 @@
       "hardSoftText": "Open Badges help validate soft skills by linking them to real experiences, behaviors, and contributions. This gives learners a way to showcase strengths that transcripts don't capture—but employers and educators highly value."
     },
     "section2": {
-      "longHelp": "Open badges must include several required metadata fields such as the badge type, issue date, criteria, and achievement description. This ensures every badge is complete and verifiable.",
-      "description": "Identify the meta information that is crucial for a viable open badge."
+      "metadataHeader": "Why Metadata Matters",
+      "metadataP1": "Metadata in Open Badges refers to the embedded information that defines the badge’s purpose, issuer, and the accomplishment it represents. It’s the behind-the-scenes data that transforms a badge from just a visual icon into a meaningful and verifiable credential.",
+      "metadataP2": "This contextual information allows educators, employers, and peers to understand not just what the badge looks like, but what it stands for. Metadata validates the credibility of the badge, ensuring it reflects a real achievement with clearly defined criteria.",
+      "metadataInclude": "Open Badge Metadata",
+      "metadataP3": "A well-formed Open Badge must include core metadata fields such as the common information like name of the badge, description and image, which forms a Badge Class. The issue date, issuer's organisation, the criteria that were met to obtain the badge, and a description of the achievement also have to be included. For identification purposes most often an encrypted email of the recipient is used, as your information is PII(Personally Identifiable Information), and attaching PII as metadata to very publically available items could be a security concern.",
+      "metadataP4": "Alignment and Evidence attachments are typically issued for the most highly-regarded badges, usually after peer-reviews by higher education institutions and are not necessary for all Open Badges. At the end of this journey your badge will take some time to deliver, as we'll have these attachments issued for you! Finally, optional fields like issuer contacts or visual flair are rarely attached to save data throughput."
     },
     "section3": {
       "longHelp": "tekstas ",
@@ -76,6 +82,7 @@
       "description": "tekstas"
     },
     "metadata": {
+      "instructions": "Select the 6 necessary metadata elements for a complete Open Badge",
       "continueButton": "Continue",
       "recipientEmailEncrypted": "Encrypted recipient email",
       "earningCriteria": "Earning criteria",
@@ -124,7 +131,27 @@
       }
     },
     "scenario": {
-      "continueButton": "Continue"
+      "continueButton": "Continue",
+      "science": "Science And Innovations",
+      "international": "Internationality",
+
+      "scenarios": {
+        "scenario1": [
+          "International scientific conference presenter 2024",
+          "VILNIUS TECH library friend",
+          "VILNIUS TECH scientific conference participant"
+        ],
+        "scenario2": [
+          "Volunteering in internationalisation events",
+          "Internship abroad",
+          "Erasmus+ Ambassador"
+        ],
+        "scenario3": [
+          "Group Leader",
+          "Mentor of the 1st year students",
+          "SR Volunteer at Events 2024"
+        ]
+      }
     },
     "overlay-button": {
       "close": "Close"

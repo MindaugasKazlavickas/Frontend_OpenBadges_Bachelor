@@ -25,7 +25,18 @@ const sectionData = [
             { type: 'paragraph', key: 'task.section1.hardSoftText' }
         ]
     },
-    { id: 'section2', headerKey: 'section.heading2' },
+    {
+        id: 'section2',
+        headerKey: 'section.heading2',
+        materials: [
+            { type: 'header', key: 'task.section2.metadataHeader' },
+            { type: 'paragraph', key: 'task.section2.metadataP1' },
+            { type: 'paragraph', key: 'task.section2.metadataP2' },
+            { type: 'header', key: 'task.section2.metadataInclude' },
+            { type: 'paragraph', key: 'task.section2.metadataP3' },
+            { type: 'paragraph', key: 'task.section2.metadataP4' },
+        ]
+    },
     { id: 'section3', headerKey: 'section.heading3' },
     { id: 'section4', headerKey: 'section.heading4' },
     { id: 'section5', headerKey: 'section.heading5' },
@@ -88,6 +99,7 @@ const App = () => {
                     materials={section.materials}
                     totalSections={sectionData.length}
                     isLocked={i > 0 && !unlockedSections.includes(i)}
+                    unlockedSections={unlockedSections}
                     onUnlock={() => unlockSection(i)}
                 >
                     {i === 0 ? (

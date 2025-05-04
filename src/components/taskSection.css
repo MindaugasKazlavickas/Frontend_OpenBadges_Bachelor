@@ -21,6 +21,9 @@
 .scroll-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    background-color: #facc15BB;
+    color: black;
+    animation: ctaPulse 0.8s ease-out;
 }
 
 .scroll-btn.cta-animate {
@@ -49,7 +52,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    z-index: 1000;
 }
 
 .overlay-content {
@@ -57,9 +60,11 @@
     padding: 2rem;
     border-radius: 12px;
     max-width: 90%;
-    max-height: 80%;
-    overflow-y: auto;
-    text-align: left;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    z-index: 1001;
 }
 
 .scroll-between {
@@ -77,6 +82,13 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 48px;
+}
+
+.scroll-between:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    background-color: var(--secondary-color);
+    color: black;
 }
 
 .feedback-overlay {
@@ -102,6 +114,8 @@
     margin-top: 0;
 }
 .overlay-content button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
     background-color: var(--secondary-color);
     color: black;
 }

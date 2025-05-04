@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './metadataTask.css';
-import metadataIcon from './metadata.png';
 import { useLanguage } from '../context/languageContext';
-import ProgressRing from './progressRing';
 import {
     adjustScore,
     saveConfirmedScore,
@@ -27,59 +25,50 @@ const optionsData = [
 
 
 const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
-    const {t} = useLanguage();
+    const { t } = useLanguage();
     const [selected, setSelected] = useState({});
-    const [feedbackText, setFeedbackText] = useState('');
+    const [feedbackCard, setFeedbackCard] = useState(null);
     const [completed, setCompleted] = useState(false);
     const [unlocked, setUnlocked] = useState(false);
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
-    const [overlayOpen, setOverlayOpen] = useState(false);
 
     const handleOptionClick = (id, isCorrect, explanationKey) => {
         if (selected[id] || completed) return;
 
-        setSelected((prev) => ({...prev, [id]: isCorrect ? 'correct' : 'incorrect'}));
+        const newState = { ...selected, [id]: isCorrect ? 'correct' : 'incorrect' };
+        setSelected(newState);
 
         if (isCorrect) {
             adjustScore(10);
             triggerFloatingScore('+10');
 
-
-            const newlySelected = {
-                ...selected,
-                [id]: 'correct'
-            };
-
             const correctIds = optionsData.filter(opt => opt.isCorrect).map(opt => opt.id);
-            const selectedCorrect = correctIds.every(correctId => newlySelected[correctId] === 'correct');
+            const allCorrectSelected = correctIds.every(cid => newState[cid] === 'correct');
 
-            if (selectedCorrect && !unlocked) {
+            if (allCorrectSelected && !unlocked) {
                 saveConfirmedScore(getLiveScore());
                 saveTaskCompletion('task.metadata');
                 setCompleted(true);
                 setUnlocked(true);
                 if (typeof onUnlock === 'function') onUnlock();
             }
-
-            setSelected(newlySelected);
         } else if (explanationKey) {
             adjustScore(-5);
             triggerFloatingScore('-5');
-            setFeedbackText(t(explanationKey));
+            setFeedbackCard({ mistakeKey: explanationKey });
         }
     };
 
     const midpoint = Math.floor(optionsData.length / 2);
     const correctIds = optionsData.filter(opt => opt.isCorrect).map(opt => opt.id);
-    const numCorrectSelected = correctIds.filter((id) => selected[id] === 'correct').length;
 
     useEffect(() => {
         if (isTaskCompleted('task.metadata')) {
-            const completed = {};
+            const restored = {};
             optionsData.forEach(({ id, isCorrect }) => {
-                if (isCorrect) completed[id] = 'correct';
+                if (isCorrect) restored[id] = 'correct';
             });
-            setSelected(completed);
+            setSelected(restored);
             setUnlocked(true);
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
@@ -87,64 +76,47 @@ const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
     }, []);
 
     return (
-            <div className="metadata-task-container">
-                <div className="background-icon">
-                    <div className="background-image-wrapper">
-                        <img src={metadataIcon} alt="Background Icon"/>
-                        <div className="background-gradient"/>
-                    </div>
-                </div>
+        <div className="metadata-task-container">
+            <div className="card-task-instructions">
+                <p>
+                    {completed
+                        ? t('task.complete') || 'Task complete!'
+                        : t('task.metadata.instructions')}
+                </p>
+            </div>
 
-                <div className="task-content-row">
-                    <div className="progress-ring-wrapper">
-
-                    </div>
-
-                    <div className="metadata-task-interaction">
-                        <div className="floating-progress-ring">
-                            <ProgressRing current={numCorrectSelected} total={correctIds.length} />
-                        </div>
-
-                        <div className="staircase-wrapper">
-                            {optionsData.map(({ id, textKey, isCorrect, explanationKey }, index) => (
-                                <button
-                                    key={id}
-                                    className={`option-btn ${selected[id]} ${index < midpoint ? `shift-right-${index}` : `shift-left-${index - midpoint}`}`}
-                                    onClick={() => handleOptionClick(id, isCorrect, explanationKey)}
-                                >
-                                    {t(textKey)}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {feedbackText && (
+            <div style={{ marginTop: 32 }} className="staircase-wrapper">
+                    {optionsData.map(({ id, textKey, isCorrect, explanationKey }, index) => (
+                        <button
+                            key={id}
+                            className={`option-btn ${selected[id]} ${index < midpoint ? `shift-right-${index}` : `shift-left-${index - midpoint}`} metadata-btn`}
+                            onClick={() => handleOptionClick(id, isCorrect, explanationKey)}
+                        >
+                            {t(textKey)}
+                        </button>
+                    ))}
+            </div>
+            {feedbackCard && (
                     <div className="overlay">
-                        <div className="overlay-content">
-                            <p>{feedbackText}</p>
-                            <button onClick={() => setFeedbackText('')}>{t('button.close') || 'Close'}</button>
+                        <div className="overlay-content feedback-overlay">
+                            <h3>{t('task.card.feedbackTitle') || 'Why this wasn’t right'}</h3>
+                            <p>{t(feedbackCard.mistakeKey)}</p>
+                            <button className="scroll-between" onClick={() => setFeedbackCard(null)}>
+                                {t('button.close') || 'Got it!'}
+                            </button>
                         </div>
                     </div>
-                )}
+            )}
 
-                {overlayOpen && (
-                    <div className="overlay">
-                        <div className="overlay-content">
-                            <p>{t('task.section2.longHelp')}</p>
-                            <button onClick={() => setOverlayOpen(false)}>{t('button.close')}</button>
-                        </div>
-                    </div>
-                )}
-                {completed && (
+            {completed && (
                     <button className="scroll-btn" onClick={() => {
                         const next = document.getElementById('section-2');
                         if (next) next.scrollIntoView({ behavior: 'smooth' });
                     }}>
                         {t('task.metadata.continueButton') || 'Continue to next section'}
                     </button>
-                )}
-            </div>
+            )}
+        </div>
     );
 };
 

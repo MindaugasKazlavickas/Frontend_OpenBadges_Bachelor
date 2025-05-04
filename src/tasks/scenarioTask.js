@@ -10,48 +10,61 @@ import {
     useFloatingScore
 } from '../utils/scoreUtils';
 
-const scenarios = [
-    {
-        id: 1,
-        text: 'Ana organizavo kassavaitinius stalo žaidimų vakarus, skirtus visiems studentams – taip pat ir tarptautiniams bei mainų programų dalyviams. Ši iniciatyva padėjo skatinti bendrystę, mažinti socialinę atskirtį ir aktyviai įtraukti mažiau atstovaujamas studentų grupes.',
-        options: [
-            { id: 1, text: 'Option 1 (correct)', badge: '/badges/badge1.png', correct: true },
-            { id: 2, text: 'Option 2 (wrong)', badge: '/badges/badge2.png', correct: false },
-            { id: 3, text: 'Option 3 (wrong)', badge: '/badges/badge3.png', correct: false },
-        ]
-    },
-    {
-        id: 2,
-        text: 'Scenario 2 text goes here.',
-        options: [
-            { id: 1, text: 'Option A (correct)', badge: '/badges/badge4.png', correct: true },
-            { id: 2, text: 'Option B (wrong)', badge: '/badges/badge5.png', correct: false },
-            { id: 3, text: 'Option C (wrong)', badge: '/badges/badge6.png', correct: false },
-        ]
-    },
-    {
-        id: 3,
-        text: 'Scenario 3 text goes here.',
-        options: [
-            { id: 1, text: 'Option X (wrong)', badge: '/badges/badge7.png', correct: false },
-            { id: 2, text: 'Option Y (wrong)', badge: '/badges/badge8.png', correct: false },
-            { id: 3, text: 'Option Z (correct)', badge: '/badges/badge9.png', correct: true },
-        ]
-    },
-];
+import s1b1 from '../assets/scenario1badge1.png';
+import s1b2 from '../assets/scenario1badge2.png';
+import s1b3 from '../assets/scenario1badge3.png';
+
+import s2b1 from '../assets/scenario2badge1.png';
+import s2b2 from '../assets/scenario2badge2.png';
+import s2b3 from '../assets/scenario2badge3.png';
+
+import s3b1 from '../assets/scenario3badge1.png';
+import s3b2 from '../assets/scenario3badge2.png';
+import s3b3 from '../assets/scenario3badge3.png';
 
 const ScenarioTask = ({ onUnlock }) => {
     const { t } = useLanguage();
+    const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
 
     const [currentScenario, setCurrentScenario] = useState(1);
-    const [selectedAnswers, setSelectedAnswers] = useState({}); // { 1: 'correct' | 'incorrect' | undefined }
+    const [selectedAnswers, setSelectedAnswers] = useState({});
     const [completed, setCompleted] = useState(false);
+
+    const scenarios = [
+        {
+            id: 1,
+            text: t('task.scenario.story1') || 'You presented research at an international scientific conference, actively participated in Vilnius Tech’s internal research events, and were often seen studying or helping others at the university library.',
+            options: [
+                { id: 1, badge: s1b1, textKey: 'task.scenario.scenarios.scenario1.0', correct: true },
+                { id: 2, badge: s1b2, textKey: 'task.scenario.scenarios.scenario1.1', correct: false },
+                { id: 3, badge: s1b3, textKey: 'task.scenario.scenarios.scenario1.2', correct: false }
+            ]
+        },
+        {
+            id: 2,
+            text: t('task.scenario.story2') || 'You joined the Erasmus+ program for a semester abroad, volunteered at events welcoming international students, and helped organize intercultural activities.',
+            options: [
+                { id: 1, badge: s2b1, textKey: 'task.scenario.scenarios.scenario2.0', correct: true },
+                { id: 2, badge: s2b2, textKey: 'task.scenario.scenarios.scenario2.1', correct: false },
+                { id: 3, badge: s2b3, textKey: 'task.scenario.scenarios.scenario2.2', correct: false }
+            ]
+        },
+        {
+            id: 3,
+            text: t('task.scenario.story3') || 'You led your student group, mentored first-years, and volunteered as student representative during several events in 2024.',
+            options: [
+                { id: 1, badge: s3b1, textKey: 'task.scenario.scenarios.scenario3.0', correct: true },
+                { id: 2, badge: s3b2, textKey: 'task.scenario.scenarios.scenario3.1', correct: false },
+                { id: 3, badge: s3b3, textKey: 'task.scenario.scenarios.scenario3.2', correct: false }
+            ]
+        }
+    ];
 
     const handleSelect = (scenarioId, optionId) => {
         const scenario = scenarios.find(s => s.id === scenarioId);
         const selectedOption = scenario.options.find(opt => opt.id === optionId);
 
-        if (selectedAnswers[scenarioId] === 'correct') return; // already answered correctly, no changes
+        if (selectedAnswers[scenarioId] === 'correct') return;
 
         const newAnswers = {
             ...selectedAnswers,
@@ -74,7 +87,7 @@ const ScenarioTask = ({ onUnlock }) => {
         } else {
             adjustScore(-5);
             triggerFloatingScore('-5');
-    }
+        }
     };
 
     const renderScenario = (scenario) => (
@@ -85,12 +98,12 @@ const ScenarioTask = ({ onUnlock }) => {
                     <button
                         key={opt.id}
                         className={`scenario-option ${selectedAnswers[scenario.id] && opt.correct && selectedAnswers[scenario.id] === 'correct' ? 'correct' : ''}
-                            ${selectedAnswers[scenario.id] && !opt.correct && selectedAnswers[scenario.id] === 'incorrect' ? 'incorrect' : ''}`}
+              ${selectedAnswers[scenario.id] && !opt.correct && selectedAnswers[scenario.id] === 'incorrect' ? 'incorrect' : ''}`}
                         onClick={() => handleSelect(scenario.id, opt.id)}
                         disabled={selectedAnswers[scenario.id] === 'correct'}
                     >
                         <img src={opt.badge} alt="Badge" className="badge-icon" />
-                        {opt.text}
+                        {t(opt.textKey)}
                     </button>
                 ))}
             </div>
@@ -101,8 +114,6 @@ const ScenarioTask = ({ onUnlock }) => {
             )}
         </div>
     );
-
-    const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
 
     useEffect(() => {
         if (isTaskCompleted('task.scenario')) {
@@ -123,8 +134,8 @@ const ScenarioTask = ({ onUnlock }) => {
                     <button
                         key={s.id}
                         className={`progress-square 
-                            ${selectedAnswers[s.id] === 'correct' ? 'green' : ''}
-                            ${selectedAnswers[s.id] === 'incorrect' ? 'red' : ''}`}
+              ${selectedAnswers[s.id] === 'correct' ? 'green' : ''}
+              ${selectedAnswers[s.id] === 'incorrect' ? 'red' : ''}`}
                         onClick={() => setCurrentScenario(s.id)}
                     >
                         {s.id}
@@ -139,7 +150,7 @@ const ScenarioTask = ({ onUnlock }) => {
                     const next = document.getElementById('section-3');
                     if (next) next.scrollIntoView({ behavior: 'smooth' });
                 }}>
-                    {t('task.card.continueButton') || 'Continue to next section'}
+                    {t('task.scenario.continueButton') || 'Continue'}
                 </button>
             )}
         </div>
