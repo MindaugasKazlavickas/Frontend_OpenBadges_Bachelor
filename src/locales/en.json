@@ -197,8 +197,8 @@
     "claimed": "Your badge has been successfully claimed and will arrive in your email inbox shortly!"
   },
   "form": {
-    "namePlaceholder": "Your full name",
-    "emailPlaceholder": "Your email address",
+    "namePlaceholder": "Your full name*",
+    "emailPlaceholder": "Your email address*",
     "submit": "Submit"
   }
 }
