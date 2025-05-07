@@ -193,7 +193,7 @@
   "end": {
     "error": "Įvyko klaida. Bandykite dar kartą.",
     "serverError": "Serverio klaida. Bandykite vėliau.",
-    "alreadyIssued": "Šiam el. paštui ženkliukas jau buvo išduotas. Jūsų ženkliukas bus atnaujintas.",
+    "alreadyIssued": "Šiam el. paštui ženkliukas jau buvo išduotas.",
     "warning": "Pasirinkus žaisti dar kartą, jūsų progresas bus atstatytas.",
     "aboutreset": "Jūsų surinkti taškai bus priskirti ženkliukui. Ženkliuką galima atsiimti tik vieną kartą. Galite žaisti dar kartą, jei norite pagerinti savo rezultatą.",
     "playagain": "Žaisti dar kartą",

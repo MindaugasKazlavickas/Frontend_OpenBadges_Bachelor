@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(cors());
@@ -78,10 +80,14 @@ app.post("/issue-obf-badge", async (req, res) => {
 
         const badgeAlreadyIssued = await checkBadgeIssued(email, accessToken);
 
-        if (badgeAlreadyIssued) {
+        /*if (badgeAlreadyIssued) {
             console.warn("Badge already issued for this email. Aborting issuance.");
             return res.status(409).json({ error: "already issued" });
-        }
+        }*/
+
+        const localizedPath = path.join(__dirname, "request.json");
+        const localizedText = JSON.parse(fs.readFileSync(localizedPath, "utf-8"));
+        const t = localizedText[language] || localizedText["en"];
 
         const badgePayload = {
             event_name: "completed-course",
@@ -95,8 +101,12 @@ app.post("/issue-obf-badge", async (req, res) => {
             api_consumer_id: "standalone",
             send_email: true,
             show_report: true,
-            criteria: {
-                narrative: `User score: ${score || "(not available)"}`
+            criteria_add: `${t.addendum}${score}${t.addendumEnd}`,
+            email_message: {
+                subject: t.subject,
+                body: t.body,
+                link_text: t.link_text,
+                footer: t.footer
             }
         };
 

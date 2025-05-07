@@ -193,7 +193,7 @@
   "end": {
     "error": "Something went wrong. Try again.",
     "serverError": "Server error. Please try later.",
-    "alreadyIssued": "A badge has already been issued to this email. Your badge will be updated.",
+    "alreadyIssued": "A badge has already been issued to this email.",
     "warning": "Choosing to play again will reset your progress.",
     "aboutreset": "Your score will be attached to your badge. You may only claim your badge once. You may choose to play again, if you wish to improve your score.",
     "playagain": "Play Again",
