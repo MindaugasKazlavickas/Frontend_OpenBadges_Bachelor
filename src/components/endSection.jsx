@@ -48,7 +48,7 @@ const EndSection = () => {
                 setSuccessMessage(t('end.success') || 'Badge sent! Check your email!');
             } else {
                 const error = await response.json();
-                if (error?.error?.includes('already been issued')) {
+                if (error?.error?.includes('already issued')) {
                     setSuccessMessage(t('end.alreadyIssued') || 'A badge has already been issued to this email.');
                 } else {
                     setSuccessMessage(t('end.error') || 'Something went wrong. Try again.');

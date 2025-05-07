@@ -206,7 +206,8 @@
   "form": {
     "namePlaceholder": "Tavo vardas ir pavardė",
     "emailPlaceholder": "Tavo el. pašto adresas",
-    "submit": "Pateikti"
+    "submit": "Pateikti",
+    "sending": "Siunčiama..."
   },
   "criteria": {
     "criteria1": "Užduočių serijos užbaigimas. klaidos yra leistinos, tačiau jas reikia ištaisyti, kad būtų galima užbaigti iššūkių seriją.",

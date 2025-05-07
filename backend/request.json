@@ -1,0 +1,18 @@
+{
+  "en": {
+    "subject": "Congratulations on Earning Your Open Badge!",
+    "body": "Congratulations! You've successfully completed all tasks in our Open Badges learning experience.\n\nWe're excited to award you the open badge!\n\nThis badge recognizes your understanding of badge metadata, micro-credentials, and their value in both educational and professional contexts. You can view, share, or add it to your Open Badge Passport or professional profiles.",
+    "link_text": "Grab your badge!",
+    "footer": "Explore more with Vilnius Tech open badges: \nhttps://www.badgecraft.eu/en/organisations/16808",
+    "addendum": "The recipient of this open badge has scored a grand total of ",
+    "addendumEnd": " points."
+  },
+  "lt": {
+    "subject": "Sveikiname Įgijus Atvirąjį Ženklelį!",
+    "body": "Sveikiname! Jūs sėkmingai atlikote visas užduotis mūsų atvirų ženkliukų mokymosi patirtyje.\n\nDžiaugiamės galėdami įteikti jums atvirąjį ženkliuką!\n\nŠis ženkliukas patvirtina jūsų supratimą apie ženkliuko metaduomenis, mikro-kvalifikacijas ir jų vertę švietimo bei profesiniame kontekste. Galite jį peržiūrėti, pasidalinti ar pridėti prie Open Badge Paso arba savo profesinių profilių.",
+    "link_text": "Pasižiūrėkite į ženkliuką!",
+    "footer": "Sužinokite daugiau apie Vilnius Tech atviruosius ženkliukus: \nhttps://www.badgecraft.eu/lt/organisations/16808",
+    "addendum": "Šio atviro ženkliuko gavėjas iš viso surinko ",
+    "addendumEnd": " taškų."
+  }
+}

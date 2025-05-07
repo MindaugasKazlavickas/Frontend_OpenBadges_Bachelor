@@ -206,7 +206,8 @@
   "form": {
     "namePlaceholder": "Your full name*",
     "emailPlaceholder": "Your email address*",
-    "submit": "Submit"
+    "submit": "Submit",
+    "sending": "Sending..."
   },
   "criteria": {
     "criteria1": "Completion of the challenge series in full. Failure is allowed but has to be corrected in order to complete the challenge series.",

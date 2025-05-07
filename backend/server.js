@@ -79,51 +79,8 @@ app.post("/issue-obf-badge", async (req, res) => {
         const badgeAlreadyIssued = await checkBadgeIssued(email, accessToken);
 
         if (badgeAlreadyIssued) {
-            const updateUrl = `https://openbadgefactory.com/v2/badge/${CLIENT_ID}/${BADGE_ID}`;
-
-            const updatePayload = {
-                primary_language: language,
-                content: [
-                    {
-                        language,
-                        name: "Open Badge Game Completion",
-                        description: "Badge awarded for completing the educational game.",
-                        criteria: `User score: ${score || "(not available)"}`
-                    }
-                ]
-            };
-
-            console.log("Badge already exists. Updating with payload:", updatePayload);
-
-            const updateResponse = await fetch(updateUrl, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(updatePayload)
-            });
-
-            const updateText = await updateResponse.text();
-            console.log("Badge update response (raw):", updateText);
-
-            let updateResult;
-            try {
-                updateResult = JSON.parse(updateText);
-            } catch (err) {
-                return res.status(500).json({ error: "Invalid JSON from OBF", raw: updateText });
-            }
-
-            if (!updateResponse.ok) {
-                console.error("Badge update failed:", updateResult);
-                return res.status(updateResponse.status).json({
-                    error: updateResult.message || "Badge update failed",
-                    details: updateResult
-                });
-            }
-
-            console.log("Badge updated successfully:", updateResult);
-            return res.status(200).json({ updated: true, data: updateResult });
+            console.warn("Badge already issued for this email. Aborting issuance.");
+            return res.status(409).json({ error: "already issued" });
         }
 
         const badgePayload = {
