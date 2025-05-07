@@ -31,12 +31,15 @@ const EndSection = () => {
 
         const [firstName, ...rest] = name.trim().split(' ');
         const lastName = rest.join(' ') || '–';
+        const confirmedScore = localStorage.getItem("confirmedScore");
+        const userSettings = JSON.parse(localStorage.getItem("userSettings") || "{}");
+        const language = userSettings.language || "en";
 
         try {
             const response = await fetch('https://frontend-openbadges-bachelor.onrender.com/issue-obf-badge', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ firstName, lastName, email }),
+                body: JSON.stringify({ firstName, lastName, email, score: confirmedScore, language }),
             });
 
             if (response.ok) {
@@ -44,7 +47,12 @@ const EndSection = () => {
                 setBadgeClaimed(true);
                 setSuccessMessage(t('end.success') || 'Badge sent! Check your email!');
             } else {
-                setSuccessMessage(t('end.error') || 'Something went wrong. Try again.');
+                const error = await response.json();
+                if (error?.error?.includes('already been issued')) {
+                    setSuccessMessage(t('end.alreadyIssued') || 'A badge has already been issued to this email.');
+                } else {
+                    setSuccessMessage(t('end.error') || 'Something went wrong. Try again.');
+                }
             }
         } catch (error) {
             console.error(error);
