@@ -15,7 +15,6 @@ const {
 
 const TOKEN_URL = "https://openbadgefactory.com/v2/client/oauth2/token";
 
-// Request access token using client credentials
 async function getAccessToken() {
     try {
         const response = await fetch(TOKEN_URL, {
@@ -40,18 +39,92 @@ async function getAccessToken() {
     }
 }
 
+async function checkBadgeIssued(email, accessToken) {
+    const searchUrl = `https://openbadgefactory.com/v2/event/${CLIENT_ID}?email=${encodeURIComponent(email)}`;
+    console.log("Checking for existing badge at:", searchUrl);
 
-// Route to issue badge
+    const checkResponse = await fetch(searchUrl, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    const checkText = await checkResponse.text();
+    console.log("Badge check response (raw):", checkText);
+
+    let checkResult;
+    try {
+        checkResult = JSON.parse(checkText);
+    } catch (err) {
+        throw new Error("Invalid JSON from OBF during badge check");
+    }
+
+    const badgeAlreadyIssued = Array.isArray(checkResult.result) && checkResult.result.length > 0;
+    return badgeAlreadyIssued;
+}
+
 app.post("/issue-obf-badge", async (req, res) => {
-    const { email, firstName = "", lastName = "" } = req.body;
+    const { email, firstName = "", lastName = "", score = null, language = "en" } = req.body;
     console.log("=== Badge Issuing Request Received ===");
-    console.log("User details:", { email, firstName, lastName });
+    console.log("User details:", { email, firstName, lastName, score, language });
 
     if (!email) return res.status(400).json({ error: "Email is required." });
 
     try {
         const accessToken = await getAccessToken();
         console.log("Access token received:", accessToken.slice(0, 20) + "...");
+
+        const badgeAlreadyIssued = await checkBadgeIssued(email, accessToken);
+
+        if (badgeAlreadyIssued) {
+            const updateUrl = `https://openbadgefactory.com/v2/badge/${CLIENT_ID}/${BADGE_ID}`;
+
+            const updatePayload = {
+                primary_language: language,
+                content: [
+                    {
+                        language,
+                        name: "Open Badge Game Completion",
+                        description: "Badge awarded for completing the educational game.",
+                        criteria: `User score: ${score || "(not available)"}`
+                    }
+                ]
+            };
+
+            console.log("Badge already exists. Updating with payload:", updatePayload);
+
+            const updateResponse = await fetch(updateUrl, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatePayload)
+            });
+
+            const updateText = await updateResponse.text();
+            console.log("Badge update response (raw):", updateText);
+
+            let updateResult;
+            try {
+                updateResult = JSON.parse(updateText);
+            } catch (err) {
+                return res.status(500).json({ error: "Invalid JSON from OBF", raw: updateText });
+            }
+
+            if (!updateResponse.ok) {
+                console.error("Badge update failed:", updateResult);
+                return res.status(updateResponse.status).json({
+                    error: updateResult.message || "Badge update failed",
+                    details: updateResult
+                });
+            }
+
+            console.log("Badge updated successfully:", updateResult);
+            return res.status(200).json({ updated: true, data: updateResult });
+        }
 
         const badgePayload = {
             event_name: "completed-course",
@@ -64,7 +137,10 @@ app.post("/issue-obf-badge", async (req, res) => {
             issued_on: Math.floor(Date.now() / 1000),
             api_consumer_id: "standalone",
             send_email: true,
-            show_report: true
+            show_report: true,
+            criteria: {
+                narrative: `User score: ${score || "(not available)"}`
+            }
         };
 
         console.log("Badge issue payload:", badgePayload);
@@ -97,7 +173,7 @@ app.post("/issue-obf-badge", async (req, res) => {
             });
         }
 
-        console.log("✅ Badge issued successfully:", result);
+        console.log("Badge issued successfully:", result);
         return res.status(200).json({ success: true, data: result });
 
     } catch (err) {
@@ -105,7 +181,6 @@ app.post("/issue-obf-badge", async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
-
 
 app.get("/", (req, res) => {
     res.send("OBF Badge Issuer backend is running.");
