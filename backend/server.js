@@ -80,10 +80,10 @@ app.post("/issue-obf-badge", async (req, res) => {
 
         const badgeAlreadyIssued = await checkBadgeIssued(email, accessToken);
 
-        /*if (badgeAlreadyIssued) {
+        if (badgeAlreadyIssued) {
             console.warn("Badge already issued for this email. Aborting issuance.");
             return res.status(409).json({ error: "already issued" });
-        }*/
+        }
 
         const localizedPath = path.join(__dirname, "request.json");
         const localizedText = JSON.parse(fs.readFileSync(localizedPath, "utf-8"));
