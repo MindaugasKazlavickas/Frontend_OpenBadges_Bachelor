@@ -4,12 +4,8 @@
     "headline1": "Pripažink pastangas. Apdovanok pažangą.",
     "headline2": "Įrodyk, ką žinai. Būk įvertintas.",
     "subtitle1": "Neleisk savo mokymuisi likti nepastebėtam. Sužinok, kaip atvirieji ženkliukai parodo tavo įgūdžius.",
-    "keywords": [
-      "Metaduomenys",
-      "Įgūdžiai",
-      "Įrodymas",
-      "Vertė"
-    ]
+    "keywords": [ "Metaduomenys", "Įgūdžiai", "Įrodymas", "Vertė" ],
+    "about": "Apie mus"
   },
   "button": {
     "start": "Pradėti",
@@ -195,6 +191,9 @@
   },
   "pts": "taškai",
   "end": {
+    "warning": "Pasirinkus žaisti dar kartą, jūsų progresas bus atstatytas.",
+    "aboutreset": "Jūsų surinkti taškai bus priskirti ženkliukui. Ženkliuką galima atsiimti tik vieną kartą. Galite žaisti dar kartą, jei norite pagerinti savo rezultatą.",
+    "playagain": "Žaisti dar kartą",
     "heading": "Ženkliuko Atsiėmimas",
     "congrats": "Sveikiname!",
     "earned": "Tu gavai savo ženkliuką!",
@@ -205,5 +204,20 @@
     "namePlaceholder": "Tavo vardas ir pavardė",
     "emailPlaceholder": "Tavo el. pašto adresas",
     "submit": "Pateikti"
+  },
+  "criteria": {
+    "criteria1": "Užduočių serijos užbaigimas. klaidos yra leistinos, tačiau jas reikia ištaisyti, kad būtų galima užbaigti iššūkių seriją.",
+    "criteria2": "Taškų skaičius. Vartotojo rezultatas pridedamas prie ženklelio. Idealus rezultatas yra 260 taškų, tačiau jis skirtas paskatinti vartotojus, o ne diskredituoti ženklelius, jei rezultatas yra mažesnis nei idealus."
+  },
+  "about": {
+    "title": "Apie mus",
+    "paragraph1": "Ši svetainė sukurta tam, kad atvirų ženkliukų ir mokymosi pripažinimo per juos koncepcija būtų suprantamesnė ir įdomesnė.",
+    "paragraph2": "Tai yra praktinė Vilniaus Tech studento Mindaugo Kazlavicko bakalauro baigiamojo darbo dalis.",
+    "date": "Vilnius, 2025",
+    "contactTitle": "Kontaktai",
+    "emailLabel": "El. paštas",
+    "githubLabel": "Projektas",
+    "uniEmail": "Vilnius Tech el. paštas",
+    "repoName": "GitHub saugykla"
   }
 }

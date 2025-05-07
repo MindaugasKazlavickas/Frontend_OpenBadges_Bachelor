@@ -1,0 +1,127 @@
+.about-slide-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.about-slide-panel.visible {
+    transform: translateX(0);
+}
+
+.about-panel-content {
+    z-index: 1001;
+    position: relative;
+    padding: 2rem;
+    flex: 1;
+    overflow-y: auto;
+    color: black;
+}
+
+.about-panel-content h2 {
+    margin-top: 4rem;
+    font-size: 1.8rem;
+}
+
+.about-panel-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.about-close-button:hover {
+    background-color: #ddd;
+}
+
+.about-close-button.back-to-top {
+    position: absolute;
+    top: 2rem;
+    left: 1.5rem;
+    bottom: auto;
+    right: auto;
+    opacity: 1;
+    transform: none;
+    width: 48px;
+    height: 48px;
+    z-index: 2;
+    background-color: var(--primary-color);
+    border: none;
+}
+
+.about-close-button.back-to-top:hover {
+    background-color: var(--secondary-color);
+}
+
+.about-close-button .toTopImage {
+    transform: rotate(90deg);
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 400px) {
+    .about-slide-panel {
+        max-width: 100%;
+    }
+
+    .about-panel-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .about-panel-content h2 {
+        margin-top: 3rem;
+    }
+}
+
+.about-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+.about-header {
+    max-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.about-header h2 {
+    font-size: 24px;
+    min-height: 48px;
+}
+.about-contact {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #ddd;
+}
+
+.about-contact h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.about-contact p {
+    margin: 0.3rem 0;
+}
+
+.about-contact a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.about-contact a:hover {
+    text-decoration: underline;
+}

@@ -194,8 +194,8 @@
   "end": {
     "warning": "Choosing to play again will reset your progress.",
     "aboutreset": "Your score will be attached to your badge. You may only claim your badge once. You may choose to play again, if you wish to improve your score.",
-    "heading": "Badge Claim",
     "playagain": "Play Again",
+    "heading": "Badge Claim",
     "congrats": "Congratulations!",
     "earned": "You've earned your badge!",
     "success": "Badge successfully issued!",
@@ -205,5 +205,20 @@
     "namePlaceholder": "Your full name*",
     "emailPlaceholder": "Your email address*",
     "submit": "Submit"
+  },
+  "criteria": {
+    "criteria1": "Completion of the challenge series in full. Failure is allowed but has to be corrected in order to complete the challenge series.",
+    "criteria2": "Score. The user’s score is attached to the badge. The perfect score is 260 points, but it is meant as a way to incentivize users and not to discredit badges, if the score is lower than perfect."
+  },
+  "about": {
+    "title": "About Us",
+    "paragraph1": "This website was created to make the concept of Open Badges and learning recognition through them more understandable and engaging.",
+    "paragraph2": "This is the practical implementation part of a Bachelor's thesis by Vilnius Tech student Mindaugas Kazlavickas.",
+    "date": "Vilnius, 2025",
+    "contactTitle": "Contacts",
+    "emailLabel": "Email",
+    "githubLabel": "Project",
+    "uniEmail": "Vilnius Tech email",
+    "repoName": "GitHub Repository"
   }
 }

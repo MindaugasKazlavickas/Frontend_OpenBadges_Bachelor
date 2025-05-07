@@ -4,6 +4,7 @@ import theme from '../themes/theme';
 import './heroSection.css';
 import ltFlag from '../assets/ltFlag.png';
 import enFlag from '../assets/enFlag.png';
+import AboutPanel from './about';
 
 const HeroSection = () => {
     const { t, toggleLanguage, language  } = useLanguage();
@@ -11,6 +12,7 @@ const HeroSection = () => {
     const [headlines, setHeadlines] = useState([]);
     const [headlineIndex, setHeadlineIndex] = useState(0);
     const [fade, setFade] = useState(true);
+    const [showAboutPanel, setShowAboutPanel] = useState(false);
 
     useEffect(() => {
         setHeadlines([
@@ -69,18 +71,12 @@ const HeroSection = () => {
             <div style={{ position: 'absolute', top: 20, right: 20, display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <button
                     className="about-us-button"
-                    onClick={() => {
-                        const about = document.getElementById('about-section');
-                        if (about) {
-                            about.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }}
+                    onClick={() => setShowAboutPanel(true)}
                     style={{
+                        minHeight: 40,
                         background: 'transparent',
-                        border: `1px solid ${theme.colors.background}`,
                         color: theme.colors.background,
                         padding: '0.5rem 1rem',
-                        borderRadius: '4px',
                         cursor: 'pointer',
                     }}
                 >
@@ -140,6 +136,7 @@ const HeroSection = () => {
                     {t('button.start')}
                 </button>
             </div>
+            <AboutPanel isVisible={showAboutPanel} onClose={() => setShowAboutPanel(false)} />
         </section>
     );
 };
