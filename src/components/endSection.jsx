@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useLanguage } from '../context/languageContext';
 import theme from '../themes/theme';
 import './endSection.css';
+import { resetScore } from '../utils/scoreUtils';
+
 const BADGE_CLAIM_KEY = 'userClaimedBadge';
 
 const EndSection = () => {
@@ -11,6 +13,10 @@ const EndSection = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [badgeClaimed, setBadgeClaimed] = useState(false);
+    const [isHolding, setIsHolding] = useState(false);
+    const [holdProgress, setHoldProgress] = useState(0);
+    const holdRef = useRef(null);
+    const FADE_DURATION = 600;
 
     useEffect(() => {
         const claimed = localStorage.getItem(BADGE_CLAIM_KEY);
@@ -36,16 +42,57 @@ const EndSection = () => {
             if (response.ok) {
                 localStorage.setItem(BADGE_CLAIM_KEY, 'true');
                 setBadgeClaimed(true);
-                setSuccessMessage(t('end.success') || '🎉 Badge sent! Check your email!');
+                setSuccessMessage(t('end.success') || 'Badge sent! Check your email!');
             } else {
-                setSuccessMessage(t('end.error') || '❗ Something went wrong. Try again.');
+                setSuccessMessage(t('end.error') || 'Something went wrong. Try again.');
             }
         } catch (error) {
             console.error(error);
-            setSuccessMessage(t('end.serverError') || '⚠️ Server error. Please try later.');
+            setSuccessMessage(t('end.serverError') || 'Server error. Please try later.');
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    const startHold = () => {
+        if (holdRef.current) return;
+        let progress = 0;
+        setIsHolding(true);
+        holdRef.current = setInterval(() => {
+            progress += 2;
+            setHoldProgress(progress);
+            if (progress >= 100) {
+                clearInterval(holdRef.current);
+                holdRef.current = null;
+                setTimeout(() => setHoldProgress(0), 300);
+
+                resetScore();
+
+                const overlay = document.createElement("div");
+                overlay.className = "reset-overlay";
+                document.body.appendChild(overlay);
+
+                setTimeout(() => {
+                    overlay.style.opacity = "1";
+
+                    setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                        setTimeout(() => {
+                            overlay.remove();
+                            window.location.reload();
+                        }, FADE_DURATION + 200);
+                    }, FADE_DURATION);
+                }, 10);
+            }
+        }, 30);
+    };
+
+    const cancelHold = () => {
+        clearInterval(holdRef.current);
+        holdRef.current = null;
+        setIsHolding(false);
+        setHoldProgress(0);
     };
 
     return (
@@ -54,7 +101,7 @@ const EndSection = () => {
             <p>{t('end.earned')}</p>
 
             {badgeClaimed ? (
-                <p style={{ marginTop: '2rem', fontWeight: 'bold' }}>{t('end.claimed') || '✅ Badge claimed.'}</p>
+                <p style={{ marginTop: '2rem', fontWeight: 'bold' }}>{t('end.claimed') || 'Badge claimed.'}</p>
             ) : (
                 <form onSubmit={handleSubmit} style={{ marginTop: '2rem' }}>
                     <input
@@ -73,6 +120,11 @@ const EndSection = () => {
                         required
                         style={{ padding: '0.5rem', marginBottom: '1rem', width: '100%' }}
                     />
+
+                    <p style={{ fontStyle: 'italic', fontsize: 16, top: '1rem', bottom: '1rem', maxWidth: 600, margin: 'auto'}}>
+                        {t('end.aboutreset') || 'Replaying will reset your progress. You can only claim your badge once.'}
+                    </p>
+
                     <button type="submit" disabled={isSubmitting} style={{ padding: '0.75rem 1.5rem' }}
                     className="submitter">
                         {isSubmitting ? (t('form.sending') || 'Issuing badge...') : (t('form.submit') || 'Claim Badge')}
@@ -81,6 +133,23 @@ const EndSection = () => {
             )}
 
             {successMessage && <p style={{ marginTop: '1rem' }}>{successMessage}</p>}
+
+            <div style={{ marginTop: '3rem' }}>
+                <p style={{ fontStyle: 'italic', fontsize: 16, top: '1rem', bottom: '1rem', maxWidth: 600, margin: 'auto', marginBottom: '1rem' }}>
+                    {t('end.warning') || 'Replaying will reset your progress. You can only claim your badge once.'}
+                </p>
+                <button
+                    className="play-again-btn"
+                    onMouseDown={startHold}
+                    onMouseUp={cancelHold}
+                    onMouseLeave={cancelHold}
+                    onTouchStart={startHold}
+                    onTouchEnd={cancelHold}
+                >
+                    <div className="hold-progress" style={{ width: `${holdProgress}%` }} />
+                    {t('end.playagain') || 'Play Again'}
+                </button>
+            </div>
         </section>
     );
 };

@@ -12,6 +12,7 @@ import ScenarioTask from "./tasks/scenarioTask";
 import SlidingTask from "./tasks/slidingTask";
 import { isTaskCompleted } from './utils/scoreUtils';
 import IntroSection from './components/introSection';
+import { BackToTopButton } from './components/toTop';
 
 const sectionData = [
     {
@@ -119,6 +120,7 @@ const App = () => {
             <HeroSection />
             <div id="intro-start-anchor" style={{ height: '1px' }}></div>
             <IntroSection />
+            <BackToTopButton />
             <div id="task-start-anchor" style={{ height: '1px' }}></div>
             <TaskSectionHeader
                 activeIndex={Math.max(...unlockedSections)}

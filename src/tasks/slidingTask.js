@@ -1,49 +1,48 @@
 import React, {useEffect, useState} from 'react';
 import './slidingTask.css';
 import { useLanguage } from '../context/languageContext';
-import { CardSwiper } from './slidingTaskHelper';
-import {
-    adjustScore,
-    saveConfirmedScore,
-    getLiveScore,
-    saveTaskCompletion,
-    isTaskCompleted,
-    useFloatingScore
-} from '../utils/scoreUtils';
-
-const slides = [
-    { id: 1, textKey: 'task.slide.1', correct: 'task.slide.student', correctKey: '1' },
-    { id: 2, textKey: 'task.slide.2', correct: 'task.slide.employer', correctKey: '0' },
-    { id: 3, textKey: 'task.slide.3', correct: 'task.slide.employer', correctKey: '0' },
-    { id: 4, textKey: 'task.slide.4', correct: 'task.slide.student', correctKey: '1' },
-    { id: 5, textKey: 'task.slide.5', correct: 'task.slide.employer', correctKey: '0' },
-    { id: 6, textKey: 'task.slide.6', correct: 'task.slide.student', correctKey: '1' },
-];
+import { CardSwiper } from '../utils/slidingTaskHelper';
+import { adjustScore, saveConfirmedScore, getLiveScore, saveTaskCompletion, isTaskCompleted, useFloatingScore } from '../utils/scoreUtils';
+import { shuffleArray } from '../utils/shuffle';
 
 const SlidingTask = ({ onUnlock }) => {
     const { t } = useLanguage();
-    const [current, setCurrent] = useState(1);
-    const [answers, setAnswers] = useState({}); // { 1: 'student' | 'employer' }
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [answers, setAnswers] = useState({});
     const [completed, setCompleted] = useState(false);
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
     const [disabledButtons, setDisabledButtons] = useState({});
 
-    const handleAnswer = (cardId, answer) => {
-        const currentSlide = slides.find(c => c.id === cardId);
-        if (!currentSlide || answers[cardId]) return;
+    const [shuffledSlides] = useState(() =>
+        shuffleArray([
+            { id: 1, textKey: 'task.slide.1', correct: 'task.slide.student', correctKey: '1' },
+            { id: 2, textKey: 'task.slide.2', correct: 'task.slide.employer', correctKey: '0' },
+            { id: 3, textKey: 'task.slide.3', correct: 'task.slide.employer', correctKey: '0' },
+            { id: 4, textKey: 'task.slide.4', correct: 'task.slide.student', correctKey: '1' },
+            { id: 5, textKey: 'task.slide.5', correct: 'task.slide.employer', correctKey: '0' },
+            { id: 6, textKey: 'task.slide.6', correct: 'task.slide.student', correctKey: '1' },
+        ])
+    );
 
-        // Convert choice to key
+    const handleAnswer = (cardId, answer) => {
+        const currentSlide = shuffledSlides[currentIndex];
+        if (!currentSlide || answers[currentSlide.id]) return;
+
         const selectedKey = answer === 'student' ? '1' : '0';
         const isCorrect = selectedKey === currentSlide.correctKey;
 
         if (isCorrect) {
             adjustScore(10);
             triggerFloatingScore('+10');
-            setAnswers(prev => ({ ...prev, [cardId]: answer }));
+            setAnswers(prev => ({ ...prev, [currentSlide.id]: answer }));
 
-            const allCorrect = slides.every(card => {
+            const allCorrect = shuffledSlides.every(card => {
                 const answered =
-                    card.id === cardId ? selectedKey : (answers[card.id] === 'student' ? '1' : '0');
+                    card.id === currentSlide.id
+                        ? selectedKey
+                        : answers[card.id] === 'student'
+                            ? '1'
+                            : '0';
                 return answered === card.correctKey;
             });
 
@@ -54,13 +53,13 @@ const SlidingTask = ({ onUnlock }) => {
                 if (typeof onUnlock === 'function') onUnlock();
             }
 
-            setTimeout(() => setCurrent(cardId + 1), 1500);
+            setTimeout(() => setCurrentIndex(prev => prev + 1), 1500);
         } else {
             adjustScore(-5);
             triggerFloatingScore('-5');
             setDisabledButtons(prev => ({
                 ...prev,
-                [cardId]: [...(prev[cardId] || []), answer]
+                [currentSlide.id]: [...(prev[currentSlide.id] || []), answer]
             }));
         }
     };
@@ -68,7 +67,7 @@ const SlidingTask = ({ onUnlock }) => {
     useEffect(() => {
         if (isTaskCompleted('task.swipe')) {
             const completedAnswers = {};
-            slides.forEach(card => {
+            shuffledSlides.forEach(card => {
                 completedAnswers[card.id] = card.correctKey;
             });
             setAnswers(completedAnswers);
@@ -89,8 +88,8 @@ const SlidingTask = ({ onUnlock }) => {
             </div>
             {!completed && (
             <CardSwiper
-                slides={slides}
-                current={current}
+                slides={shuffledSlides}
+                currentIndex={currentIndex}
                 answers={answers}
                 onAnswer={handleAnswer}
                 disabledButtons={disabledButtons}

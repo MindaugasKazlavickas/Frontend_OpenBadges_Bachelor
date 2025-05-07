@@ -49,9 +49,8 @@ const IntroSection = () => {
     const paraRefs = useRef([]);
     const [pathD, setPathD] = useState('');
     const wrapperRef = useRef(null);
-    const paragraphsWrapperRef = useRef(null);
     const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
-    // Build dynamic zigzag path based on paragraph sizes
+
     useLayoutEffect(() => {
         const buildPath = () => {
             if (!wrapperRef.current || !paraRefs.current.length) return;
@@ -59,7 +58,7 @@ const IntroSection = () => {
             const leftX = svgSize.width*0.15;
             const rightX = svgSize.width*0.85;
             const blockHeight = window.innerHeight*0.6;
-            const boxHeight = blockHeight; // some padding
+            const boxHeight = blockHeight;
 
             let d = '';
             paraRefs.current.forEach((_, i) => {
@@ -98,7 +97,6 @@ const IntroSection = () => {
         return () => window.removeEventListener('resize', updateSVGSize);
     }, []);
 
-    // 2. Progressive scroll filling
     useEffect(() => {
         const updateScroll = () => {
             const path = pathRef.current;

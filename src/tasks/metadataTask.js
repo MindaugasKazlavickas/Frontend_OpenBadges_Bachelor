@@ -1,14 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './metadataTask.css';
 import { useLanguage } from '../context/languageContext';
-import {
-    adjustScore,
-    saveConfirmedScore,
-    getLiveScore,
-    saveTaskCompletion,
-    isTaskCompleted,
-    useFloatingScore
-} from '../utils/scoreUtils';
+import { adjustScore, saveConfirmedScore, getLiveScore, saveTaskCompletion, isTaskCompleted, useFloatingScore } from '../utils/scoreUtils';
+import { shuffleArray } from '../utils/shuffle';
 
 const optionsData = [
     { id: 1, textKey: 'task.metadata.recipientEmailEncrypted', isCorrect: true },
@@ -23,8 +17,7 @@ const optionsData = [
     { id: 10, textKey: 'task.metadata.unencryptedEmail', isCorrect: false, explanationKey: 'task.metadata.mistake.unencryptedEmail' }
 ];
 
-
-const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
+const MetadataTask = ({onUnlock }) => {
     const { t } = useLanguage();
     const [selected, setSelected] = useState({});
     const [feedbackCard, setFeedbackCard] = useState(null);
@@ -59,8 +52,8 @@ const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
         }
     };
 
-    const midpoint = Math.floor(optionsData.length / 2);
-    const correctIds = optionsData.filter(opt => opt.isCorrect).map(opt => opt.id);
+    const [shuffledOptions] = useState(() => shuffleArray(optionsData));
+    const midpoint = Math.floor(shuffledOptions.length / 2);
 
     useEffect(() => {
         if (isTaskCompleted('task.metadata')) {
@@ -86,7 +79,7 @@ const MetadataTask = ({onUnlock, sectionIndex, revealContinue }) => {
             </div>
 
             <div style={{ marginTop: 32 }} className="staircase-wrapper">
-                    {optionsData.map(({ id, textKey, isCorrect, explanationKey }, index) => (
+                {shuffledOptions.map(({ id, textKey, isCorrect, explanationKey }, index) => (
                         <button
                             key={id}
                             className={`option-btn ${selected[id]} ${index < midpoint ? `shift-right-${index}` : `shift-left-${index - midpoint}`} metadata-btn`}

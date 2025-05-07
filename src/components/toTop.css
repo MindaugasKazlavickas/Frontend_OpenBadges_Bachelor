@@ -1,0 +1,36 @@
+.back-to-top {
+    opacity: 0;
+    transform: translateY(10px);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--primary-color);
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    padding: 0;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--secondary-color);
+}
+
+.toTopImage {
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    user-select: none;
+}

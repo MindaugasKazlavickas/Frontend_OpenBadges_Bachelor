@@ -3,8 +3,6 @@ import theme from '../themes/theme';
 import { useLanguage } from '../context/languageContext';
 import './taskSection.css';
 
-
-
 const TaskSection = ({
                          headerKey,
                          sectionIndex,

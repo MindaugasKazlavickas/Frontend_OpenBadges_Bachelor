@@ -4,7 +4,8 @@
     "headline1": "Recognize Effort. Reward Progress.",
     "headline2": "Prove What You Know. Be Recognized.",
     "subtitle1": "Don’t let your learning go unnoticed. Discover how Open Badges make your skills visible.",
-    "keywords": ["Metadata", "Skills", "Proof", "Value"]
+    "keywords": ["Metadata", "Skills", "Proof", "Value"],
+    "about": "About Us"
   },
   "button": {
     "start": "Start",
@@ -191,6 +192,10 @@
   },
   "pts": "pts",
   "end": {
+    "warning": "Choosing to play again will reset your progress.",
+    "aboutreset": "Your score will be attached to your badge. You may only claim your badge once. You may choose to play again, if you wish to improve your score.",
+    "heading": "Badge Claim",
+    "playagain": "Play Again",
     "congrats": "Congratulations!",
     "earned": "You've earned your badge!",
     "success": "Badge successfully issued!",

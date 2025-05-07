@@ -2,12 +2,12 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/languageContext';
 
-export const CardSwiper = ({ slides, current, answers, onAnswer, disabledButtons }) => {
+export const CardSwiper = ({ slides, currentIndex, answers, onAnswer, disabledButtons }) => {
     const { t } = useLanguage();
     return (
         <div className="card-swiper">
             <AnimatePresence initial={false} mode="wait">
-                {slides.filter(c => c.id === current).map(card => (
+                {[slides[currentIndex]].map(card => (
                     <motion.div
                         key={card.id}
                         className={`answer-card ${answers[card.id] ? 'locked' : ''}`}

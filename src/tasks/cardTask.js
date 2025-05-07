@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './cardTask.css';
 import { useLanguage } from '../context/languageContext';
-import {
-    DndContext,
-    useDraggable,
-    useDroppable,
-} from '@dnd-kit/core';
-import {adjustScore, getLiveScore, saveConfirmedScore, useFloatingScore} from '../utils/scoreUtils';
+import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
+import { adjustScore, getLiveScore, saveConfirmedScore, useFloatingScore } from '../utils/scoreUtils';
 import { saveTaskCompletion, isTaskCompleted } from '../utils/scoreUtils';
+import { shuffleArray } from '../utils/shuffle';
 
 const initialCards = [
     { id: 1, text: "task.card.excelAnalysis", correctColumn: "A", mistakeKey: "task.card.mistake.excelAnalysis" },
@@ -46,7 +43,7 @@ const DraggableCard = ({ card, from, disabled = false  }) => {
 };
 
 
-const DroppableColumn = ({ id, label, cards, onDrop, disabled = false  }) => {
+const DroppableColumn = ({ id, label, cards, disabled = false  }) => {
     const { setNodeRef, isOver } = useDroppable({ id });
 
     return (
@@ -66,10 +63,9 @@ const DroppableColumn = ({ id, label, cards, onDrop, disabled = false  }) => {
 
 const CardSortTask = ({ onUnlock }) => {
     const { t } = useLanguage();
-    const [cardStack, setCardStack] = useState([...initialCards]);
+    const [cardStack, setCardStack] = useState(() => shuffleArray(initialCards));
     const [columns, setColumns] = useState({ A: [], B: [] });
     const [feedbackCard, setFeedbackCard] = useState(null);
-    const [overlayOpen, setOverlayOpen] = useState(false);
     const [completed, setCompleted] = useState(false);
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
 
@@ -92,15 +88,7 @@ const CardSortTask = ({ onUnlock }) => {
                     checkCompletion(updated);
                     return updated;
                 });
-            } else if (from !== droppedColumn) {
-                setColumns(prev => {
-                    const newFrom = prev[from].filter(c => c.id !== card.id);
-                    const newTo = [...prev[droppedColumn], card];
-                    const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
-                    return updated;
-                });
             }
-            return;
         }
 
         if (cardStack.length > 0 && card.id === cardStack[0].id) {
@@ -134,7 +122,7 @@ const CardSortTask = ({ onUnlock }) => {
 
         if (correctCards === initialCards.length) {
             saveConfirmedScore(getLiveScore());
-            saveTaskCompletion('task.card-sort'); // ← add this
+            saveTaskCompletion('task.card-sort');
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
         }
@@ -151,10 +139,9 @@ const CardSortTask = ({ onUnlock }) => {
             setCardStack([]);
             setCompleted(true);
 
-            // 🔓 Unlock the next section if needed
             if (typeof onUnlock === 'function') onUnlock();
         }
-    }, []);
+    },[]);
 
     return (
         <div className="card-sort-task-container">

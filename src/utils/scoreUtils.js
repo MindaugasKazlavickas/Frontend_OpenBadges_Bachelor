@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 
 export const getStoredScore = () => {
     const saved = localStorage.getItem('confirmedScore');
     return saved ? JSON.parse(saved) : 0;
 };
 
-let liveScore = getStoredScore(); // initialize from saved score after definition
+let liveScore = getStoredScore();
 
 export const saveConfirmedScore = (score) => {
     localStorage.setItem('confirmedScore', JSON.stringify(score));
@@ -37,7 +36,7 @@ export const isTaskCompleted = (taskId) => {
 };
 
 export const useFloatingScore = () => {
-    const [floatingScore, setFloatingScore] = useState(null); // ← always visible for testing
+    const [floatingScore, setFloatingScore] = useState(null);
 
     const triggerFloatingScore = (amount) => {
         setFloatingScore(amount);
@@ -79,7 +78,7 @@ export const useLiveScore = () => {
 const floatingScoreStyle = {
     position: 'fixed',
     top: '80px',
-    right: '24px', // adjust based on actual header layout
+    right: '24px',
     backgroundColor: 'var(--primary-color)',
     color: 'white',
     padding: '0.3rem 0.6rem',

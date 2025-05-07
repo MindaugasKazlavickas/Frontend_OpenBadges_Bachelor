@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ProgressRing from './progressRing';
+import ProgressRing from '../components/progressRing';
 import "./mergeCenterDisplay.css";
 import badge1 from '../assets/metaBadge1.png';
 import badge2 from '../assets/metaBadge2.png';
@@ -13,7 +13,6 @@ const badgeMap = {
 
 const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete, droppedItems }) => {
     const videoRef = useRef(null);
-    const [videoPlayed, setVideoPlayed] = useState(false);
     const [fadingOut, setFadingOut] = useState(false);
     const [showVideo, setShowVideo] = useState(false);
 
@@ -24,7 +23,7 @@ const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete, droppedItems
             const timeout = setTimeout(() => {
                 setShowVideo(true);
                 videoRef.current?.play();
-            }, 600); // matches fade duration
+            }, 600);
 
             return () => clearTimeout(timeout);
         }
@@ -65,7 +64,7 @@ const MergeCenterDisplay = ({ droppedCount, totalCount, isComplete, droppedItems
                     controls={false}
                     disablePictureInPicture
                     onContextMenu={(e) => e.preventDefault()}
-                    poster="/src/assets/metadata.png" // optional
+                    poster="/src/assets/metadata.png"
                 >
                     <source src="/mergeAnimation.mp4" type="video/mp4" />
 

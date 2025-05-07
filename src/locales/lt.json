@@ -195,6 +195,7 @@
   },
   "pts": "taškai",
   "end": {
+    "heading": "Ženkliuko Atsiėmimas",
     "congrats": "Sveikiname!",
     "earned": "Tu gavai savo ženkliuką!",
     "success": "Ženkliukas sėkmingai išduotas!",

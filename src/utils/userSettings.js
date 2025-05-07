@@ -10,6 +10,7 @@ export const loadUserSettings = () => {
 
 export const saveUserSettings = (settings) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    window.dispatchEvent(new Event("storage"));
 };
 
 export const updateUserSetting = (key, value) => {

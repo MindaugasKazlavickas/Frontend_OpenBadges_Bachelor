@@ -5,20 +5,10 @@ import badge1 from '../assets/metaBadge1.png';
 import badge2 from '../assets/metaBadge2.png';
 import badge3 from '../assets/metaBadge3.png';
 import metaBadge from '../assets/metadata.png';
-import {
-    DndContext,
-    useDraggable,
-    useDroppable,
-} from '@dnd-kit/core';
-import MergeCenterDisplay from "./mergeCenterDisplay";
-import {
-    adjustScore,
-    saveConfirmedScore,
-    getLiveScore,
-    saveTaskCompletion,
-    isTaskCompleted,
-    useFloatingScore
-} from '../utils/scoreUtils';
+import { DndContext, useDraggable, useDroppable, } from '@dnd-kit/core';
+import MergeCenterDisplay from "../utils/mergeCenterDisplay";
+import { adjustScore, saveConfirmedScore, getLiveScore, saveTaskCompletion, isTaskCompleted, useFloatingScore } from '../utils/scoreUtils';
+import {shuffleArray} from "../utils/shuffle";
 
 const DraggableBadge = ({ id, src }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -42,7 +32,7 @@ const DraggableBadge = ({ id, src }) => {
     );
 };
 
-const DropZone = ({ onDropBadge, droppedItems, isComplete, dropProgress, children }) => {
+const DropZone = ({ droppedItems, isComplete, dropProgress, children }) => {
     const { setNodeRef } = useDroppable({ id: 'meta-zone' });
 
     return (
@@ -71,11 +61,13 @@ const BadgeMergeTask = ({ onUnlock }) => {
     const [completed, setCompleted] = useState(false);
     const [showContinue, setShowContinue] = useState(false);
 
-    const badgeList = [
+    const [badgeList] = useState(() =>
+        shuffleArray([
         { id: 'badge1', src: badge1, position: 'top' },
         { id: 'badge2', src: badge2, position: 'left' },
         { id: 'badge3', src: badge3, position: 'right' }
-    ];
+        ])
+    );
 
     const handleDragEnd = (event) => {
         const { over, active } = event;
@@ -105,7 +97,7 @@ const BadgeMergeTask = ({ onUnlock }) => {
 
     useEffect(() => {
         if (isTaskCompleted('task.merging')) {
-            setDroppedItems(['badge1', 'badge2', 'badge3']);
+            setDroppedItems(badgeList.map(b => b.id));
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
             setTimeout(() => setShowContinue(true), 7000);
@@ -125,23 +117,14 @@ const BadgeMergeTask = ({ onUnlock }) => {
             <DndContext onDragEnd={handleDragEnd}>
                 <div className="badge-merge-zone">
                     <div className={`badge-cluster ${droppedItems.length === 3 ? 'collapsed' : ''}`}>
-                    <div className="badge-slot">
-                            {!droppedItems.includes('badge1') && (
-                                <DraggableBadge id="badge1" src={badge1} />
-                            )}
-                        </div>
-                        <div className="badge-slot">
-                            {!droppedItems.includes('badge2') && (
-                                <DraggableBadge id="badge2" src={badge2} />
-                            )}
-                        </div>
-                        <div className="badge-slot">
-                            {!droppedItems.includes('badge3') && (
-                                <DraggableBadge id="badge3" src={badge3} />
-                            )}
-                        </div>
+                        {badgeList.map(({ id, src }) => (
+                            <div className="badge-slot" key={id}>
+                                {!droppedItems.includes(id) && (
+                                    <DraggableBadge id={id} src={src} />
+                                )}
+                            </div>
+                        ))}
                     </div>
-
                     <DropZone
                         onDropBadge={handleDragEnd}
                         droppedItems={droppedItems}

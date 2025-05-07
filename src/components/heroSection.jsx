@@ -4,6 +4,7 @@ import theme from '../themes/theme';
 import './heroSection.css';
 import ltFlag from '../assets/ltFlag.png';
 import enFlag from '../assets/enFlag.png';
+
 const HeroSection = () => {
     const { t, toggleLanguage, language  } = useLanguage();
 
@@ -65,8 +66,27 @@ const HeroSection = () => {
                 padding: '2rem',
             }}
         >
-            {/* Language Toggle */}
-            <div style={{ position: 'absolute', top: 20, right: 20 }}>
+            <div style={{ position: 'absolute', top: 20, right: 20, display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <button
+                    className="about-us-button"
+                    onClick={() => {
+                        const about = document.getElementById('about-section');
+                        if (about) {
+                            about.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }}
+                    style={{
+                        background: 'transparent',
+                        border: `1px solid ${theme.colors.background}`,
+                        color: theme.colors.background,
+                        padding: '0.5rem 1rem',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                    }}
+                >
+                    {t('hero.about')}
+                </button>
+
                 {language === 'lt' ? (
                     <img
                         src={enFlag}
@@ -85,17 +105,14 @@ const HeroSection = () => {
             </div>
 
             <div className="hero-content">
-                {/* Tagline */}
                 <h2 className="hero-tagline">{t('hero.tagline')}</h2>
 
-                {/* Headline with fade */}
                 <div style={{ minHeight: 180, alignContent: 'center' }}>
                     <h1 className={`hero-headline ${fade ? 'fade-in' : 'fade-out'}`}>
                         {headlines[headlineIndex]}
                     </h1>
                 </div>
 
-                { /* keyword ticker */}
                 <div className="hero-keyword-stack">
                     {keywords.map((word, index) => (
                         <div
@@ -111,7 +128,6 @@ const HeroSection = () => {
                     ))}
                 </div>
 
-                {/* CTA */}
                 <button
                     className={`hero-cta ${animateCTA ? 'cta-animate' : ''}`}
                     onClick={() => {
