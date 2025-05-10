@@ -201,7 +201,8 @@
     "congrats": "Sveikiname!",
     "earned": "Tu gavai savo ženkliuką!",
     "success": "Ženkliukas sėkmingai išduotas!",
-    "claimed": "Jūsų ženklelis sėkmingai gautas ir netrukus pasieks jūsų el. pašto dėžutę!"
+    "claimed": "Jūsų ženklelis sėkmingai gautas ir netrukus pasieks jūsų el. pašto dėžutę!",
+    "survey": "Apklausa"
   },
   "form": {
     "namePlaceholder": "Tavo vardas ir pavardė",

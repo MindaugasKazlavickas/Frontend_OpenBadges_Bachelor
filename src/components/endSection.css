@@ -176,3 +176,21 @@ form button[type="submit"]:hover {
     z-index: 9999;
     pointer-events: none;
 }
+
+.survey-link {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    border: white solid 1px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: background-color 0.3s ease;
+}
+
+.survey-link:hover {
+    background-color: var(--secondary-color);
+}
