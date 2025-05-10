@@ -189,6 +189,38 @@ app.get('/api/logs/:sessionId', (req, res) => {
     res.send(data);
 });
 
+app.get('/api/sessions', (req, res) => {
+    const logsDir = path.resolve('./usageData');
+
+    try {
+        if (!fs.existsSync(logsDir)) {
+            return res.status(200).json([]);
+        }
+
+        const files = fs.readdirSync(logsDir);
+
+        const sessions = files
+            .filter(file => file.startsWith('session-') && file.endsWith('.json'))
+            .map(file => {
+                const filePath = path.join(logsDir, file);
+                const raw = fs.readFileSync(filePath, 'utf-8');
+                const data = JSON.parse(raw);
+
+                return {
+                    sessionId: data.sessionId || file.replace('session-', '').replace('.json', ''),
+                    finalScore: data.finalScore || null,
+                    logsCount: Array.isArray(data.logs) ? data.logs.length : 0,
+                    claimedAt: data.badgeClaimedAt || null,
+                };
+            });
+
+        res.json(sessions);
+    } catch (err) {
+        console.error('[SERVER] Failed to read session logs:', err);
+        res.status(500).send({ error: 'Unable to read session logs' });
+    }
+});
+
 app.get("/", (req, res) => {
     res.send("OBF Badge Issuer backend is running.");
 });
