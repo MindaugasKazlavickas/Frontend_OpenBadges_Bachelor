@@ -4,8 +4,9 @@ import { useLanguage } from '../context/languageContext';
 import { CardSwiper } from '../utils/slidingTaskHelper';
 import { adjustScore, saveConfirmedScore, getLiveScore, saveTaskCompletion, isTaskCompleted, useFloatingScore } from '../utils/scoreUtils';
 import { shuffleArray } from '../utils/shuffle';
+import {logEvent, setCurrentSectionIndex} from "../utils/eventLogger";
 
-const SlidingTask = ({ onUnlock }) => {
+const SlidingTask = ({ onUnlock, sectionIndex }) => {
     const { t } = useLanguage();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState({});
@@ -32,7 +33,7 @@ const SlidingTask = ({ onUnlock }) => {
         const isCorrect = selectedKey === currentSlide.correctKey;
 
         if (isCorrect) {
-            adjustScore(10);
+            adjustScore(10, sectionIndex);
             triggerFloatingScore('+10');
             setAnswers(prev => ({ ...prev, [currentSlide.id]: answer }));
 
@@ -55,7 +56,7 @@ const SlidingTask = ({ onUnlock }) => {
 
             setTimeout(() => setCurrentIndex(prev => prev + 1), 1500);
         } else {
-            adjustScore(-5);
+            adjustScore(-5, sectionIndex);
             triggerFloatingScore('-5');
             setDisabledButtons(prev => ({
                 ...prev,

@@ -3,6 +3,8 @@ import { useLanguage } from '../context/languageContext';
 import theme from '../themes/theme';
 import './endSection.css';
 import { resetScore } from '../utils/scoreUtils';
+import { logEvent, getLogs } from '../utils/eventLogger';
+import { getLiveScore } from '../utils/scoreUtils';
 
 const BADGE_CLAIM_KEY = 'userClaimedBadge';
 
@@ -25,6 +27,42 @@ const EndSection = () => {
         }
     }, []);
 
+    const submitFinalLogs = async () => {
+        const sessionId = localStorage.getItem('sessionId');
+        const logs = getLogs();
+        const score = getLiveScore();
+
+        const breakdown = logs.reduce(
+            (acc, log) => {
+                if (log.type === 'scoreAdjusted') {
+                    if (log.outcome === 'correct') acc.correct += 1;
+                    if (log.outcome === 'incorrect') acc.incorrect += 1;
+                }
+                return acc;
+            },
+            { correct: 0, incorrect: 0 }
+        );
+
+        const payload = {
+            sessionId,
+            finalScore: score,
+            scoreBreakdown: breakdown,
+            logs,
+            badgeClaimedAt: new Date().toISOString(),
+        };
+
+        try {
+            await fetch('https://your-backend.onrender.com/api/log', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            console.log('[LOGS] Submitted successfully.');
+        } catch (e) {
+            console.error('[LOGS] Submission failed:', e);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -44,11 +82,15 @@ const EndSection = () => {
 
             if (response.ok) {
                 localStorage.setItem(BADGE_CLAIM_KEY, 'true');
+                logEvent('badgeClaimed');
+                submitFinalLogs();
                 setBadgeClaimed(true);
                 setSuccessMessage(t('end.success') || 'Badge sent! Check your email!');
             } else {
                 const error = await response.json();
                 if (error?.error?.includes('already issued')) {
+                    logEvent('badgeAlreadyIssued');
+                    submitFinalLogs();
                     setSuccessMessage(t('end.alreadyIssued') || 'A badge has already been issued to this email.');
                     setBadgeClaimed(true);
                 } else {

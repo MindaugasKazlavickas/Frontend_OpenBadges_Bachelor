@@ -149,6 +149,31 @@ app.post("/issue-obf-badge", async (req, res) => {
     }
 });
 
+app.post('/api/log', (req, res) => {
+    const payload = req.body;
+    const { sessionId } = payload;
+
+    if (!sessionId) {
+        return res.status(400).send({ error: 'Missing sessionId' });
+    }
+
+    const logsDir = path.resolve('./usageData');
+    const filePath = path.join(logsDir, `session-${sessionId}.json`);
+
+    try {
+        if (!fs.existsSync(logsDir)) {
+            fs.mkdirSync(logsDir);
+        }
+
+        fs.writeFileSync(filePath, JSON.stringify(payload, null, 2));
+        res.status(200).send({ message: 'Log saved.' });
+    } catch (err) {
+        console.error('Failed to save log:', err);
+        res.status(500).send({ error: 'Internal server error' });
+    }
+});
+
+
 app.get("/", (req, res) => {
     res.send("OBF Badge Issuer backend is running.");
 });

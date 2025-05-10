@@ -98,6 +98,7 @@ const App = () => {
         return newId;
     });
 
+    const [sessionStart] = useState(() => Date.now());
     const [liveScore, setLiveScore] = useState(0);
 
     useEffect(() => {
@@ -161,16 +162,16 @@ const App = () => {
                     {i === 0 ? (
                         <CardSortTask onUnlock={() => unlockSection(i)} sectionIndex={i} />
                     ) : i === 1 ? (
-                        <MetadataTask onUnlock={() => unlockSection(i)} />
+                        <MetadataTask onUnlock={() => unlockSection(i)} sectionIndex={i} />
                     ) : i === 2 ? (
-                        <ScenarioTask onUnlock={() => unlockSection(i)} />
+                        <ScenarioTask onUnlock={() => unlockSection(i)} sectionIndex={i} />
                     ) : i === 3 ? (
-                        <BadgeMergeTask onUnlock={() => unlockSection(i)} />
+                        <BadgeMergeTask onUnlock={() => unlockSection(i)} sectionIndex={i} />
                     ) : (
                         <SlidingTask  onUnlock={() => {
                             unlockSection(i);
                             setFinalTaskDone(true);
-                        }} />
+                        }} sectionIndex={i} />
                     )}
                 </TaskSection>
             ))}

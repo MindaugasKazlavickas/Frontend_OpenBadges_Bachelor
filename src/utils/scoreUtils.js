@@ -17,7 +17,7 @@ export const setScoreSync = (setterFn) => {
     updateScoreState = setterFn;
 };
 
-export const adjustScore = (change) => {
+export const adjustScore = (change, sectionIndex) => {
     liveScore += change;
 
     if (updateScoreState) {
@@ -28,6 +28,7 @@ export const adjustScore = (change) => {
         change,
         newScore: liveScore,
         outcome: change > 0 ? 'correct' : 'incorrect',
+        sectionIndex,
     });
     return liveScore;
 };

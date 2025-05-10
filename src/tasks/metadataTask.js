@@ -3,6 +3,7 @@ import './metadataTask.css';
 import { useLanguage } from '../context/languageContext';
 import { adjustScore, saveConfirmedScore, getLiveScore, saveTaskCompletion, isTaskCompleted, useFloatingScore } from '../utils/scoreUtils';
 import { shuffleArray } from '../utils/shuffle';
+import {logEvent, setCurrentSectionIndex} from "../utils/eventLogger";
 
 const optionsData = [
     { id: 1, textKey: 'task.metadata.recipientEmailEncrypted', isCorrect: true },
@@ -17,7 +18,7 @@ const optionsData = [
     { id: 10, textKey: 'task.metadata.unencryptedEmail', isCorrect: false, explanationKey: 'task.metadata.mistake.unencryptedEmail' }
 ];
 
-const MetadataTask = ({onUnlock }) => {
+const MetadataTask = ({onUnlock, sectionIndex }) => {
     const { t } = useLanguage();
     const [selected, setSelected] = useState({});
     const [feedbackCard, setFeedbackCard] = useState(null);
@@ -32,7 +33,7 @@ const MetadataTask = ({onUnlock }) => {
         setSelected(newState);
 
         if (isCorrect) {
-            adjustScore(10);
+            adjustScore(10, sectionIndex);
             triggerFloatingScore('+10');
 
             const correctIds = optionsData.filter(opt => opt.isCorrect).map(opt => opt.id);
@@ -46,7 +47,7 @@ const MetadataTask = ({onUnlock }) => {
                 if (typeof onUnlock === 'function') onUnlock();
             }
         } else if (explanationKey) {
-            adjustScore(-5);
+            adjustScore(-5, sectionIndex);
             triggerFloatingScore('-5');
             setFeedbackCard({ mistakeKey: explanationKey });
         }

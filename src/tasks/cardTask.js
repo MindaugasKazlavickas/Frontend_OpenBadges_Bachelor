@@ -70,10 +70,6 @@ const CardSortTask = ({ onUnlock, sectionIndex  }) => {
     const [completed, setCompleted] = useState(false);
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
 
-    useEffect(() => {
-        setCurrentSectionIndex(sectionIndex);
-    }, [sectionIndex]);
-
     const handleDragEnd = (event) => {
         const { active, over } = event;
         if (!over || !active) return;
@@ -82,44 +78,44 @@ const CardSortTask = ({ onUnlock, sectionIndex  }) => {
         const { card, from } = active.data.current;
         const isCorrect = card.correctColumn === droppedColumn;
 
-        const isTopCard = cardStack.length > 0 && card.id === cardStack[0].id;
+        if (card.status === 'incorrect') {
+            if (isCorrect) {
+                adjustScore(10, sectionIndex);
+                triggerFloatingScore('+10');
+                setColumns(prev => {
+                    const newFrom = prev[from].filter(c => c.id !== card.id);
+                    const newTo = [...prev[droppedColumn], { ...card, status: 'correct' }];
+                    const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
+                    checkCompletion(updated);
+                    return updated;
+                });
+            }
+        }
 
-        if (isTopCard) {
+        if (cardStack.length > 0 && card.id === cardStack[0].id) {
             const topCard = cardStack[0];
+            const isTopCorrect = topCard.correctColumn === droppedColumn;
 
             setColumns(prev => {
                 const updated = {
                     ...prev,
-                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isCorrect ? 'correct' : 'incorrect' }]
+                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isTopCorrect ? 'correct' : 'incorrect' }]
                 };
-                if (isCorrect) {
-                    adjustScore(10);
+                if (isTopCorrect) {
+                    adjustScore(10, sectionIndex);
                     triggerFloatingScore('+10');
                     checkCompletion(updated);
                 } else {
-                    adjustScore(-5);
+                    adjustScore(-5, sectionIndex);
                     triggerFloatingScore('-5');
                 }
                 return updated;
             });
-
             setCardStack(prev => prev.slice(1));
-            if (!isCorrect) setFeedbackCard(topCard);
 
-            return;
+            if (!isTopCorrect) setFeedbackCard(topCard);
         }
 
-        if (card.status === 'incorrect' && isCorrect) {
-            setColumns(prev => {
-                const newFrom = prev[from].filter(c => c.id !== card.id);
-                const newTo = [...prev[droppedColumn], { ...card, status: 'correct' }];
-                const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
-                checkCompletion(updated);
-                return updated;
-            });
-        }
-
-        console.log('DRAGGING: card', card.id, 'from', from, 'to', droppedColumn);
     };
 
     const checkCompletion = (updatedColumns) => {
@@ -131,10 +127,6 @@ const CardSortTask = ({ onUnlock, sectionIndex  }) => {
             saveTaskCompletion('task.card-sort');
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
-            logEvent("taskCompleted", {
-                taskId: 'card-sort',
-                timestamp: new Date().toISOString(),
-            });
         }
     };
 
@@ -148,6 +140,8 @@ const CardSortTask = ({ onUnlock, sectionIndex  }) => {
             setColumns(completed);
             setCardStack([]);
             setCompleted(true);
+
+            if (typeof onUnlock === 'function') onUnlock();
         }
     },[]);
 

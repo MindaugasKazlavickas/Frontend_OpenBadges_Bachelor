@@ -9,6 +9,7 @@ import { DndContext, useDraggable, useDroppable, } from '@dnd-kit/core';
 import MergeCenterDisplay from "../utils/mergeCenterDisplay";
 import { adjustScore, saveConfirmedScore, getLiveScore, saveTaskCompletion, isTaskCompleted, useFloatingScore } from '../utils/scoreUtils';
 import {shuffleArray} from "../utils/shuffle";
+import {logEvent, setCurrentSectionIndex} from "../utils/eventLogger";
 
 const DraggableBadge = ({ id, src }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
@@ -54,7 +55,7 @@ const DropZone = ({ droppedItems, isComplete, dropProgress, children }) => {
     );
 };
 
-const BadgeMergeTask = ({ onUnlock }) => {
+const BadgeMergeTask = ({ onUnlock, sectionIndex }) => {
     const { t } = useLanguage();
 
     const [droppedItems, setDroppedItems] = useState([]);
@@ -76,7 +77,7 @@ const BadgeMergeTask = ({ onUnlock }) => {
             if (!droppedItems.includes(badgeId)) {
                 const updated = [...droppedItems, badgeId];
                 setDroppedItems(updated);
-                adjustScore(10);
+                adjustScore(10, sectionIndex);
                 triggerFloatingScore('+10');
 
                 if (updated.length === 3 && !completed) {
@@ -84,7 +85,6 @@ const BadgeMergeTask = ({ onUnlock }) => {
                     saveConfirmedScore(getLiveScore());
                     saveTaskCompletion('task.merging');
                     if (typeof onUnlock === 'function') onUnlock();
-
                     setTimeout(() => setShowContinue(true), 7000);
                 }
             }

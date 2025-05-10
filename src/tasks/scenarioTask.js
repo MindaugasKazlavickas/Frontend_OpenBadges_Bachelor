@@ -13,6 +13,7 @@ import s2b3 from '../assets/scenario2badge3.png';
 import s3b1 from '../assets/scenario3badge1.png';
 import s3b2 from '../assets/scenario3badge2.png';
 import s3b3 from '../assets/scenario3badge3.png';
+import {logEvent, setCurrentSectionIndex} from "../utils/eventLogger";
 
 const rawScenarios = [
     {
@@ -47,7 +48,7 @@ const rawScenarios = [
     }
 ];
 
-const ScenarioTask = ({ onUnlock }) => {
+const ScenarioTask = ({ onUnlock, sectionIndex }) => {
     const { t } = useLanguage();
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
     const [lockedScenarios, setLockedScenarios] = useState({});
@@ -83,7 +84,7 @@ const ScenarioTask = ({ onUnlock }) => {
         }));
 
         if (isCorrect) {
-            adjustScore(10);
+            adjustScore(10, sectionIndex);
             triggerFloatingScore('+10');
 
             setLockedScenarios(prev => ({ ...prev, [scenarioId]: true }));
@@ -101,7 +102,7 @@ const ScenarioTask = ({ onUnlock }) => {
                 if (typeof onUnlock === 'function') onUnlock();
             }
         } else {
-            adjustScore(-5);
+            adjustScore(-5, sectionIndex);
             triggerFloatingScore('-5');
         }
     };
