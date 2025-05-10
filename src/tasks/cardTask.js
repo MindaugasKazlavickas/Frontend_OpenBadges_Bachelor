@@ -5,6 +5,7 @@ import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import { adjustScore, getLiveScore, saveConfirmedScore, useFloatingScore } from '../utils/scoreUtils';
 import { saveTaskCompletion, isTaskCompleted } from '../utils/scoreUtils';
 import { shuffleArray } from '../utils/shuffle';
+import { setCurrentSectionIndex, logEvent } from '../utils/eventLogger';
 
 const initialCards = [
     { id: 1, text: "task.card.excelAnalysis", correctColumn: "A", mistakeKey: "task.card.mistake.excelAnalysis" },
@@ -61,13 +62,17 @@ const DroppableColumn = ({ id, label, cards, disabled = false  }) => {
 };
 
 
-const CardSortTask = ({ onUnlock }) => {
+const CardSortTask = ({ onUnlock, sectionIndex  }) => {
     const { t } = useLanguage();
     const [cardStack, setCardStack] = useState(() => shuffleArray(initialCards));
     const [columns, setColumns] = useState({ A: [], B: [] });
     const [feedbackCard, setFeedbackCard] = useState(null);
     const [completed, setCompleted] = useState(false);
     const { triggerFloatingScore, FloatingScoreBubble } = useFloatingScore();
+
+    useEffect(() => {
+        setCurrentSectionIndex(sectionIndex);
+    }, [sectionIndex]);
 
     const handleDragEnd = (event) => {
         const { active, over } = event;
@@ -77,30 +82,17 @@ const CardSortTask = ({ onUnlock }) => {
         const { card, from } = active.data.current;
         const isCorrect = card.correctColumn === droppedColumn;
 
-        if (card.status === 'incorrect') {
-            if (isCorrect) {
-                adjustScore(10);
-                triggerFloatingScore('+10');
-                setColumns(prev => {
-                    const newFrom = prev[from].filter(c => c.id !== card.id);
-                    const newTo = [...prev[droppedColumn], { ...card, status: 'correct' }];
-                    const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
-                    checkCompletion(updated);
-                    return updated;
-                });
-            }
-        }
+        const isTopCard = cardStack.length > 0 && card.id === cardStack[0].id;
 
-        if (cardStack.length > 0 && card.id === cardStack[0].id) {
+        if (isTopCard) {
             const topCard = cardStack[0];
-            const isTopCorrect = topCard.correctColumn === droppedColumn;
 
             setColumns(prev => {
                 const updated = {
                     ...prev,
-                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isTopCorrect ? 'correct' : 'incorrect' }]
+                    [droppedColumn]: [...prev[droppedColumn], { ...topCard, status: isCorrect ? 'correct' : 'incorrect' }]
                 };
-                if (isTopCorrect) {
+                if (isCorrect) {
                     adjustScore(10);
                     triggerFloatingScore('+10');
                     checkCompletion(updated);
@@ -110,10 +102,24 @@ const CardSortTask = ({ onUnlock }) => {
                 }
                 return updated;
             });
-            setCardStack(prev => prev.slice(1));
 
-            if (!isTopCorrect) setFeedbackCard(topCard);
+            setCardStack(prev => prev.slice(1));
+            if (!isCorrect) setFeedbackCard(topCard);
+
+            return;
         }
+
+        if (card.status === 'incorrect' && isCorrect) {
+            setColumns(prev => {
+                const newFrom = prev[from].filter(c => c.id !== card.id);
+                const newTo = [...prev[droppedColumn], { ...card, status: 'correct' }];
+                const updated = { ...prev, [from]: newFrom, [droppedColumn]: newTo };
+                checkCompletion(updated);
+                return updated;
+            });
+        }
+
+        console.log('DRAGGING: card', card.id, 'from', from, 'to', droppedColumn);
     };
 
     const checkCompletion = (updatedColumns) => {
@@ -125,6 +131,10 @@ const CardSortTask = ({ onUnlock }) => {
             saveTaskCompletion('task.card-sort');
             setCompleted(true);
             if (typeof onUnlock === 'function') onUnlock();
+            logEvent("taskCompleted", {
+                taskId: 'card-sort',
+                timestamp: new Date().toISOString(),
+            });
         }
     };
 
@@ -138,8 +148,6 @@ const CardSortTask = ({ onUnlock }) => {
             setColumns(completed);
             setCardStack([]);
             setCompleted(true);
-
-            if (typeof onUnlock === 'function') onUnlock();
         }
     },[]);
 

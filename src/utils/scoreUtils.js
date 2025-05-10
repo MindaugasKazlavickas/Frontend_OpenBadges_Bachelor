@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {logEvent} from "./eventLogger";
 
 export const getStoredScore = () => {
     const saved = localStorage.getItem('confirmedScore');
@@ -6,13 +7,28 @@ export const getStoredScore = () => {
 };
 
 let liveScore = getStoredScore();
+let updateScoreState = null;
 
 export const saveConfirmedScore = (score) => {
     localStorage.setItem('confirmedScore', JSON.stringify(score));
 };
 
+export const setScoreSync = (setterFn) => {
+    updateScoreState = setterFn;
+};
+
 export const adjustScore = (change) => {
     liveScore += change;
+
+    if (updateScoreState) {
+        updateScoreState(liveScore);
+    }
+
+    logEvent('scoreAdjusted', {
+        change,
+        newScore: liveScore,
+        outcome: change > 0 ? 'correct' : 'incorrect',
+    });
     return liveScore;
 };
 

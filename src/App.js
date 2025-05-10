@@ -13,6 +13,8 @@ import SlidingTask from "./tasks/slidingTask";
 import { isTaskCompleted } from './utils/scoreUtils';
 import IntroSection from './components/introSection';
 import { BackToTopButton } from './components/toTop';
+import { setScoreSync } from './utils/scoreUtils';
+import {logEvent} from "./utils/eventLogger";
 
 const sectionData = [
     {
@@ -88,6 +90,20 @@ const App = () => {
     const [unlockedSections, setUnlockedSections] = useState([0]);
     const [finalTaskDone, setFinalTaskDone] = useState(false);
 
+    const [sessionId] = useState(() => {
+        const existing = localStorage.getItem('sessionId');
+        if (existing) return existing;
+        const newId = crypto.randomUUID();
+        localStorage.setItem('sessionId', newId);
+        return newId;
+    });
+
+    const [liveScore, setLiveScore] = useState(0);
+
+    useEffect(() => {
+        setScoreSync(setLiveScore);
+    }, []);
+
     useEffect(() => {
         const root = document.documentElement;
         root.style.setProperty('--primary-color', theme.colors.primary);
@@ -110,9 +126,13 @@ const App = () => {
     }, []);
 
     const unlockSection = (index) => {
-        setUnlockedSections((prev) =>
-            prev.includes(index + 1) ? prev : [...prev, index + 1]
-        );
+        setUnlockedSections((prev) => {
+            if (!prev.includes(index + 1)) {
+                logEvent("sectionUnlocked", { sectionIndex: index + 1 });
+                return [...prev, index + 1];
+            }
+            return prev;
+        });
     };
 
     return (
