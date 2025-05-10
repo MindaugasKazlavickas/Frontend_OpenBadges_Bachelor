@@ -52,7 +52,7 @@ const EndSection = () => {
         };
 
         try {
-            await fetch('https://your-backend.onrender.com/api/log', {
+            await fetch('https://frontend-openbadges-bachelor.onrender.com/api/log', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

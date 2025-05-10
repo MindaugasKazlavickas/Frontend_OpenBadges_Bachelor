@@ -12,7 +12,7 @@ export const logEvent = (type, payload = {}) => {
 };
 
 export const getLogs = () => [...sessionLogs];
+
 export const clearLogs = () => {
     sessionLogs = [];
-    sectionIndexContext = null;
 };
