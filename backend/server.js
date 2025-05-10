@@ -153,6 +153,8 @@ app.post('/api/log', (req, res) => {
     const payload = req.body;
     const { sessionId } = payload;
 
+    console.log('[SERVER] Incoming log:', JSON.stringify(payload, null, 2));
+
     if (!sessionId) {
         return res.status(400).send({ error: 'Missing sessionId' });
     }
@@ -166,6 +168,7 @@ app.post('/api/log', (req, res) => {
         }
 
         fs.writeFileSync(filePath, JSON.stringify(payload, null, 2));
+        console.log(`[SERVER] Log saved to ${filePath}`);
         res.status(200).send({ message: 'Log saved.' });
     } catch (err) {
         console.error('Failed to save log:', err);
