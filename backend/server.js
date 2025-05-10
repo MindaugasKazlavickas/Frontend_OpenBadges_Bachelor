@@ -176,6 +176,18 @@ app.post('/api/log', (req, res) => {
     }
 });
 
+app.get('/api/logs/:sessionId', (req, res) => {
+    const { sessionId } = req.params;
+    const filePath = path.join('./usageData', `session-${sessionId}.json`);
+
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).send({ error: 'Log not found' });
+    }
+
+    const data = fs.readFileSync(filePath, 'utf-8');
+    res.header("Content-Type", "application/json");
+    res.send(data);
+});
 
 app.get("/", (req, res) => {
     res.send("OBF Badge Issuer backend is running.");
