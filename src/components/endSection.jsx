@@ -183,15 +183,16 @@ const EndSection = () => {
                 </form>
             )}
 
-            {successMessage && <p style={{ marginTop: '1rem' }}>{successMessage}</p>}
-            <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdjwODfBgJKukGRSUFombwMYLBRkVpEf7JD7nF2lGqzQfuC2w/viewform?usp=dialog"
-                className="survey-link"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                {t('end.survey') || 'Take our short feedback survey'}
-            </a>
+            {successMessage && <p style={{ marginTop: '1rem' }}>{successMessage}</p> &&
+                <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdjwODfBgJKukGRSUFombwMYLBRkVpEf7JD7nF2lGqzQfuC2w/viewform?usp=dialog"
+                    className="survey-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {t('end.survey') || 'Take our short feedback survey'}
+                </a>}
+
             <div style={{ marginTop: '3rem' }}>
                 <p style={{ fontStyle: 'italic', fontsize: 16, top: '1rem', bottom: '1rem', maxWidth: 600, margin: 'auto', marginBottom: '1rem' }}>
                     {t('end.warning') || 'Replaying will reset your progress. You can only claim your badge once.'}
