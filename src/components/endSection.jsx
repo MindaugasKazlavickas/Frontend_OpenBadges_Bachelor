@@ -86,9 +86,8 @@ const EndSection = () => {
                 submitFinalLogs();
                 setBadgeClaimed(true);
                 setSuccessMessage(t('end.success') || 'Badge sent! Check your email!');
-            } else {
-                const error = await response.json();
-                if (error?.error?.includes('already issued')) {
+            } else if (response.status === 409) {
+                console.log("Status:", response.status);
                     logEvent('badgeAlreadyIssued');
                     submitFinalLogs();
                     setSuccessMessage(t('end.alreadyIssued') || 'A badge has already been issued to this email.');
@@ -96,7 +95,6 @@ const EndSection = () => {
                 } else {
                     setSuccessMessage(t('end.error') || 'Something went wrong. Try again.');
                 }
-            }
         } catch (error) {
             console.error(error);
             setSuccessMessage(t('end.serverError') || 'Server error. Please try later.');
@@ -183,15 +181,19 @@ const EndSection = () => {
                 </form>
             )}
 
-            {successMessage && <p style={{ marginTop: '1rem' }}>{successMessage}</p> &&
-                <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSdjwODfBgJKukGRSUFombwMYLBRkVpEf7JD7nF2lGqzQfuC2w/viewform?usp=dialog"
-                    className="survey-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {t('end.survey') || 'Take our short feedback survey'}
-                </a>}
+            {successMessage && (
+                <>
+                    <p style={{ marginTop: '1rem' }}>{successMessage}</p>
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdjwODfBgJKukGRSUFombwMYLBRkVpEf7JD7nF2lGqzQfuC2w/viewform?usp=dialog"
+                        className="survey-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {t('end.survey') || 'Take our short feedback survey'}
+                    </a>
+                </>
+            )}
 
             <div style={{ marginTop: '3rem' }}>
                 <p style={{ fontStyle: 'italic', fontsize: 16, top: '1rem', bottom: '1rem', maxWidth: 600, margin: 'auto', marginBottom: '1rem' }}>

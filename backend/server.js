@@ -82,7 +82,7 @@ app.post("/issue-obf-badge", async (req, res) => {
 
         if (badgeAlreadyIssued) {
             console.warn("Badge already issued for this email. Aborting issuance.");
-            return res.status(409).json({ error: "already issued" });
+            return res.status(409).json({ error: 'already issued' });
         }
 
         const localizedPath = path.join(__dirname, "request.json");
