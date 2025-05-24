@@ -1,0 +1,80 @@
+{
+  "sessionId": "ed06e207-a692-4740-a770-f2f5b740dcd5",
+  "finalScore": 250,
+  "scoreBreakdown": {
+    "correct": 26,
+    "incorrect": 2
+  },
+  "logs": [
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T20:07:45.148Z",
+      "sectionIndex": 1
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T20:07:45.211Z",
+      "sectionIndex": 2
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T20:07:45.212Z",
+      "sectionIndex": 3
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T20:07:45.212Z",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T20:07:58.845Z",
+      "change": 10,
+      "newScore": 210,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T20:08:08.349Z",
+      "change": 10,
+      "newScore": 220,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T20:08:16.430Z",
+      "change": 10,
+      "newScore": 230,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T20:08:25.438Z",
+      "change": 10,
+      "newScore": 240,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T20:08:30.764Z",
+      "change": 10,
+      "newScore": 250,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T20:08:30.767Z",
+      "sectionIndex": 5
+    },
+    {
+      "type": "badgeClaimed",
+      "timestamp": "2025-05-12T20:09:13.580Z"
+    }
+  ],
+  "badgeClaimedAt": "2025-05-12T20:09:13.581Z"
+}

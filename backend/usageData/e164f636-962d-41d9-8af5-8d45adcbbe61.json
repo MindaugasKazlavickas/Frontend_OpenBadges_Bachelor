@@ -1,0 +1,328 @@
+{
+  "sessionId": "e164f636-962d-41d9-8af5-8d45adcbbe61",
+  "finalScore": 210,
+  "scoreBreakdown": {
+    "correct": 26,
+    "incorrect": 10
+  },
+  "logs": [
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:26.310Z",
+      "change": 10,
+      "newScore": 10,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:27.862Z",
+      "change": 10,
+      "newScore": 20,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:29.246Z",
+      "change": 10,
+      "newScore": 30,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:30.446Z",
+      "change": 10,
+      "newScore": 40,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:33.975Z",
+      "change": -5,
+      "newScore": 35,
+      "outcome": "incorrect",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:36.168Z",
+      "change": 10,
+      "newScore": 45,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:38.060Z",
+      "change": 10,
+      "newScore": 55,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:39.552Z",
+      "change": 10,
+      "newScore": 65,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:42.036Z",
+      "change": 10,
+      "newScore": 75,
+      "outcome": "correct",
+      "sectionIndex": 0
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T15:04:42.036Z",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:54.824Z",
+      "change": 10,
+      "newScore": 85,
+      "outcome": "correct",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:55.541Z",
+      "change": -5,
+      "newScore": 80,
+      "outcome": "incorrect",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:57.623Z",
+      "change": 10,
+      "newScore": 90,
+      "outcome": "correct",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:04:58.550Z",
+      "change": -5,
+      "newScore": 85,
+      "outcome": "incorrect",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:00.842Z",
+      "change": 10,
+      "newScore": 95,
+      "outcome": "correct",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:01.385Z",
+      "change": -5,
+      "newScore": 90,
+      "outcome": "incorrect",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:02.510Z",
+      "change": 10,
+      "newScore": 100,
+      "outcome": "correct",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:03.042Z",
+      "change": 10,
+      "newScore": 110,
+      "outcome": "correct",
+      "sectionIndex": 1
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:03.928Z",
+      "change": 10,
+      "newScore": 120,
+      "outcome": "correct",
+      "sectionIndex": 1
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T15:05:03.928Z",
+      "sectionIndex": 2
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:20.554Z",
+      "change": -5,
+      "newScore": 115,
+      "outcome": "incorrect",
+      "sectionIndex": 2
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:22.306Z",
+      "change": 10,
+      "newScore": 125,
+      "outcome": "correct",
+      "sectionIndex": 2
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:27.604Z",
+      "change": -5,
+      "newScore": 120,
+      "outcome": "incorrect",
+      "sectionIndex": 2
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:28.480Z",
+      "change": -5,
+      "newScore": 115,
+      "outcome": "incorrect",
+      "sectionIndex": 2
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:29.324Z",
+      "change": 10,
+      "newScore": 125,
+      "outcome": "correct",
+      "sectionIndex": 2
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:39.907Z",
+      "change": 10,
+      "newScore": 135,
+      "outcome": "correct",
+      "sectionIndex": 2
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T15:05:39.907Z",
+      "sectionIndex": 3
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:48.614Z",
+      "change": 10,
+      "newScore": 145,
+      "outcome": "correct",
+      "sectionIndex": 3
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:49.883Z",
+      "change": 10,
+      "newScore": 155,
+      "outcome": "correct",
+      "sectionIndex": 3
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:05:51.092Z",
+      "change": 10,
+      "newScore": 165,
+      "outcome": "correct",
+      "sectionIndex": 3
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T15:05:51.093Z",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:11.268Z",
+      "change": -5,
+      "newScore": 160,
+      "outcome": "incorrect",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:12.379Z",
+      "change": 10,
+      "newScore": 170,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:17.120Z",
+      "change": -5,
+      "newScore": 165,
+      "outcome": "incorrect",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:17.947Z",
+      "change": 10,
+      "newScore": 175,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:25.021Z",
+      "change": 10,
+      "newScore": 185,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:31.988Z",
+      "change": -5,
+      "newScore": 180,
+      "outcome": "incorrect",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:32.799Z",
+      "change": 10,
+      "newScore": 190,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:47.760Z",
+      "change": 10,
+      "newScore": 200,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "scoreAdjusted",
+      "timestamp": "2025-05-12T15:06:55.511Z",
+      "change": 10,
+      "newScore": 210,
+      "outcome": "correct",
+      "sectionIndex": 4
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-12T15:06:55.512Z",
+      "sectionIndex": 5
+    },
+    {
+      "type": "badgeClaimed",
+      "timestamp": "2025-05-12T15:07:46.880Z"
+    }
+  ],
+  "badgeClaimedAt": "2025-05-12T15:07:46.881Z"
+}

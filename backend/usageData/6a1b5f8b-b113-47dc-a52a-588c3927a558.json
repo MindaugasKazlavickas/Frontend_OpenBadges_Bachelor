@@ -1,0 +1,65 @@
+{
+  "sessionId": "6a1b5f8b-b113-47dc-a52a-588c3927a558",
+  "finalScore": 340,
+  "scoreBreakdown": {
+    "correct": 0,
+    "incorrect": 0
+  },
+  "logs": [
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.741Z",
+      "sectionIndex": 1
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.776Z",
+      "sectionIndex": 1
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.776Z",
+      "sectionIndex": 2
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.776Z",
+      "sectionIndex": 2
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.777Z",
+      "sectionIndex": 3
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.777Z",
+      "sectionIndex": 3
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.777Z",
+      "sectionIndex": 4
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.777Z",
+      "sectionIndex": 4
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.777Z",
+      "sectionIndex": 5
+    },
+    {
+      "type": "sectionUnlocked",
+      "timestamp": "2025-05-14T10:06:53.778Z",
+      "sectionIndex": 5
+    },
+    {
+      "type": "badgeAlreadyIssued",
+      "timestamp": "2025-05-14T10:07:11.555Z"
+    }
+  ],
+  "badgeClaimedAt": "2025-05-14T10:07:11.555Z"
+}
